@@ -6,7 +6,6 @@ mongoose.set("strictQuery", true);
 const app = express();
 dotenv.config();
 
-<<<<<<< HEAD
 app.use();
 
 const connect = async ()=>{
@@ -16,7 +15,8 @@ const connect = async ()=>{
     } catch (error) {
         throw error;
     }
-=======
+app.use();
+
 const connect = async () => {
   try {
     await mongoose.connect(process.env.MONGO);
@@ -24,7 +24,6 @@ const connect = async () => {
   } catch (error) {
     throw error;
   }
->>>>>>> nyeriRepo
 };
 
 mongoose.connection.on("disconnected", () => {
@@ -32,7 +31,7 @@ mongoose.connection.on("disconnected", () => {
 });
 
 mongoose.connection.on("connected", () => {
-  console.log("mongo connectede");
+  console.log("mongo connecteded");
 });
 
 app.listen(8800, () => {
