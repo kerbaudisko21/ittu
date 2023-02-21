@@ -22,7 +22,7 @@ mongoose.connection.on("disconnected", () => {
 });
 
 mongoose.connection.on("connected", () => {
-  console.log("mongo connecteded");
+  console.log("mongo connecteded asu");
 });
 
 app.listen(8800, () => {
