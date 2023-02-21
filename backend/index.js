@@ -6,6 +6,8 @@ mongoose.set("strictQuery", true);
 const app = express();
 dotenv.config();
 
+app.use();
+
 const connect = async () => {
   try {
     await mongoose.connect(process.env.MONGO);
@@ -20,7 +22,7 @@ mongoose.connection.on("disconnected", () => {
 });
 
 mongoose.connection.on("connected", () => {
-  console.log("mongo connectede");
+  console.log("mongo connecteded");
 });
 
 app.listen(8800, () => {
