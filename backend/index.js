@@ -6,6 +6,8 @@ mongoose.set('strictQuery', true);
 const app = express();
 dotenv.config();
 
+app.use();
+
 const connect = async ()=>{
     try {
         await mongoose.connect(process.env.MONGO);
