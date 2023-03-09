@@ -1,0 +1,79 @@
+
+.header{
+    background: url('../../Image/Homepage/Indonesia.png') no-repeat center/cover;
+    width: 100%;
+    height: 720px;
+    display: flex;
+    justify-content: center;
+    top: 0;
+}
+
+.headerTitle{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 20vh;
+    font-size: 8vh;
+    color: white;
+    font-weight: 500;
+    -webkit-text-stroke: 0.4px black;
+
+}
+
+.headerSearch{
+    height: 50px;
+    background-color: white;
+    border: 3px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px 0px;
+    border-radius: 5px;
+    position: absolute;
+    width: 100%;
+    max-width: 1024px;
+    bottom: 150px;
+}
+
+.headerSearchItem{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* flex-direction: row; */
+}
+
+.headerIcon{
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.headerSearchInput{
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    background-color: #F6ECEC ;
+    width: 200px;
+    height: 30px;
+}
+
+.date{
+    position: absolute;
+    top: 50px;
+    z-index: 2;
+}
+
+.headerBtn{
+    background-color: black;
+    border-radius: 5px;
+    color: white;
+    font-weight: 500;
+    width: 120px;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+
+
+
+

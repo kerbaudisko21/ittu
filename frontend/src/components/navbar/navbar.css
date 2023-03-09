@@ -1,0 +1,41 @@
+.navbar{
+    display: flex;
+    justify-content: center;    
+    top: 0;
+    
+}
+
+.navContainer{
+    position: fixed;
+    width: 100%;
+    background-color: none;
+    transition: 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    justify-content: space-evenly;
+}
+
+.navContainer.fixed {
+    background-color: rgba(0,0,0,0.7);
+    transition: 0.3s ease-in-out;
+}
+
+.logo{
+    font-weight: 700;
+    font-size: 40px;
+    color: white;
+    -webkit-text-stroke: 0.3px black;
+    
+}
+
+.navButton{
+    margin-left: 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    -webkit-text-stroke: 0.3px black;
+}
