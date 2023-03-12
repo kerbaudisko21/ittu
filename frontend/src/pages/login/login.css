@@ -1,0 +1,149 @@
+/* .main {
+  background: url("../../Image/Login Regist/Indonesia.jpg") no-repeat center/cover;
+  width: 100%;
+  height: 720px;
+  display: flex;
+  justify-content: center;
+  opacity: 0.5;
+  top: 0;
+} */
+
+.main {
+  position: fixed;
+  width: 100%;
+
+  height: 100vh;
+  background-color: #000;
+}
+
+.main::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 0;
+  opacity: 0.5;
+  background: url("../../Image/Login Regist/Indonesia.jpg") no-repeat center center;
+  /* -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover; */
+  background-size: cover;
+}
+
+.subMain {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  padding: 8% 2% 1% 2%;
+  margin: auto;
+  position: fixed;
+  height: 75vh;
+
+  top: 0;
+}
+
+.subMainImage {
+  width: 40%;
+  height: auto;
+  /* min-height: 100%; */
+  position: relative;
+  background-image: url("../../Image/Login Regist/Indonesia.jpg");
+  background-size: cover;
+
+  /* border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px; */
+
+  border-radius: 25px 0 0 25px;
+}
+
+.formSide {
+  background-color: #1a4314;
+  width: 30%;
+  /* height: 100%; */
+  display: flexbox;
+
+  border-radius: 0 25px 25px 0;
+}
+
+.container {
+  display: fixed;
+
+  padding: 10% 20%;
+}
+.headerTitle {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 0 6vh;
+  font-size: 4vh;
+  color: white;
+  font-weight: 400;
+  -webkit-text-stroke: 0.4px black;
+}
+
+form {
+  position: relative;
+}
+
+form label {
+  display: flex;
+  width: 90%;
+  font-size: 2vh;
+  padding: 1%;
+  /* height: 10%; */
+  text-align: left;
+  color: #ffff;
+}
+
+form input {
+  background-color: #ffff;
+  width: 95%;
+  border-radius: 3px;
+  font-family: "Source Sans Pro", sans-serif;
+  padding: 4% 2%;
+  margin: 0 auto 2vh;
+  display: block;
+  text-align: center;
+  font-size: 2vh;
+  color: white;
+  font-weight: 300;
+  border-radius: 16px;
+}
+
+::placeholder {
+  padding: 15px;
+  text-align: left;
+}
+
+.formFooter {
+  padding-top: 10%;
+  color: white;
+}
+
+form button {
+  appearance: none;
+  outline: 0;
+  background-color: black;
+  border: 0;
+  padding: 5%;
+  /* paddin-bottom: 1%; */
+  color: white;
+  border-radius: 16px;
+  width: 60%;
+  font-size: 2vh;
+}
+
+p {
+  padding: 1%;
+  font-size: 2vh;
+}
+
+a {
+  /* height: 720px; */
+  text-decoration: none;
+  color: white;
+  /* font-size: 100  %; */
+}
