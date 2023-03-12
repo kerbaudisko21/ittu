@@ -17,13 +17,13 @@ const Home = () => {
       <Navbar />
       <Header />
       <div className="homeContainer">
-        <h1 className="homeTitle">My Trip</h1>
+        <h1 className="homeTitle">My Trips</h1>
         <TripList />
-        <h1 className="homeTitle">Recommended Place</h1>
+        <h1 className="homeTitle">Recommended Places</h1>
         <PlaceList />
-        <h1 className="homeTitle">Feature</h1>
+        <h1 className="homeTitle">Features</h1>
         <FeatureList />
-        <h1 className="homeTitle">Review</h1>
+        <h1 className="homeTitle">Reviews</h1>
         <ReviewList />
         <NewsBox />
         <br></br>

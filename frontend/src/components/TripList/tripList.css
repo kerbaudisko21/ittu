@@ -1,0 +1,67 @@
+
+.tripList{
+    width: 100%;
+    height: 450px;
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+
+.tContainer{
+    width: 20%;
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 1px 1px 10px rgb(35, 34, 34);
+    border-radius: 50px;
+    border: none;
+    transition: .4s ease-in-out; 
+    cursor: pointer;
+    
+}
+
+.tContainer:hover{
+    transform: scale(1.1);
+    
+}
+
+.tImg img{
+    width: 250px;
+    height: 250px;
+    border-radius: 20px;
+}
+
+.tInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tTitle{
+    margin-bottom: -10px;
+}
+
+.btnTrip{
+    width: 100%;
+    height: 30px;
+    display: flex;
+    font-size: 25px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border-style: none;
+    color: white;
+    background-color: #222121;
+    cursor: pointer;
+}
+
+
+
+a{
+    width: 100%;
+    text-decoration: none;
+}
