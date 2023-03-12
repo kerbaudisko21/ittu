@@ -8,7 +8,7 @@ const Navbar = () => {
     const [fix, setFix] = useState(false);
 
     function setFixed(){
-        if(window.scrollY >=392){
+        if(window.scrollY >=550){
             setFix(true);
         }else{
             setFix(false);
