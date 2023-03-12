@@ -27,7 +27,7 @@ const Header = () => {
             <input type="text" placeholder="Destination" className='headerSearchInput' />
           </div>
           <div className="headerSearchItem">
-            
+            <FontAwesomeIcon icon = {faCalendar} className='headerIcon' />
             <input type="text" readOnly className='headerSearchInput' placeholder='Start Date' onClick={() => setOpenDate(!openDate)} value={`${format(dates[0].startDate, "MM/dd/yyyy")}`}/> 
             { openDate && < DateRange className='date'
               editableDateInputs={true}
