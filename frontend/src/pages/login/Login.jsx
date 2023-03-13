@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import "react-date-range/dist/styles.css"; // main css file
-import "react-date-range/dist/theme/default.css";
 import "./login.css";
 import Navbar from "../../components/navbar/Navbar";
 import Input from "../../components/input/Input";
@@ -14,7 +12,7 @@ const Login = (props) => {
         <div className="formSide">
           <div className="container">
             <form className="form">
-              <p className="headerTitle"> ITTU </p>
+              <p className="headerLogin"> ITTU </p>
               <Input label="Username" type="text" placeholder="Username" />
               {!props.isRegistered && <Input label="Email" type="email" placeholder="Email@email.com" />}
               <Input label="Password" type="password" placeholder="Password" />
