@@ -22,7 +22,7 @@ const Login = (props) => {
                 <button type="submit">{props.isRegistered ? "Login" : "Sign Up"}</button>
                 <p>
                   {!props.isRegistered ? "Already have account ? " : "Don’t have account ? "}
-                  {props.isRegistered ? <a href="/login">Log in</a> : <a href="/regis">Sign up</a>}
+                  {!props.isRegistered ? <a href="/login">Log in</a> : <a href="/regis">Sign up</a>}
                 </p>
               </div>
             </form>
