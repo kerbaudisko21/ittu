@@ -73,7 +73,7 @@
 
   padding: 10% 20%;
 }
-.headerTitle {
+.LoginTitle {
   display: flex;
   justify-content: center;
   text-align: center;
@@ -106,9 +106,9 @@ form input {
   padding: 4% 2%;
   margin: 0 auto 2vh;
   display: block;
-  text-align: center;
+  /* text-align: center; */
   font-size: 2vh;
-  color: white;
+  color: black;
   font-weight: 300;
   border-radius: 16px;
 }

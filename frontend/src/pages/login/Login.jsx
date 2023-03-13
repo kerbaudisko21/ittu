@@ -14,7 +14,7 @@ const Login = (props) => {
         <div className="formSide">
           <div className="container">
             <form className="form">
-              <p className="headerTitle"> ITTU </p>
+              <p className="LoginTitle"> ITTU </p>
               <Input label="Username" type="text" placeholder="Username" />
               {!props.isRegistered && <Input label="Email" type="email" placeholder="Email@email.com" />}
               <Input label="Password" type="password" placeholder="Password" />

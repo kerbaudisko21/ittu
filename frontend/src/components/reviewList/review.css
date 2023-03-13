@@ -1,0 +1,55 @@
+.review {
+  position: relative;
+  display: flex;
+  box-shadow: 0 2px 5px #ccc;
+  border-radius: 25px;
+  height: 40vh;
+  width: 30vw;
+}
+
+.review-box {
+  flex: 1;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2%;
+}
+
+.rate {
+  display: flex;
+  justify-content: left;
+}
+
+/* img {
+  height: 20px;
+} */
+/* .profile {
+  width: 20%;
+  height: 20%;
+} */
+
+.circle-img {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  padding: auto;
+}
+
+.profile {
+  display: flex;
+}
+
+.content {
+  display: flex;
+}
+
+.comment {
+  /* display: flex; */
+  /* align-items: center; */
+  width: 50%;
+  justify-content: right;
+  text-align: center;
+  text-size: 5px;
+}
