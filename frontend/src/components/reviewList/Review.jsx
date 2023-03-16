@@ -1,7 +1,7 @@
 import React from "react";
 import "./review.css";
-import ProfileImage from "../../Image/Homepage/Tokyo 2.png";
-import CountryImage from "../../Image/Homepage/Tokyo 2.png";
+import ProfileImage from "../../Image/Homepage/Tokyo2.png";
+import CountryImage from "../../Image/Homepage/Tokyo2.png";
 
 const Review = (props) => {
   return (
@@ -12,17 +12,25 @@ const Review = (props) => {
             <img className="circle-img" src={ProfileImage} alt="avatar_img" />
             <h3>Anna</h3>
           </div>
-          <div className="rating"></div>
+          <div className="rating">10bintang</div>
         </div>
         <div className="content">
-          <div className="country">
-            <img className="circle-img" src={CountryImage} alt="avatar_img" />
+          <div
+            className="country"
+            style={{
+              backgroundImage: `url(${CountryImage})`,
+              // zIndex: 0,
+            }}
+          >
+            <div className="countryText">
+              <h2>Tokyo</h2>
+              <p>3 days</p>
+              {/* <img className="country-img" src={CountryImage} alt="avatar_img" /> */}
+            </div>
           </div>
           <div className="comment">
             <h2>
-              {" "}
-              "<br></br>
-              Lorem ipsum dolor sit amet consectetur adipisic corporis! <br></br>"
+              "<br></br>Using a travel itinerary website for Tokyo was a game-changer. User-friendly, budget-friendly, and stress-free.<br></br>"
             </h2>
           </div>
         </div>

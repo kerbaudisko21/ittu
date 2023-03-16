@@ -136,12 +136,12 @@ form button {
   font-size: 2vh;
 }
 
-p {
+.formFooter p {
   padding: 1%;
   font-size: 2vh;
 }
 
-a {
+.formFooter a {
   /* height: 720px; */
   text-decoration: none;
   color: white;

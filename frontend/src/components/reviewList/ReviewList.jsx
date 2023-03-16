@@ -9,7 +9,7 @@ import "swiper/css/free-mode";
 const ReviewList = () => {
   return (
     <div className="review-list">
-      <Swiper
+      {/* <Swiper
         freeMode={true}
         grabCursor={true}
         modules={[FreeMode]}
@@ -39,7 +39,9 @@ const ReviewList = () => {
         <SwiperSlide>
           <Review></Review>
         </SwiperSlide>
-      </Swiper>
+      </Swiper> */}
+
+      <Review></Review>
     </div>
   );
 };

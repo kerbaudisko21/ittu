@@ -2,7 +2,8 @@
   width: 100%;
   /* max-width: 1024px; */
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  justify-content: center;
   /* gap: 20px; */
   flex-direction: row;
   /* padding-left: 20%; */
