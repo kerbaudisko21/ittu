@@ -26,9 +26,6 @@
   z-index: 0;
   opacity: 0.5;
   background: url("../../Image/Login Regist/Indonesia.jpg") no-repeat center center;
-  /* -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover; */
   background-size: cover;
 }
 
@@ -53,9 +50,6 @@
   background-image: url("../../Image/Login Regist/Indonesia.jpg");
   background-size: cover;
 
-  /* border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px; */
-
   border-radius: 25px 0 0 25px;
 }
 
@@ -70,7 +64,6 @@
 
 .container {
   display: fixed;
-
   padding: 10% 20%;
 }
 .LoginTitle {

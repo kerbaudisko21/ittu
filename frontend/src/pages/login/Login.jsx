@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import "react-date-range/dist/styles.css"; // main css file
-import "react-date-range/dist/theme/default.css";
 import "./login.css";
 import Navbar from "../../components/navbar/Navbar";
 import Input from "../../components/input/Input";

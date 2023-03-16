@@ -57,6 +57,11 @@
     color: white;
     background-color: #222121;
     cursor: pointer;
+    transition: .4s ease-in-out; 
+}
+
+.btnTrip:hover{
+    transform: scale(1.1);
 }
 
 
