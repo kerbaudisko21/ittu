@@ -15,6 +15,7 @@ const ReviewList = () => {
         modules={[FreeMode]}
         className="review-carousel"
         slidesPerView={3}
+        // autoHeight={true}
         // spaceBetween={500}
         // breakpoints={{ 0: { slidesPerView: 1, spaceBetween: 10 } }}
       >
@@ -40,6 +41,7 @@ const ReviewList = () => {
           <Review></Review>
         </SwiperSlide>
       </Swiper>
+      {/* <Review></Review> */}
     </div>
   );
 };
