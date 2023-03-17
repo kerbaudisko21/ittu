@@ -9,12 +9,12 @@ import "swiper/css/free-mode";
 const ReviewList = () => {
   return (
     <div className="review-list">
-      {/* <Swiper
+      <Swiper
         freeMode={true}
         grabCursor={true}
         modules={[FreeMode]}
         className="review-carousel"
-        slidesPerView={2}
+        slidesPerView={3}
         // spaceBetween={500}
         // breakpoints={{ 0: { slidesPerView: 1, spaceBetween: 10 } }}
       >
@@ -39,9 +39,7 @@ const ReviewList = () => {
         <SwiperSlide>
           <Review></Review>
         </SwiperSlide>
-      </Swiper> */}
-
-      <Review></Review>
+      </Swiper>
     </div>
   );
 };

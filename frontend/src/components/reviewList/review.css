@@ -47,11 +47,34 @@
   justify-content: left;
   align-items: center;
   gap: 15%;
+  /* font-size:120 */
   /* width: fit; */
+}
+
+.profile h3 {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  height: 50%;
+  font-size: 120%;
 }
 
 .rating {
   width: fit;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  gap: 5%;
+}
+
+.rating i {
+  font-size: 160%;
+  /* margin: 8px; */
+  cursor: pointer;
+  transition: color 0.5s;
+  color: #fabf35;
+  /* margin: 2%; */
+  /* display: flex; */
 }
 
 .content {
