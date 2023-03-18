@@ -8,6 +8,7 @@
   flex-direction: row;
   /* padding-left: 20%; */
   height: 100%;
+  z-index: 0;
 }
 
 /* SwiperSlide {
