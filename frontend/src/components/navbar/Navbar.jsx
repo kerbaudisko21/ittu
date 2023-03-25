@@ -22,7 +22,7 @@ const Navbar = () => {
           <span className='logo'>ITTU</span>
           <div className='navItems'>
               <button className='navButton'>Register</button>
-              <button className='navButton'>Login</button>
+              <button className='navButton'><a href="/login" style={{textDecoration:'none', color:'white', WebkitTextStroke:'0.1px, black'}}>Login</a></button>
           </div>
         </div>
     </div>
