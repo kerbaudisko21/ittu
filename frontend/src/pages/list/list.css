@@ -1,0 +1,10 @@
+.list {
+  display: flex;
+}
+.planning {
+  width: 50%;
+  height: 100%;
+}
+.maps {
+  width: 50%;
+}
