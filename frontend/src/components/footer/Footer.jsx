@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="footer-content">
             <h3>ITTU</h3>
             <span>Find your next adventure</span>
-            <ul class="socials">
+            <ul className="socials">
                 <li><a href="#"><FontAwesomeIcon icon={faFacebook} /></a></li>
                 <li><a href="#"><FontAwesomeIcon icon={faInstagram} /></a></li>
                 <li><a href="#"><FontAwesomeIcon icon={faWhatsapp} /></a></li>

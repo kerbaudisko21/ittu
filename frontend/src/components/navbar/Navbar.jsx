@@ -21,7 +21,7 @@ const Navbar = () => {
         <div className={fix ? 'navContainer fixed' : 'navContainer'}>
           <span className='logo'>ITTU</span>
           <div className='navItems'>
-              <button className='navButton'>Register</button>
+              <button className='navButton'><a href="/register" style={{textDecoration:'none', color:'white', WebkitTextStroke:'0.1px, black'}}>Register</a></button>
               <button className='navButton'><a href="/login" style={{textDecoration:'none', color:'white', WebkitTextStroke:'0.1px, black'}}>Login</a></button>
           </div>
         </div>

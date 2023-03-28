@@ -3,6 +3,7 @@ import Home from "./pages/home/Home";
 import List from "./pages/list/List";
 import Schedule from "./pages/schedule/Schedule";
 import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/list" element={<List />} />
         <Route path="/list/:id" element={<Schedule />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );

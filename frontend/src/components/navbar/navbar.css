@@ -1,14 +1,13 @@
 .navbar{
     display: flex;
     justify-content: center;    
-    top: 0;
-    
+
 }
 
 .navContainer{
     position: fixed;
     z-index: 1;
-    width: 125%;
+    width: 100%;
     background-color: none;
     transition: 0.3s ease-in-out;
     display: flex;
@@ -18,7 +17,7 @@
 .navContainer.fixed {
     background-color: rgba(0,0,0,0.7);
     transition: 0.3s ease-in-out;
-    width: 125%;
+    width: 100%;
 }
 
 .logo{

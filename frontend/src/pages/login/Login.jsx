@@ -1,9 +1,37 @@
-import React, { useState } from "react";
+import axios from 'axios'
+import React from 'react'
+import { useContext } from 'react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../../context/AuthContext'
 import "./login.css";
 import Navbar from "../../components/navbar/Navbar";
-import Input from "../../components/input/Input";
 
-const Login = (props) => {
+const Login = () => {
+  const [credentials, setCredentials] = useState({
+    username:undefined,
+    password:undefined
+})
+
+const {loading,error,dispatch} = useContext(AuthContext)
+const navigate = useNavigate()
+
+const handleChange = (e) => {
+    setCredentials((prev) => ({...prev, [e.target.id]: e.target.value }))
+}
+
+const handleClick = async (e) => {
+    e.preventDefault();
+    dispatch({ type: "LOGIN_START" });
+    try {
+      const res = await axios.post("/auth/login", credentials);
+      dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details});
+      navigate("/")
+    } catch (err) {
+      dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
+    }
+  };
+
   return (
     <div className="main">
       <Navbar />
@@ -13,16 +41,24 @@ const Login = (props) => {
           <div className="container">
             <form className="form">
               <p className="LoginTitle"> ITTU </p>
-              <Input label="Username" type="text" placeholder="Username" />
-              {!props.isRegistered && <Input label="Email" type="email" placeholder="Email@email.com" />}
-              <Input label="Password" type="password" placeholder="Password" />
+              <input 
+                label="Username" 
+                type="text"
+                id="username"
+                onChange={handleChange}
+                placeholder="Username" 
+              />
+              <input 
+                label="Password" 
+                type="password" 
+                id="password"
+                onChange={handleChange}
+                placeholder="Password" 
+              />
               <div className="formFooter">
-                <button type="submit">{props.isRegistered ? "Login" : "Sign Up"}</button>
-                <p>
-                  {!props.isRegistered ? "Already have account ? " : "Don’t have account ? "}
-                  {!props.isRegistered ? <a href="/login">Log in</a> : <a href="/regis">Sign up</a>}
-                </p>
+                <button disabled={loading} onClick={handleClick} >Login</button>
               </div>
+                {error && <span>{error.message}</span>}
             </form>
           </div>
         </div>
