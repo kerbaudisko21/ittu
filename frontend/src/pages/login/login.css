@@ -17,7 +17,7 @@
 }
 
 .main::before {
-  content: " ";
+  content: ' ';
   display: block;
   position: absolute;
   top: 0;
@@ -25,7 +25,7 @@
   height: 100vh;
   z-index: 0;
   opacity: 0.5;
-  background: url("../../Image/Login Regist/Indonesia.jpg") no-repeat center center;
+  background: url('../../Image/Login Regist/Indonesia.jpg') no-repeat center center;
   background-size: cover;
 }
 
@@ -47,7 +47,7 @@
   height: auto;
   /* min-height: 100%; */
   position: relative;
-  background-image: url("../../Image/Login Regist/Indonesia.jpg");
+  background-image: url('../../Image/Login Regist/Indonesia.jpg');
   background-size: cover;
 
   border-radius: 25px 0 0 25px;
@@ -66,7 +66,6 @@
   display: fixed;
   padding: 10% 20%;
 }
-
 .LoginTitle {
   display: flex;
   justify-content: center;
@@ -96,7 +95,7 @@ form input {
   background-color: #ffff;
   width: 95%;
   border-radius: 3px;
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   padding: 4% 2%;
   margin: 0 auto 2vh;
   display: block;
@@ -130,7 +129,7 @@ form input {
   cursor: pointer;
 }
 
-p {
+.message {
   padding: 1%;
   font-size: 2vh;
   color: white;
@@ -149,4 +148,9 @@ p {
   cursor: pointer;
   outline: inherit;
   /* font-size: 100  %; */
+}
+
+.error {
+  color: white;
+  margin-bottom: 0;
 }
