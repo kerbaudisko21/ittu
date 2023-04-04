@@ -3,7 +3,7 @@ import React from 'react'
 import { useContext } from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AuthContext } from '../../context/AuthContext'
+import { AuthContext } from '../../context/AuthContext'                                                                                                                                                                                                                                                             
 import "./login.css";
 import Navbar from "../../components/navbar/Navbar";
 
@@ -13,11 +13,11 @@ const Login = () => {
     password:undefined
 })
 
-const {loading,error,dispatch} = useContext(AuthContext)
-const navigate = useNavigate()
+const {loading,error,dispatch} = useContext(AuthContext);
+const navigate = useNavigate();
 
 const handleChange = (e) => {
-    setCredentials((prev) => ({...prev, [e.target.id]: e.target.value }))
+  setCredentials((prev) => ({...prev, [e.target.id]: e.target.value }))
 }
 
 const handleClick = async (e) => {
@@ -26,7 +26,8 @@ const handleClick = async (e) => {
     try {
       const res = await axios.post("/auth/login", credentials);
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details});
-      navigate("/")
+      console.log({payload: res.data.details});
+      navigate("/");
     } catch (err) {
       dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
     }

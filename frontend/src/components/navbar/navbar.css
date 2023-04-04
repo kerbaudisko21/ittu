@@ -43,3 +43,8 @@
     font-weight: bold;
     -webkit-text-stroke: 0.1px black;
 }
+
+a{
+    text-decoration: none;
+    color: white;
+}
