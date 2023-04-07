@@ -6,25 +6,28 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import './login.css';
 import Navbar from '../../components/navbar/Navbar';
+// import { IsLoginContext } from '../../context/isLoginContext';
 
-const Login = () => {
+const Login = (props) => {
   const [credentials, setCredentials] = useState({
     username: undefined,
     password: undefined,
   });
 
   const { loading, error, dispatch } = useContext(AuthContext);
+  // const { isLogin } = useContext(IsLoginContext);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
-  const handleClick = async (e) => {
+  const handleClickLogin = async (e) => {
     e.preventDefault();
     dispatch({ type: 'LOGIN_START' });
     try {
       const res = await axios.post('/auth/login', credentials);
+      console.log(res);
       dispatch({ type: 'LOGIN_SUCCESS', payload: res.data.details });
       console.log({ payload: res.data.details });
       navigate('/');
@@ -33,10 +36,26 @@ const Login = () => {
     }
   };
 
-  const [isRegistered, setStatus] = useState(false);
+  const handleClickRegis = async (e) => {
+    e.preventDefault();
+    // dispatch({ type: 'LOGIN_START' });
+    try {
+      const res = await axios.post('/auth/register', credentials);
+      console.log(res);
+      dispatch({ type: 'LOGIN_SUCCESS', payload: res.data.details });
+      console.log({ payload: res.data.details });
+      navigate('/');
+    } catch (err) {
+      dispatch({ type: 'LOGIN_FAILURE', payload: err.response.data });
+    }
+  };
+
+  // const [isRegistered, setStatus] = useState(isLogin);
+  const [isRegistered, setStatus] = useState(props.isLogin);
 
   return (
     <div className="main">
+      {console.log(props)}
       <Navbar />
       <div className="subMain">
         <div className="subMainImage"></div>
@@ -60,11 +79,17 @@ const Login = () => {
               </div>
               {/* <p className="error">{errors.password?.type === 'required' && 'Password is required'}</p> */}
               <div className="formFooter">
-                <button className="btnSubmit" disabled={loading} onClick={handleClick}>
-                  Login
-                </button>
+                {error && <p className="error">{error.message}</p>}
+                {isRegistered ? (
+                  <button className="btnSubmit" disabled={loading} onClick={handleClickLogin}>
+                    Login
+                  </button>
+                ) : (
+                  <button className="btnSubmit" disabled={loading} onClick={handleClickRegis}>
+                    Register
+                  </button>
+                )}
               </div>
-              {error && <span>{error.message}</span>}
             </form>
             <p className="message">
               {!isRegistered ? 'Already have account ? ' : 'Don’t have account ? '}
