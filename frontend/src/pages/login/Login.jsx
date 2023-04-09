@@ -45,21 +45,21 @@ const Login = () => {
             <form className="form">
               <p className="LoginTitle"> ITTU </p>
               <div className="in">
-                <label for="user" class="label">
+                <label className="label">
                   Username
                 </label>
                 <input label="Username" type="text" id="username" onChange={handleChange} placeholder="Username" />
               </div>
               {!isRegistered && (
                 <div className="in">
-                  <label for="user" class="label">
+                  <label className="label">
                     Email
                   </label>
                   <input label="Email" type="text" id="email" onChange={handleChange} placeholder="Email" />
                 </div>
               )}
               <div className="in">
-                <label for="user" class="label">
+                <label className="label">
                   Password
                 </label>
                 <input label="Password" type="password" id="password" onChange={handleChange} placeholder="Password" />
@@ -70,7 +70,6 @@ const Login = () => {
                   Login
                 </button>
               </div>
-              {console.log(error?.message)}
               {error && <span>{error.message}</span>}
             </form>
             <p className="message">

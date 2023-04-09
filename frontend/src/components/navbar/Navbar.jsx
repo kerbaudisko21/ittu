@@ -20,7 +20,7 @@ const Navbar = () => {
     const {user} = useContext(AuthContext);
 
   const logout = () => {
-    localStorage.removeItem('user');
+    localStorage.removeItem('User');
     window.location.reload(true,);
     navigate('/login');
   };
