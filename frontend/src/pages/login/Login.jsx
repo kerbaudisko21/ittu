@@ -44,6 +44,7 @@ const Login = (props) => {
       console.log(res);
       dispatch({ type: 'LOGIN_SUCCESS', payload: res.data.details });
       console.log({ payload: res.data.details });
+      alert('user has been created!');
       navigate('/');
     } catch (err) {
       dispatch({ type: 'LOGIN_FAILURE', payload: err.response.data });
@@ -85,7 +86,6 @@ const Login = (props) => {
               </div>
               {/* <p className="error">{errors.password?.type === 'required' && 'Password is required'}</p> */}
               <div className="formFooter">
-                {error && <p className="error">{error.message}</p>}
                 {isRegistered ? (
                   <button className="btnSubmit" disabled={loading} onClick={handleClickLogin}>
                     Login

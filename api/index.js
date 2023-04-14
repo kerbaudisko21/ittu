@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import authRoute from "./routes/auth.js"
 import usersRoute from "./routes/users.js"
+import countriesRoute from "./routes/countries.js"
+import citiesRoute from "./routes/cities.js"
 import cookieParser from "cookie-parser";
 
 mongoose.set("strictQuery", true);
@@ -32,6 +34,8 @@ app.use(express.json())
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", usersRoute);
+app.use("/api/countries", countriesRoute);
+app.use("/api/cities", citiesRoute);
 
 app.use((err,req,res,next)=>{
   const errStatus  = err.status || 500
