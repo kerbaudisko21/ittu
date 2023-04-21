@@ -56,7 +56,7 @@ const Login = (props) => {
 
   return (
     <div className="main">
-      {console.log(props)}
+      {console.log(React.version)}
       <Navbar />
       <div className="subMain">
         <div className="subMainImage"></div>
