@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@fortawesome/free-brands-svg-icons": "^6.3.0",
-    "@react-google-maps/api": "^2.18.1"
-  }
-}
