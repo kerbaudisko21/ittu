@@ -1,0 +1,15 @@
+.list {
+  display: flex;
+}
+.planning {
+  width: 25%;
+  height: 100%;
+}
+.placemap {
+  width: 25%;
+  height: 100%;
+}
+.MapTempat {
+  width: 50%;
+  height: 100%;
+}
