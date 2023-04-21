@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./list.css";
-import MapTempat from "../../components/map/MapTempat.jsx";
-import PlaceMap from "../../components/PlaceMap/PlaceMap";
+// import MapTempat from "../../components/map/MapTempat.jsx";
+// import PlaceMap from "../../components/PlaceMap/PlaceMap";
 import { GoogleMap, useLoadScript,Marker } from "@react-google-maps/api";
 import { Map, GoogleApiWrapper } from 'google-maps-react';
 
