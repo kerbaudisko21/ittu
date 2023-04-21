@@ -1,0 +1,17 @@
+.trip-list {
+  width: 100%;
+  /* max-width: 1024px; */
+  display: flex;
+  /* justify-content: space-between; */
+  justify-content: center;
+  /* gap: 20px; */
+  flex-direction: row;
+  /* padding-left: 20%; */
+  height: 100%;
+  z-index: 0;
+}
+
+/* SwiperSlide {
+    width: 10px;
+    height: 200px;
+  } */

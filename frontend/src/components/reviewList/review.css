@@ -1,0 +1,141 @@
+.review {
+  position: relative;
+  display: flex;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  border-radius: 25px;
+  height: 40vh;
+  width: 30vw;
+  margin: 0.3% 0vh;
+}
+
+.review-box {
+  /* flex: auto; */
+  /* gap: 10px; */
+  display: block;
+  flex-direction: column;
+  align-items: center;
+  padding: 3%;
+  height: 88%;
+  /* margin: -2%; */
+  /* overflow: auto; */
+}
+
+.rate {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  /* padding-bottom: 1%; */
+}
+
+/* img {
+  height: 20px;
+} */
+/* .profile {
+  width: 20%;
+  height: 20%;
+} */
+
+.circle-img {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  padding: auto;
+}
+
+.profile {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 15%;
+  /* font-size:120 */
+  /* width: fit; */
+}
+
+.profile h3 {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  height: 50%;
+  font-size: 120%;
+}
+
+.rating {
+  width: fit;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  gap: 5%;
+}
+
+.rating i {
+  font-size: 160%;
+  /* margin: 8px; */
+  cursor: pointer;
+  transition: color 0.5s;
+  color: #fabf35;
+  /* margin: 2%; */
+  /* display: flex; */
+}
+
+.content {
+  display: flex;
+  width: 100%;
+  gap: 5%;
+  justify-content: space-between;
+  /* margin-bottom: -2%; */
+  height: 80%;
+}
+
+.comment h2 {
+  /* display: flex; */
+  /* align-items: center; */
+  width: 100%;
+  justify-content: right;
+  text-align: center;
+
+  text-size: auto;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 100%;
+  line-height: 120%;
+  text-align: center;
+  max-height: 80%;
+}
+
+.comment {
+  width: 100%;
+  /* font-family: "Jacques Francois"; */
+  font-style: normal;
+  font-weight: 400;
+  /* font-size: 50%; */
+  /* line-height: 50%; */
+}
+
+.country {
+  width: 100%;
+  background-size: cover;
+  /* background-color: black; */
+  /* padding: 10%; */
+  border-radius: 25px;
+  color: white;
+  /* gap: 0px; */
+  height: 100%;
+}
+
+.countryText {
+  padding-left: 10%;
+  font-weight: 300;
+  display: flexbox;
+  margin: 0;
+}
+.countryText h2 {
+  font-weight: 400;
+  font-size: 150%;
+  margin-bottom: -20px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-shrink: 1;
+}

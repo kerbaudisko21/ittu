@@ -1,0 +1,50 @@
+.navbar{
+    display: flex;
+    justify-content: center;    
+
+}
+
+.navContainer{
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    background-color: none;
+    transition: 0.3s ease-in-out;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.navContainer.fixed {
+    background-color: rgba(0,0,0,0.7);
+    transition: 0.3s ease-in-out;
+    width: 100%;
+}
+
+.logo{
+    font-weight: 700;
+    font-size: 40px;
+    color: white;
+    -webkit-text-stroke: 0.2px black;
+}
+
+.navItems{
+    display: flex;
+    flex-direction: row;
+
+}
+
+.navButton{
+    margin-left: 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    -webkit-text-stroke: 0.1px black;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
