@@ -4,20 +4,49 @@ import "./list.css";
 // import PlaceMap from "../../components/PlaceMap/PlaceMap";
 import { GoogleMap, useLoadScript,Marker } from "@react-google-maps/api";
 import { Map, GoogleApiWrapper } from 'google-maps-react';
+import GoogleMapReact from 'google-map-react';
+import {Grid} from '@material-ui/core';
 
 const List = (props) => {
 
   const [stores, setStores] = useState([]);
+  const [location, setLocation] = useState({});
+  const [storeList, setStoreList] = useState([]);
   
+
+  const [center, setCenter] = useState({ lat: 37.7749, lng: -122.4194 });
+
+  const handleChange = ({ center }) => {
+    setCenter(center);
+    console.log("test")
+  };
  
+  
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setLocation({ latitude, longitude });
+      },
+      () => {
+        console.log('Permission denied');
+      }
+    );
+  }, []);
+
+  // console.log(location);
 
   useEffect(() => {
     const { google } = props;
     const service = new google.maps.places.PlacesService(
       document.createElement('div')
     );
+    const coordinatesLatLng = new google.maps.LatLng(
+      location.latitude,
+      location.longitude
+    );
     const request = {
-      location: new google.maps.LatLng(-6.200000, 106.816666),
+      location: new google.maps.LatLng(coordinatesLatLng),
       radius: '500',
       type: ['restaurant'],
     };
@@ -28,10 +57,10 @@ const List = (props) => {
       }
     };
     service.nearbySearch(request, callback);
-  }, [props]);
+  }, [props, location]);
 
   const renderList = () => {
-    return stores.map((store) => <li key={store.id}>{store.name} {store.rating}</li>);
+    return stores.map((store) => <li key={store.id}>{store.name} {store.rating} {store.geometry.location.lat()} {store.geometry.location.lng()} </li>);
   };
 
   const { isLoaded } = useLoadScript({
@@ -49,7 +78,8 @@ const List = (props) => {
         
       };
       // console.log(position);
-      console.log(store.name);
+      // console.log(store.name);
+  
       return new window.google.maps.Marker({
         position,
         map: props.map,
@@ -57,6 +87,7 @@ const List = (props) => {
         icon: "https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png",
         
       }
+      
       );
       
     });
@@ -65,15 +96,34 @@ const List = (props) => {
  
   const markers = renderMarkers(stores);
 
+ 
 
   const handleClick = (data) => {
-    console.log(data);
-    // Show details here
-  };
+    const newStore = {
+      name: data,
+      lat: data.lat,
+      lng: data.lng
+    };
+    setStoreList((storeList) => [...storeList, newStore]);
+    
+  };console.log(storeList);
 
   return (
     <div className="list">
-      <div className="planning">a</div>
+      <div className="planning">
+        Lat & Lng
+      <p>Latitude: {location.latitude}</p>
+      <p>Longitude: {location.longitude}</p>
+      Data :
+
+      <ul>
+        {storeList.map((store) => (
+          <li >{store.name}  {store.lat}  {store.lng}</li>
+        ))}
+      </ul>
+
+
+      </div>
 
 
       <div className="placemap">
@@ -86,11 +136,24 @@ const List = (props) => {
 
 
       <div className="MapTempat">
-        <GoogleMap zoom={15} center={{ lat: -6.200000, lng:106.816666 }}
-          mapContainerClassName='map-container'>
+        <GoogleMap
+        zoom={15} 
+        center={
+         { lat: location.latitude,
+          lng: location.longitude,}
+        }
+        mapContainerClassName='map-container'
+        onClick={handleChange}
+        >
 
           {markers.map((marker) => (
-        <Marker title={marker.title} position={marker.position} onLoad={(marker) => marker.addListener("click", () => handleClick(marker.title))} />
+        <Marker title={marker.title} position={marker.position} onLoad={(marker) => marker.addListener("click", () => handleClick(
+          
+          marker.title,
+          marker.lat,
+          marker.lng
+          
+          ))} />
       ))}
 
           </GoogleMap>
