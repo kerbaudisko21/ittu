@@ -22,15 +22,12 @@ const Header = () => {
 
   const handleClick = () => {
     navigate("/List", { state:   {
-      startDate: dates[0].startDate.toISOString().slice(0,10),
-      endDate: dates[0].endDate.toISOString().slice(0,10),
+      startDate: dates[0].startDate,
+      endDate: dates[0].endDate,
       key: 'selection'
     } });
   };
 
-  console.log(dates[0].startDate.toISOString().slice(0,10))
-  console.log(dates[0].endDate.toISOString().slice(0,10))
- 
   return (
     <div className="header">
         <h1 className="headerTitle"> Discover Your Next Adventure <br></br> ITTU </h1>
