@@ -1,56 +1,83 @@
 import React, { useState } from 'react';
 
-function ListTest2() {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [weatherDataArray, setWeatherDataArray] = useState([]);
+function MyComponent() {
+  const [dragging, setDragging] = useState(false);
+  const [showDropBox, setShowDropBox] = useState(false);
 
-  const handleStartDateChange = (event) => {
-    setStartDate(new Date(event.target.value));
+  const handleDragStart = (event) => {
+    setDragging(true);
+    event.dataTransfer.setData('text/plain', event.target.id);
   };
 
-  const handleEndDateChange = (event) => {
-    setEndDate(new Date(event.target.value));
+  const handleDragEnd = () => {
+    setDragging(false);
   };
 
-  const getWeatherDataForDateRange = async () => {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    const weatherDataArray = [];
-
-    while (start <= end) {
-      const url = `https://api.openweathermap.org/data/2.5/onecall?lat=44.34&lon=10.99&exclude=current,minutely,hourly&appid=ab153f1fe2b71c6c9649d3beaeefc00c&units=metric`;
-      const response = await fetch(url);
-      const data = await response.json();
-
-      console.log(data);
-      console.log(start);
-      console.log(end);
-
-      weatherDataArray.push(data);
-      start.setDate(start.getDate() + 1);
-    }
-   
-    setWeatherDataArray(weatherDataArray);
+  const handleDrop = (event) => {
+    event.preventDefault();
+    const data = event.dataTransfer.getData('text/plain');
+    event.target.appendChild(document.getElementById(data));
   };
 
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
 
+  const handleButtonClick = () => {
+    setShowDropBox(true);
+  };
 
   return (
-    <div>
-      <input type="date" value={startDate.toISOString().slice(0, 10)} onChange={handleStartDateChange} />
-      <input type="date" value={endDate.toISOString().slice(0, 10)} onChange={handleEndDateChange} />
-      <button onClick={getWeatherDataForDateRange}>Get Weather Data</button>
-      {weatherDataArray.map((weatherData) => (
-        <div key={weatherData.dt}>
-          <p>Date: {new Date(weatherData.dt * 1000).toLocaleDateString()}</p>
-          <p>Temperature: {weatherData?.main?.temp} K</p>
-          <p>Humidity: {weatherData?.main?.humidity}%</p>
-          <p>Description: {weatherData?.weather[0].description}</p>
+    <div style={{ display: 'flex' }}>
+      <div
+        id="draggable1"
+        draggable="true"
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+      >
+        Box 1
+      </div>
+      <div
+        id="draggable2"
+        draggable="true"
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+      >
+        Box 2
+      </div>
+      <div
+        id="draggable3"
+        draggable="true"
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+      >
+        Box 3
+      </div>
+      {showDropBox ? (
+        <div
+          id="droppable1"
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
+          style={{
+            backgroundColor: dragging ? 'lightgray' : 'white',
+            flexGrow: '1',
+            height: '50px',
+            margin: '10px',
+            textAlign: 'center',
+            lineHeight: '50px',
+          }}
+        >
+          Drop here for box 1!
         </div>
-      ))}
+      ) : (
+        <button onClick={handleButtonClick}>Generate Drop Box</button>
+      )}
     </div>
   );
+}
+
+function ListTest2() {
+  return <MyComponent />;
 }
 
 export default ListTest2;

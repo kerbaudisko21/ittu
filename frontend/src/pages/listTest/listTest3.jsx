@@ -62,27 +62,14 @@ const [startDate, setStartDate] = useState("");
               Get Weather
             </button>
           </form>
-          {weatherForRange.length > 0 && (
-            <table>
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Temperature</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {weatherForRange.map((day) => (
-                  <tr key={day.dt}>
-                    <td>{new Date(day.dt * 1000).toLocaleDateString()}</td>
-                    <td>{day.temp.day}°C</td>
-                    <td>{day.weather[0].description}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </div>
+        
+   
+             </div>
+        <ul>
+      {weatherForRange.map((day) => (
+        <li >{new Date(day.dt * 1000).toLocaleDateString()}  {day.temp.day} {day.weather[0].description}  </li>
+      ))}
+    </ul>
     </div>
   );
 };
