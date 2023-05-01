@@ -62,8 +62,7 @@ const [startDate, setStartDate] = useState("");
               Get Weather
             </button>
           </form>
-        
-   
+
              </div>
         <ul>
       {weatherForRange.map((day) => (

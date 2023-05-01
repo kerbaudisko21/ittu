@@ -15,7 +15,7 @@ const List = (props) => {
 
   const dateRange = useLocation();
   const { startDate, endDate } = dateRange.state;
-
+  const [dragging, setDragging] = useState(false);
   
   const [stores, setStores] = useState([]);
   const [location, setLocation] = useState({});
@@ -26,8 +26,8 @@ const List = (props) => {
   // const [endDate, setEndDate] = useState("");
   const [ItineraryDay, setItineraryDay] = useState([]);
   
-  console.log(startDate)
-  console.log(endDate)
+  // console.log(startDate)
+  // console.log(endDate)
   
   async function getWeatherForecast(lat, lon, date) {
     const apiKey = 'ab153f1fe2b71c6c9649d3beaeefc00c';
@@ -83,18 +83,9 @@ const List = (props) => {
   }, [startDate, endDate]);
 
 
-  const addDestination = (id) => {
-    id = 1;
-    setItineraryDay((prevData) =>
-      prevData.map((Itinerary) =>
-      Itinerary.id === id
-          ? { ...Itinerary, destinations: [...Itinerary.destinations, ...storeList] }
-          : Itinerary
-      )
-    );
-  };
 
-  // console.log(storeList)
+
+  console.log(storeList)
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -139,7 +130,19 @@ const List = (props) => {
  
 
   const renderList = () => {
-    return stores.map((store) => <li key={store.id}>{store.name} {store.rating} {store.geometry.location.lat()} {store.geometry.location.lng()} </li>);
+    console.log(stores)
+    return stores.map((store) => 
+
+    <div
+    id={store.place_id}
+    draggable="true"
+    onDragStart={handleDragStart}
+    onDragEnd={handleDragEnd}
+  >
+  {store.name} 
+  </div>
+    // <li key={store.id}>{store.name} {store.rating} {store.geometry.location.lat()} {store.geometry.location.lng()} </li>);
+    )
   };
    
   
@@ -163,7 +166,50 @@ const List = (props) => {
       // console.log(location)
   }
 
-  console.log(ItineraryDay)
+  // console.log(ItineraryDay)
+
+  const handleDragStart = (event) => {
+    setDragging(true);
+    event.dataTransfer.setData('text/plain', event.target.id);
+
+  };
+
+  const handleDragEnd = () => {
+    setDragging(false);
+  };
+
+ 
+
+  const handleDrop = (e, id) => {
+    // Nanti tambahin id, lat, long dll
+    
+    e.preventDefault();
+    const itemId = e.dataTransfer.getData("text/plain");
+    console.log(stores.find((item) => item.place_id === itemId))
+    const destinationName = stores.find((item) => item.place_id === itemId).name;
+
+    const newStore = {
+      name: destinationName,
+    };
+
+    const newDestinations = [...ItineraryDay[id - 1].destinations, newStore];
+   
+    console.log(newStore)
+
+    setItineraryDay((prevData) =>
+      prevData.map((Itinerary) =>
+        Itinerary.id === id ? { ...Itinerary, destinations: newDestinations} : Itinerary
+      )
+    );
+  };
+
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+    
+  };
+
+console.log(ItineraryDay)
 
   return (
     <div className="list">
@@ -175,12 +221,36 @@ const List = (props) => {
       {ItineraryDay.map(day => {
         
         return (
-          <div key={day.id}>
+          <div key={day.id}
+          
+          >
             <h2>{day.date.toDateString()}</h2>
             <p>Weather: {day.weather}</p>
             <p>Temperature: {day.temperature}</p>
+            <div
+                  id="droppable1"
+                  onDrop={(e) => handleDrop(e, day.id)}
+                  onDragOver={handleDragOver}
+                  style={{
+                    backgroundColor: dragging ? 'lightgray' : 'white',
+                    flexGrow: '1',
+                    // height: '50px',
+                    // margin: '10px',
+                    textAlign: 'left',
+                    lineHeight: '50px',
+                  }}
+                  
+                > 
+                Destination :
+                </div>
+
                 {day.destinations.map((destination) => (
-                <li key={destination}>{destination.name}</li>
+                  <div
+                  key={destination}
+                > 
+                  {destination.name}
+                </div>
+              
               ))}
           </div>
         );
@@ -188,55 +258,20 @@ const List = (props) => {
     </div>
    
 
-            <br />
-        Lat & Lng
+      
        
-      <p>Latitude: {location.latitude}</p>
-      <p>Longitude: {location.longitude}</p>
-      Data :
-      
-      <ul>
-        {storeList.map((store) => (
-          <li >{store.name}  {store.lat}  {store.lng}</li>
-        ))}
-      </ul>
-      <button onClick={addDestination}>add Destination</button>
-      
-      {/* <form
-            onSubmit={(e) => {
-              e.preventDefault();
-            }}
-          >
-            <label htmlFor="start-date">Start Date:</label>
-            <input
-              type="date"
-              id="start-date"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-            />
-            <label htmlFor="end-date">End Date:</label>
-            <input
-              type="date"
-              id="end-date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-            />
-            <button
-              onClick={() =>
-  
-                console.log(getDates(startDate, endDate))
-              }
-            >
-              Generate
-            </button>
-          </form> */}
   
       </div>
 
 
       <div className="placemap">
         {/* <PlaceMap /> */}
+      
+      Lat & Lng
        
+      <p>Latitude: {location.latitude}</p>
+      <p>Longitude: {location.longitude}</p>
+   
       <h1>Nearby Restaurants</h1>
       <ul>{renderList()}</ul>
 
