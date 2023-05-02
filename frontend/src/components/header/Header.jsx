@@ -6,10 +6,12 @@ import 'react-date-range/dist/theme/default.css';
 import './header.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faMapMarkerAlt, faCalendar } from "@fortawesome/free-solid-svg-icons"
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
 
   const [openDate, setOpenDate] = useState(false)
+  const navigate = useNavigate();
   const [dates, setDate] = useState([
     {
       startDate: new Date(),
@@ -17,6 +19,14 @@ const Header = () => {
       key: 'selection'
     }
   ]);
+
+  const handleClick = () => {
+    navigate("/List", { state:   {
+      startDate: dates[0].startDate,
+      endDate: dates[0].endDate,
+      key: 'selection'
+    } });
+  };
 
   return (
     <div className="header">
@@ -41,7 +51,7 @@ const Header = () => {
               <input type="text" placeholder='End Date' disabled className='headerSearchInput' value={`${format(dates[0].endDate, "MM/dd/yyyy")}`} />
           </div>
           <div className="headerSearchItem">
-              <button className="headerBtn">Create</button>
+              <button onClick={handleClick} className="headerBtn">Create</button>
           </div>
         </div>
     </div>

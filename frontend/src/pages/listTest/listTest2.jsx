@@ -1,56 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-function ListTest2() {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [weatherDataArray, setWeatherDataArray] = useState([]);
+const ListTest2 = () => {
+  const [list, setList] = useState([
+    { id: 1, text: "Item 1" },
+    { id: 2, text: "Item 2" },
+    { id: 3, text: "Item 3" },
+    { id: 4, text: "Item 4" },
+    { id: 5, text: "Item 5" }
+  ]);
 
-  const handleStartDateChange = (event) => {
-    setStartDate(new Date(event.target.value));
+  const onDragStart = (event, index) => {
+    event.dataTransfer.setData("index", index);
   };
 
-  const handleEndDateChange = (event) => {
-    setEndDate(new Date(event.target.value));
+  const onDragOver = (event) => {
+    event.preventDefault();
   };
 
-  const getWeatherDataForDateRange = async () => {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    const weatherDataArray = [];
-
-    while (start <= end) {
-      const url = `https://api.openweathermap.org/data/2.5/onecall?lat=44.34&lon=10.99&exclude=current,minutely,hourly&appid=ab153f1fe2b71c6c9649d3beaeefc00c&units=metric`;
-      const response = await fetch(url);
-      const data = await response.json();
-
-      console.log(data);
-      console.log(start);
-      console.log(end);
-
-      weatherDataArray.push(data);
-      start.setDate(start.getDate() + 1);
-    }
-   
-    setWeatherDataArray(weatherDataArray);
+  const onDrop = (event, index) => {
+    const sourceIndex = event.dataTransfer.getData("index");
+    const newList = [...list];
+    const [removed] = newList.splice(sourceIndex, 1);
+    newList.splice(index, 0, removed);
+    setList(newList);
   };
-
-
 
   return (
-    <div>
-      <input type="date" value={startDate.toISOString().slice(0, 10)} onChange={handleStartDateChange} />
-      <input type="date" value={endDate.toISOString().slice(0, 10)} onChange={handleEndDateChange} />
-      <button onClick={getWeatherDataForDateRange}>Get Weather Data</button>
-      {weatherDataArray.map((weatherData) => (
-        <div key={weatherData.dt}>
-          <p>Date: {new Date(weatherData.dt * 1000).toLocaleDateString()}</p>
-          <p>Temperature: {weatherData?.main?.temp} K</p>
-          <p>Humidity: {weatherData?.main?.humidity}%</p>
-          <p>Description: {weatherData?.weather[0].description}</p>
-        </div>
+    <ul>
+      {list.map((item, index) => (
+        <li
+          key={item.id}
+          draggable="true"
+          onDragStart={(event) => onDragStart(event, index)}
+          onDragOver={onDragOver}
+          onDrop={(event) => onDrop(event, index)}
+        >
+          {item.text}
+        </li>
       ))}
-    </div>
+    </ul>
   );
-}
+};
 
 export default ListTest2;

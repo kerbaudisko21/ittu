@@ -1,31 +1,41 @@
-import React from 'react'
-import GoogleMapReact from 'google-map-react';
+import { useState } from "react";
 
+function ListTest() {
+  const [data, setData] = useState([
+    { id: 1, name: "John", hobbies: ["reading", "swimming"] },
+    { id: 2, name: "Jane", hobbies: ["running", "hiking"] },
+  ]);
 
+  const addHobby = (id, hobby) => {
+    setData((prevData) =>
+      prevData.map((person) =>
+        person.id === id
+          ? { ...person, hobbies: [...person.hobbies, hobby] }
+          : person
+      )
+    );
+  };
 
-
-
-const listTest = () => {
-
-
-
-  
+  console.log(data);
   return (
-    <div> Test
-      
-      <div style={{ height: '100vh', width: '100%' }}>
-    <GoogleMapReact
-      bootstrapURLKeys={{ key: 'AIzaSyDmowFuG5A64eipfP8pOHIh0v4onGzDKYk' }}
-      defaultCenter={{ lat: 59.95,
-        lng: 30.33}}
-      defaultZoom={11}
-    >
-
-    </GoogleMapReact>
-  </div></div>
-  )
+    <div>
+      <ul>
+        {data.map((person) => (
+          <li key={person.id}>
+            {person.name}
+            <ul>
+              {person.hobbies.map((hobby) => (
+                <li key={hobby}>{hobby}</li>
+              ))}
+            </ul>
+            <button onClick={() => addHobby(person.id, "new hobby")}>
+              Add Hobby
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
-
-
-export default listTest;
+export default ListTest;

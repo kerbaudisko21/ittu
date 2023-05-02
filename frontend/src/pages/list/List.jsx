@@ -6,36 +6,103 @@ import { GoogleMap, useLoadScript,Marker } from "@react-google-maps/api";
 import { Map, GoogleApiWrapper } from 'google-maps-react';
 import GoogleMapReact from 'google-map-react';
 import {Grid} from '@material-ui/core';
+import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
+import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 const List = (props) => {
 
+
+  const dateRange = useLocation();
+  const { startDate, endDate } = dateRange.state;
+  const [dragging, setDragging] = useState(false);
+  
   const [stores, setStores] = useState([]);
   const [location, setLocation] = useState({});
   const [storeList, setStoreList] = useState([]);
-  
 
-  const [center, setCenter] = useState({ lat: 37.7749, lng: -122.4194 });
 
-  const handleChange = ({ center }) => {
-    setCenter(center);
-    console.log("test")
-  };
- 
+  // const [startDate, setStartDate] = useState("");
+  // const [endDate, setEndDate] = useState("");
+  const [ItineraryDay, setItineraryDay] = useState([]);
   
+  // console.log(startDate)
+  // console.log(endDate)
+  
+  async function getWeatherForecast(lat, lon, date) {
+    const apiKey = 'ab153f1fe2b71c6c9649d3beaeefc00c';
+    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    
+    // Filter the list based on the date you want
+    const filteredList = data.list.filter(item => {
+      const itemDate = new Date(item.dt_txt);
+      return itemDate.toDateString() === new Date(date).toDateString();
+    });
+    return filteredList;
+  }
+  
+  async function addWeatherToItinerary(itinerary) {
+    for (let i = 0; i < itinerary.length; i++) {
+      const date = itinerary[i].date;
+      const lat = 44.34;
+      const lon = 10.99;
+      const weatherData = await getWeatherForecast(lat, lon, date);
+      itinerary[i].weather = weatherData[0].weather[0].description;
+      itinerary[i].temperature = weatherData[0].main.temp;
+    }
+    
+    setItineraryDay(itinerary);
+  }
+
+  useEffect(() => {
+    function getDates() {
+      const dates = [];
+      let currentDate = new Date(startDate);
+      let id = 1;
+      function addDays(date, days) {
+        const newDate = new Date(date.valueOf());
+        newDate.setDate(newDate.getDate() + days);
+        return { 
+          id: id++, 
+          date: newDate, 
+          weather: '',
+          temperature: '',
+          destinations: []
+        };
+      }
+      while (currentDate <= new Date(endDate)) {
+        dates.push(addDays(currentDate, 0));
+        currentDate = addDays(currentDate, 1).date;id--;
+      }
+      addWeatherToItinerary(dates);
+    }
+
+    getDates();
+  }, [startDate, endDate]);
+
+
+
+
+  console.log(storeList)
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
         setLocation({ latitude, longitude });
+        
       },
       () => {
         console.log('Permission denied');
       }
+      
     );
+    
   }, []);
-
-  // console.log(location);
-
+ 
+  
   useEffect(() => {
     const { google } = props;
     const service = new google.maps.places.PlacesService(
@@ -46,57 +113,40 @@ const List = (props) => {
       location.longitude
     );
     const request = {
-      location: new google.maps.LatLng(coordinatesLatLng),
+      location: coordinatesLatLng,
       radius: '500',
       type: ['restaurant'],
     };
     const callback = (results, status) => {
+      
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         setStores(results);
-        console.log(results);
       }
     };
+    
     service.nearbySearch(request, callback);
   }, [props, location]);
 
+ 
+
   const renderList = () => {
-    return stores.map((store) => <li key={store.id}>{store.name} {store.rating} {store.geometry.location.lat()} {store.geometry.location.lng()} </li>);
+    console.log(stores)
+    return stores.map((store) => 
+
+    <div
+    id={store.place_id}
+    draggable="true"
+    onDragStart={handleDragStart}
+    onDragEnd={handleDragEnd}
+  >
+  {store.name} 
+  </div>
+    // <li key={store.id}>{store.name} {store.rating} {store.geometry.location.lat()} {store.geometry.location.lng()} </li>);
+    )
   };
-
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyDmowFuG5A64eipfP8pOHIh0v4onGzDKYk"
-  });
-  if (!isLoaded) return <div>loading...</div>
-
+   
   
-  const renderMarkers = () => {
-    return stores.map((store) => {
-      
-      const position = {
-        lat: store.geometry.location.lat(),
-        lng: store.geometry.location.lng(),
-        
-      };
-      // console.log(position);
-      // console.log(store.name);
-  
-      return new window.google.maps.Marker({
-        position,
-        map: props.map,
-        title: store.name,
-        icon: "https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png",
-        
-      }
-      
-      );
-      
-    });
-    
-  };
- 
-  const markers = renderMarkers(stores);
 
- 
 
   const handleClick = (data) => {
     const newStore = {
@@ -106,61 +156,157 @@ const List = (props) => {
     };
     setStoreList((storeList) => [...storeList, newStore]);
     
-  };console.log(storeList);
+  };
+  // console.log(storeList);
+
+  const handleChange = ({center}) => {
+    setLocation( {latitude: center.lat,
+      longitude: center.lng} );
+
+      // console.log(location)
+  }
+
+  // console.log(ItineraryDay)
+
+  const handleDragStart = (event) => {
+    setDragging(true);
+    event.dataTransfer.setData('text/plain', event.target.id);
+
+  };
+
+  const handleDragEnd = () => {
+    setDragging(false);
+  };
+
+ 
+
+  const handleDrop = (e, id) => {
+    // Nanti tambahin id, lat, long dll
+    
+    e.preventDefault();
+    const itemId = e.dataTransfer.getData("text/plain");
+    console.log(stores.find((item) => item.place_id === itemId))
+    const destinationName = stores.find((item) => item.place_id === itemId).name;
+
+    const newStore = {
+      name: destinationName,
+    };
+
+    const newDestinations = [...ItineraryDay[id - 1].destinations, newStore];
+   
+    console.log(newStore)
+
+    setItineraryDay((prevData) =>
+      prevData.map((Itinerary) =>
+        Itinerary.id === id ? { ...Itinerary, destinations: newDestinations} : Itinerary
+      )
+    );
+  };
+
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+    
+  };
+
+console.log(ItineraryDay)
 
   return (
     <div className="list">
+    
       <div className="planning">
-        Lat & Lng
-      <p>Latitude: {location.latitude}</p>
-      <p>Longitude: {location.longitude}</p>
-      Data :
+      
+      <div>
 
-      <ul>
-        {storeList.map((store) => (
-          <li >{store.name}  {store.lat}  {store.lng}</li>
-        ))}
-      </ul>
+      {ItineraryDay.map(day => {
+        
+        return (
+          <div key={day.id}
+          
+          >
+            <h2>{day.date.toDateString()}</h2>
+            <p>Weather: {day.weather}</p>
+            <p>Temperature: {day.temperature}</p>
+            <div
+                  id="droppable1"
+                  onDrop={(e) => handleDrop(e, day.id)}
+                  onDragOver={handleDragOver}
+                  style={{
+                    backgroundColor: dragging ? 'lightgray' : 'white',
+                    flexGrow: '1',
+                    // height: '50px',
+                    // margin: '10px',
+                    textAlign: 'left',
+                    lineHeight: '50px',
+                  }}
+                  
+                > 
+                Destination :
+                </div>
 
+                {day.destinations.map((destination) => (
+                  <div
+                  key={destination}
+                > 
+                  {destination.name}
+                </div>
+              
+              ))}
+          </div>
+        );
+      })}
+    </div>
+   
 
+      
+       
+  
       </div>
 
 
       <div className="placemap">
         {/* <PlaceMap /> */}
-       
+      
+      <p>Latitude: {location.latitude}</p>
+      <p>Longitude: {location.longitude}</p>
+   
       <h1>Nearby Restaurants</h1>
       <ul>{renderList()}</ul>
 
       </div>
-
-
+      
+      
       <div className="MapTempat">
-        <GoogleMap
-        zoom={15} 
+      <div style={{ height: '100vh', width: '100%' }}>
+        <GoogleMapReact
+        bootstrapURLKeys={{ key: 'AIzaSyDmowFuG5A64eipfP8pOHIh0v4onGzDKYk' }}
+        defaultZoom={17} 
         center={
          { lat: location.latitude,
           lng: location.longitude,}
+          
         }
-        mapContainerClassName='map-container'
-        onClick={handleChange}
+        onChange={handleChange}
         >
+          
+           {stores.map((store) => (
+            <div   
+            lat={store.geometry.location.lat()}
+            lng={store.geometry.location.lng()}
+            text={store.name}
+            onClick={() => handleClick(store.name)}
+            >            
+            <LocationOnOutlinedIcon
+            color="primary" fontSize="large" 
+          
+            />
+          </div>
+        ))}
 
-          {markers.map((marker) => (
-        <Marker title={marker.title} position={marker.position} onLoad={(marker) => marker.addListener("click", () => handleClick(
-          
-          marker.title,
-          marker.lat,
-          marker.lng
-          
-          ))} />
-      ))}
-
-          </GoogleMap>
-          
+          </GoogleMapReact>          
       </div>
 
-
+        </div>
     </div>
   );
 };
