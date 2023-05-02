@@ -1,83 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-function MyComponent() {
-  const [dragging, setDragging] = useState(false);
-  const [showDropBox, setShowDropBox] = useState(false);
+const ListTest2 = () => {
+  const [list, setList] = useState([
+    { id: 1, text: "Item 1" },
+    { id: 2, text: "Item 2" },
+    { id: 3, text: "Item 3" },
+    { id: 4, text: "Item 4" },
+    { id: 5, text: "Item 5" }
+  ]);
 
-  const handleDragStart = (event) => {
-    setDragging(true);
-    event.dataTransfer.setData('text/plain', event.target.id);
+  const onDragStart = (event, index) => {
+    event.dataTransfer.setData("index", index);
   };
 
-  const handleDragEnd = () => {
-    setDragging(false);
-  };
-
-  const handleDrop = (event) => {
-    event.preventDefault();
-    const data = event.dataTransfer.getData('text/plain');
-    event.target.appendChild(document.getElementById(data));
-  };
-
-  const handleDragOver = (event) => {
+  const onDragOver = (event) => {
     event.preventDefault();
   };
 
-  const handleButtonClick = () => {
-    setShowDropBox(true);
+  const onDrop = (event, index) => {
+    const sourceIndex = event.dataTransfer.getData("index");
+    const newList = [...list];
+    const [removed] = newList.splice(sourceIndex, 1);
+    newList.splice(index, 0, removed);
+    setList(newList);
   };
 
   return (
-    <div style={{ display: 'flex' }}>
-      <div
-        id="draggable1"
-        draggable="true"
-        onDragStart={handleDragStart}
-        onDragEnd={handleDragEnd}
-      >
-        Box 1
-      </div>
-      <div
-        id="draggable2"
-        draggable="true"
-        onDragStart={handleDragStart}
-        onDragEnd={handleDragEnd}
-      >
-        Box 2
-      </div>
-      <div
-        id="draggable3"
-        draggable="true"
-        onDragStart={handleDragStart}
-        onDragEnd={handleDragEnd}
-      >
-        Box 3
-      </div>
-      {showDropBox ? (
-        <div
-          id="droppable1"
-          onDrop={handleDrop}
-          onDragOver={handleDragOver}
-          style={{
-            backgroundColor: dragging ? 'lightgray' : 'white',
-            flexGrow: '1',
-            height: '50px',
-            margin: '10px',
-            textAlign: 'center',
-            lineHeight: '50px',
-          }}
+    <ul>
+      {list.map((item, index) => (
+        <li
+          key={item.id}
+          draggable="true"
+          onDragStart={(event) => onDragStart(event, index)}
+          onDragOver={onDragOver}
+          onDrop={(event) => onDrop(event, index)}
         >
-          Drop here for box 1!
-        </div>
-      ) : (
-        <button onClick={handleButtonClick}>Generate Drop Box</button>
-      )}
-    </div>
+          {item.text}
+        </li>
+      ))}
+    </ul>
   );
-}
-
-function ListTest2() {
-  return <MyComponent />;
-}
+};
 
 export default ListTest2;
