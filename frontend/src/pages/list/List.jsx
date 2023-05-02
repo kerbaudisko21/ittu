@@ -267,8 +267,6 @@ console.log(ItineraryDay)
       <div className="placemap">
         {/* <PlaceMap /> */}
       
-      Lat & Lng
-       
       <p>Latitude: {location.latitude}</p>
       <p>Longitude: {location.longitude}</p>
    
