@@ -1,41 +1,26 @@
-import { useState } from "react";
+import React, { useState } from 'react';
 
-function ListTest() {
-  const [data, setData] = useState([
-    { id: 1, name: "John", hobbies: ["reading", "swimming"] },
-    { id: 2, name: "Jane", hobbies: ["running", "hiking"] },
-  ]);
+const ListTest = ({ data }) => {
+  const [query, setQuery] = useState('');
 
-  const addHobby = (id, hobby) => {
-    setData((prevData) =>
-      prevData.map((person) =>
-        person.id === id
-          ? { ...person, hobbies: [...person.hobbies, hobby] }
-          : person
-      )
-    );
+  const handleInputChange = event => {
+    setQuery(event.target.value);
   };
 
-  console.log(data);
+  const filteredData = data.filter(item => {
+    return item.name.toLowerCase().includes(query.toLowerCase());
+  });
+
   return (
     <div>
+      <input type="text" value={query} onChange={handleInputChange} />
       <ul>
-        {data.map((person) => (
-          <li key={person.id}>
-            {person.name}
-            <ul>
-              {person.hobbies.map((hobby) => (
-                <li key={hobby}>{hobby}</li>
-              ))}
-            </ul>
-            <button onClick={() => addHobby(person.id, "new hobby")}>
-              Add Hobby
-            </button>
-          </li>
+        {filteredData.map(item => (
+          <li key={item.id}>{item.name}</li>
         ))}
       </ul>
     </div>
   );
-}
+};
 
 export default ListTest;

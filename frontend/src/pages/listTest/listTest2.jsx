@@ -1,45 +1,60 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-const ListTest2 = () => {
-  const [list, setList] = useState([
-    { id: 1, text: "Item 1" },
-    { id: 2, text: "Item 2" },
-    { id: 3, text: "Item 3" },
-    { id: 4, text: "Item 4" },
-    { id: 5, text: "Item 5" }
-  ]);
+function ListTest2() {
+  const [todos, setTodos] = useState([]);
 
-  const onDragStart = (event, index) => {
-    event.dataTransfer.setData("index", index);
+  const handleAddTodo = () => {
+    setTodos([...todos, { text: '', completed: false }]);
   };
 
-  const onDragOver = (event) => {
-    event.preventDefault();
+  const handleTodoChange = (event, index) => {
+    const newTodos = [...todos];
+    newTodos[index].text = event.target.value;
+    setTodos(newTodos);
   };
 
-  const onDrop = (event, index) => {
-    const sourceIndex = event.dataTransfer.getData("index");
-    const newList = [...list];
-    const [removed] = newList.splice(sourceIndex, 1);
-    newList.splice(index, 0, removed);
-    setList(newList);
+  const handleCheckboxChange = (event, index) => {
+    const newTodos = [...todos];
+    newTodos[index].completed = event.target.checked;
+    setTodos(newTodos);
   };
 
+  const handleTodoBlur = (event, index) => {
+    const newTodos = [...todos];
+    if (event.target.value === '') {
+      newTodos.splice(index, 1);
+      setTodos(newTodos);
+    }
+  };
+
+  console.log(todos)
   return (
-    <ul>
-      {list.map((item, index) => (
-        <li
-          key={item.id}
-          draggable="true"
-          onDragStart={(event) => onDragStart(event, index)}
-          onDragOver={onDragOver}
-          onDrop={(event) => onDrop(event, index)}
-        >
-          {item.text}
-        </li>
-      ))}
-    </ul>
+    <div>
+      <button onClick={handleAddTodo}>Add Todo</button>
+      <ul>
+        {todos.map((todo, index) => (
+          <li key={index} style={{ listStyleType: 'none' }}>
+            <input
+              type="checkbox"
+              checked={todo.completed}
+              onChange={(event) => handleCheckboxChange(event, index)}
+            />
+            <input
+              type="text"
+              value={todo.text}
+              onChange={(event) => handleTodoChange(event, index)}
+              onBlur={(event) => handleTodoBlur(event, index)}
+              style={{
+                border: 'none',
+                textDecoration: todo.completed ? 'line-through' : 'none',
+
+              }}
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
   );
-};
+}
 
 export default ListTest2;

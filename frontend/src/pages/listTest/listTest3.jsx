@@ -1,76 +1,58 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import { GoogleMap, LoadScript, Autocomplete } from '@react-google-maps/api';
+
+
 
 const ListTest3 = () => {
-  const [weatherData, setWeatherData] = useState(null);
-const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [weatherForRange, setWeatherForRange] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get(
-        "https://api.openweathermap.org/data/2.5/onecall?lat=44.34&lon=10.99&exclude=current,minutely,hourly&appid=ab153f1fe2b71c6c9649d3beaeefc00c&units=metric"
-      );
-      setWeatherData(response.data);
-    };
-    fetchData();
-  }, []);
 
 
-  const getWeatherForRange = (startDate, endDate) => {
-    if (weatherData) {
-      const startDay = new Date(startDate);
-      const endDay = new Date(endDate);
-      endDay.setDate(endDay.getDate() + 1);
-      const weatherForRange = weatherData.daily.filter((day) => {
-        const dayDate = new Date(day.dt * 1000);
-        return dayDate >= startDay && dayDate <= endDay;
-      });
-      setWeatherForRange(weatherForRange);
-      console.log(weatherForRange)
-    }
+  const [autocomplete, setAutocomplete] = useState(null);
+ 
+
+  const onLoad = (autoC) => setAutocomplete(autoC);
+
+  const onPlaceChanged = () => {
+    const lat = autocomplete.getPlace().geometry.location.lat();
+    const lng = autocomplete.getPlace().geometry.location.lng();
+    
+    console.log(lat)
+    console.log(lng)
+    
   };
+ 
 
   return (
-    <div>
-        <div>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-            }}
-          >
-            <label htmlFor="start-date">Start Date:</label>
-            <input
-              type="date"
-              id="start-date"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-            />
-            <label htmlFor="end-date">End Date:</label>
-            <input
-              type="date"
-              id="end-date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-            />
-            <button
-              onClick={() =>
-                console.log(getWeatherForRange(startDate, endDate))
-              }
-            >
-              Get Weather
-            </button>
-          </form>
+   
 
-             </div>
-        <ul>
-      {weatherForRange.map((day) => (
-        <li >{new Date(day.dt * 1000).toLocaleDateString()}  {day.temp.day} {day.weather[0].description}  </li>
-      ))}
-    </ul>
-    </div>
+        <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}
+          options={{
+    componentRestrictions: { country: 'id' },
+  }}
+        >
+          <input
+            type="text"
+            placeholder="Input"
+            style={{
+              boxSizing: `border-box`,
+              border: `1px solid transparent`,
+              width: `240px`,
+              height: `32px`,
+              padding: `0 12px`,
+              borderRadius: `3px`,
+              boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+              fontSize: `14px`,
+              outline: `none`,
+              textOverflow: `ellipses`,
+              position: 'absolute',
+              left: '50%',
+              marginLeft: '-120px',
+              top: '2%',
+            }}
+          />
+        </Autocomplete>
+
+
   );
 };
 
-export default ListTest3;
+export default React.memo(ListTest3);

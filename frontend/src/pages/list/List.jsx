@@ -9,19 +9,23 @@ import {Grid} from '@material-ui/core';
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import { Autocomplete } from '@react-google-maps/api';
 
 const List = (props) => {
 
-
+  const [autocomplete, setAutocomplete] = useState(null);
   const dateRange = useLocation();
-  const { startDate, endDate } = dateRange.state;
+  const { startDate, endDate,  name,latitude, longitude } = dateRange.state;
   const [dragging, setDragging] = useState(false);
   
   const [stores, setStores] = useState([]);
   const [location, setLocation] = useState({});
   const [storeList, setStoreList] = useState([]);
 
-
+  console.log(dateRange.state)
+  console.log(name)
+  console.log(latitude)
+  console.log(longitude)
   // const [startDate, setStartDate] = useState("");
   // const [endDate, setEndDate] = useState("");
   const [ItineraryDay, setItineraryDay] = useState([]);
@@ -88,19 +92,19 @@ const List = (props) => {
   console.log(storeList)
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-        setLocation({ latitude, longitude });
+    // navigator.geolocation.getCurrentPosition(
+    //   (position) => {
+    //     const { latitude, longitude } = position.coords;
+    //     setLocation({ latitude, longitude });
         
-      },
-      () => {
-        console.log('Permission denied');
-      }
+    //   },
+    //   () => {
+    //     console.log('Permission denied');
+    //   }
       
-    );
+    setLocation({ latitude, longitude });
     
-  }, []);
+  }, [latitude,longitude]);
  
   
   useEffect(() => {
@@ -182,25 +186,49 @@ const List = (props) => {
 
   const handleDrop = (e, id) => {
     // Nanti tambahin id, lat, long dll
-    
+    console.log(e)
     e.preventDefault();
     const itemId = e.dataTransfer.getData("text/plain");
-    console.log(stores.find((item) => item.place_id === itemId))
-    const destinationName = stores.find((item) => item.place_id === itemId).name;
+    console.log(itemId)
 
-    const newStore = {
-      name: destinationName,
-    };
+    if (typeof stores.find((item) => item.place_id === itemId) === "undefined") {
+      console.log("The variable is undefined");
+      const newStore = {
+        name: itemId,
+      };
 
-    const newDestinations = [...ItineraryDay[id - 1].destinations, newStore];
+      const newDestinations = [...ItineraryDay[id - 1].destinations, newStore];
+
+      setItineraryDay((prevData) =>
+        prevData.map((Itinerary) =>
+          Itinerary.id === id ? { ...Itinerary, destinations: newDestinations} : Itinerary
+        )
+      );
+      
+
+    } else {
+
+      console.log("The variable is defined");
+
+      const destinationName = stores.find((item) => item.place_id === itemId).name;
+    
+      const newStore = {
+        name: destinationName,
+      };
+  
+      const newDestinations = [...ItineraryDay[id - 1].destinations, newStore];
+     
+      console.log(newStore)
+  
+      setItineraryDay((prevData) =>
+        prevData.map((Itinerary) =>
+          Itinerary.id === id ? { ...Itinerary, destinations: newDestinations} : Itinerary
+        )
+      );
+    }
+
+    
    
-    console.log(newStore)
-
-    setItineraryDay((prevData) =>
-      prevData.map((Itinerary) =>
-        Itinerary.id === id ? { ...Itinerary, destinations: newDestinations} : Itinerary
-      )
-    );
   };
 
 
@@ -211,11 +239,21 @@ const List = (props) => {
 
 console.log(ItineraryDay)
 
+  const onLoad = (autoC) => setAutocomplete(autoC);
+
+  const onPlaceChanged = () => {
+     const latitude = autocomplete.getPlace().geometry.location.lat();
+     const longitude = autocomplete.getPlace().geometry.location.lng();
+    
+     setLocation({ latitude, longitude });
+  };
+
+
   return (
     <div className="list">
     
       <div className="planning">
-      
+     <h1>{name}</h1> 
       <div>
 
       {ItineraryDay.map(day => {
@@ -234,8 +272,6 @@ console.log(ItineraryDay)
                   style={{
                     backgroundColor: dragging ? 'lightgray' : 'white',
                     flexGrow: '1',
-                    // height: '50px',
-                    // margin: '10px',
                     textAlign: 'left',
                     lineHeight: '50px',
                   }}
@@ -246,7 +282,11 @@ console.log(ItineraryDay)
 
                 {day.destinations.map((destination) => (
                   <div
-                  key={destination}
+                  id={destination.name}
+                  draggable="true"
+                  onDragStart={handleDragStart}
+                  onDragEnd={handleDragEnd}
+
                 > 
                   {destination.name}
                 </div>
@@ -269,6 +309,7 @@ console.log(ItineraryDay)
       
       <p>Latitude: {location.latitude}</p>
       <p>Longitude: {location.longitude}</p>
+      
    
       <h1>Nearby Restaurants</h1>
       <ul>{renderList()}</ul>
@@ -277,6 +318,13 @@ console.log(ItineraryDay)
       
       
       <div className="MapTempat">
+      <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}
+          options={{
+      componentRestrictions: { country: 'id' },
+      }}
+        >
+        <input type="text" />
+        </Autocomplete>
       <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
         bootstrapURLKeys={{ key: 'AIzaSyDmowFuG5A64eipfP8pOHIh0v4onGzDKYk' }}
