@@ -16,7 +16,7 @@ const TripCarousel = () => {
   console.log(data);
   console.log(loading);
 
-  if (!data) return <h1>SABAR ANJING MASIH LOADING</h1>;
+  if (data.length == 0) return <h1>SABAR ANJING MASIH LOADING</h1>;
 
   return (
     <div className="trip-list">
