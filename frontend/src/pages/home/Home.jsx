@@ -10,14 +10,24 @@ import TripCarousel from "../../components/TripList/TripCarousel";
 import "./home.css";
 
 const Home = () => {
+  let userDetails = (localStorage.getItem("user") !== 'undefined') ? JSON.parse(localStorage.getItem("user")) : null;
+  let userId = (userDetails) ? userDetails._id : '';
+
   return (
     <div>
       <div className="bgImage"> </div>
       <Navbar />
       <Header />
       <div className="homeContainer">
-        <h1 className="homeTitle">My Trips</h1>
-        <TripCarousel />
+      {userId 
+        ? 
+          <>
+            <h1 className="homeTitle">My Trips</h1>
+            <TripCarousel /> 
+            </>
+        : 
+          <></>
+      }
         <h1 className="homeTitle">Recommended Places</h1>
         <PlaceList />
         <h1 className="homeTitle">Features</h1>

@@ -26,7 +26,7 @@ export const IsLoginContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(IsLoginReducer, INITIAL_STATE);
 
   useEffect(() => {
-    localStorage.setItem('User', JSON.stringify(state.user));
+    localStorage.setItem('user', JSON.stringify(state.user));
   }, [state.user]);
 
   return (

@@ -1,16 +1,29 @@
 import mongoose, { mongo } from 'mongoose'
 
 const ItinerarySchema = new mongoose.Schema({
-    destination:{
-        type:[String]
+    title:{
+        type:String,
     },
-    budget:{
-        type:Number,
-        required:true
+    start_date:{
+        type:Date
     },
-    review:{
-        type:[String]
-    }
-});
+    end_date:{
+        type:Date
+    },
+    latitude:{
+        type:String
+    },
+    longtitude:{
+        type:String
+    },
+    itinerary_days:[{
+        date:Date,
+        destination:[{
+            name:{type:String},
+            lat:{type:String},
+            long:{type:String}
+        }]
+    }],
+},{timestamps: true});
 
 export default mongoose.model("Itinerary", ItinerarySchema);
