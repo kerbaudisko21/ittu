@@ -19,6 +19,9 @@ const UserSchema = new mongoose.Schema({
     review:{
         type:[String]
     },
+    userItinerary:{
+        type:[String]
+    },
     isAdmin:{
         type:Boolean,
         default:false
