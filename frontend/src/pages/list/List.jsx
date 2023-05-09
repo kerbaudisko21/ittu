@@ -10,6 +10,7 @@ import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { Autocomplete } from '@react-google-maps/api';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const List = (props) => {
 
@@ -21,6 +22,10 @@ const List = (props) => {
   const [stores, setStores] = useState([]);
   const [location, setLocation] = useState({});
   const [storeList, setStoreList] = useState([]);
+
+  const [type, setType] = useState('');
+
+ 
 
   console.log(dateRange.state)
   console.log(name)
@@ -59,6 +64,14 @@ const List = (props) => {
     
     setItineraryDay(itinerary);
   }
+
+
+  const handleTypeChange = (event) => {
+    setType(event.target.value);
+    console.log(event.target.value)
+  };
+
+
 
   useEffect(() => {
     function getDates() {
@@ -119,7 +132,7 @@ const List = (props) => {
     const request = {
       location: coordinatesLatLng,
       radius: '500',
-      type: ['restaurant'],
+      type: [type],
     };
     const callback = (results, status) => {
       
@@ -129,7 +142,7 @@ const List = (props) => {
     };
     
     service.nearbySearch(request, callback);
-  }, [props, location]);
+  }, [props, location, type]);
 
  
 
@@ -145,7 +158,7 @@ const List = (props) => {
   >
   {store.name} 
   </div>
-    // <li key={store.id}>{store.name} {store.rating} {store.geometry.location.lat()} {store.geometry.location.lng()} </li>);
+   
     )
   };
    
@@ -234,7 +247,6 @@ const List = (props) => {
 
   const handleDragOver = (event) => {
     event.preventDefault();
-    
   };
 
 console.log(ItineraryDay)
@@ -249,13 +261,14 @@ console.log(ItineraryDay)
   };
 
 
+
+
   return (
     <div className="list">
     
       <div className="planning">
      <h1>{name}</h1> 
       <div>
-
       {ItineraryDay.map(day => {
         
         return (
@@ -278,8 +291,9 @@ console.log(ItineraryDay)
                   
                 > 
                 Destination :
+                
                 </div>
-
+                  
                 {day.destinations.map((destination) => (
                   <div
                   id={destination.name}
@@ -289,15 +303,21 @@ console.log(ItineraryDay)
 
                 > 
                   {destination.name}
+                  
                 </div>
-              
+             
               ))}
+
+
+
+
+
           </div>
         );
       })}
     </div>
    
-
+      
       
        
   
@@ -309,7 +329,14 @@ console.log(ItineraryDay)
       
       <p>Latitude: {location.latitude}</p>
       <p>Longitude: {location.longitude}</p>
-      
+
+      <select value={type} onChange={handleTypeChange}>
+        <option value="">All</option>
+        <option value="restaurant">restaurant</option>
+        <option value="hotel">hotel</option>
+        <option value="atm">atm</option>
+        <option value="attraction">attraction</option>
+      </select>
    
       <h1>Nearby Restaurants</h1>
       <ul>{renderList()}</ul>
