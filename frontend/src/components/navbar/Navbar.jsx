@@ -24,9 +24,9 @@ const Navbar = () => {
   const handleClickLogout = async (e) => {
     e.preventDefault();
     localStorage.removeItem('user');
-    window.location.reload('true');
     alert('you are log out');
     dispatch({ type: 'LOGOUT' });
+    window.location.href = '/login';
   };
 
 

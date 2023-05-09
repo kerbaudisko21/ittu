@@ -41,6 +41,12 @@ export const getCountry = async(req,res,next) =>{
     }
 }
 
+export const getCountries = async(req,res) =>{
+    const countries = await Country.find({}).sort({createdAt: -1})
+
+    res.status(200).json(countries);
+}
+
 export const getCountryCities = async (req,res,next)=>{
     try {
         const country = await Country.findById(req.params.id)

@@ -1,5 +1,5 @@
 import express  from "express";
-import { UpdateCity, createCity, deleteCity } from "../controllers/city.js";
+import { UpdateCity, createCity, deleteCity, getCities } from "../controllers/city.js";
 
 const router = express.Router();
 
@@ -11,6 +11,8 @@ router.put("/:id", UpdateCity);
 
 //DELETE
 router.delete("/:id/:countryid", deleteCity);
+
+router.get("/", getCities);
 
 
 

@@ -27,10 +27,9 @@ const Login = (props) => {
     dispatch({ type: 'LOGIN_START' });
     try {
       const res = await axios.post('/auth/login', credentials);
-      console.log(res);
       dispatch({ type: 'LOGIN_SUCCESS', payload: res.data.details });
       console.log({ payload: res.data.details });
-      navigate('/');
+      window.location.href = '/';
     } catch (err) {
       dispatch({ type: 'LOGIN_FAILURE', payload: err.response.data });
     }
@@ -45,18 +44,17 @@ const Login = (props) => {
       dispatch({ type: 'LOGIN_SUCCESS', payload: res.data.details });
       console.log({ payload: res.data.details });
       alert('user has been created!');
-      navigate('/');
+      window.location.href = '/';
     } catch (err) {
       dispatch({ type: 'LOGIN_FAILURE', payload: err.response.data });
     }
   };
 
-  // const [isRegistered, setStatus] = useState(isLogin);
   const [isRegistered, setStatus] = useState(props.isLogin);
 
   return (
     <div className="main">
-      {console.log(props)}
+      {console.log(React.version)}
       <Navbar />
       <div className="subMain">
         <div className="subMainImage"></div>

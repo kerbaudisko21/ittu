@@ -42,3 +42,9 @@ export const deleteCity = async(req,res,next) =>{
         next(err)
     }
 }
+
+export const getCities = async(req,res) =>{
+    const cities = await City.find({}).sort({createdAt: -1})
+
+    res.status(200).json(cities);
+}

@@ -5,7 +5,9 @@ import authRoute from "./routes/auth.js"
 import usersRoute from "./routes/users.js"
 import countriesRoute from "./routes/countries.js"
 import citiesRoute from "./routes/cities.js"
+import destinationTypesRoute from "./routes/destinationTypes.js"
 import cookieParser from "cookie-parser";
+import ItineraryRoute from "./routes/itinerary.js";
 
 mongoose.set("strictQuery", true);
 const app = express();
@@ -36,6 +38,8 @@ app.use("/api/auth", authRoute);
 app.use("/api/users", usersRoute);
 app.use("/api/countries", countriesRoute);
 app.use("/api/cities", citiesRoute);
+app.use("/api/destinationTypes", destinationTypesRoute);
+app.use("/api/itinerary", ItineraryRoute);
 
 app.use((err,req,res,next)=>{
   const errStatus  = err.status || 500
