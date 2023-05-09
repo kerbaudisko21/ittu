@@ -16,7 +16,7 @@ const TripCarousel = () => {
   console.log(data);
   console.log(loading);
 
-  if (data.length == 0) return <h1>SABAR ANJING MASIH LOADING</h1>;
+  if (data.length == 0) return <h1>No Data Trip</h1>;
 
   return (
     <div className="trip-list">
@@ -25,7 +25,7 @@ const TripCarousel = () => {
         grabCursor={true}
         modules={[FreeMode]}
         className="trip-carousel"
-        slidesPerView={4}
+        slidesPerView={data.length < 4 ? data.length : 4}
         gap={3}
         // autoHeight={true}
         spaceBetween={50}
