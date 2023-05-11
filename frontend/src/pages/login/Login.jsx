@@ -8,7 +8,7 @@ import './login.css';
 import Navbar from '../../components/navbar/Navbar';
 import { FcGoogle } from 'react-icons/fc';
 import { auth } from './../../firebase';
-import { GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 const provider = new GoogleAuthProvider();
 // import { IsLoginContext } from '../../context/isLoginContext';
 
