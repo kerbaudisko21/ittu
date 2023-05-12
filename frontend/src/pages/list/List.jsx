@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "./list.css";
 
-
 import { GoogleApiWrapper } from 'google-maps-react';
 import GoogleMapReact from 'google-map-react';
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
@@ -11,19 +10,8 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
 
 
-
-
 import ServiceCommandUnit from "../listTest/ServiceCommandUnit";
 import DndStore from '../listTest/DndStore';
-
-
-
-
-
-// a little function to help us with reordering the result
-
-
-
 
 const grid = 8;
 
