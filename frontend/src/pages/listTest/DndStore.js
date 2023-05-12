@@ -29,19 +29,21 @@ const getListStyle = (isDraggingOver) => ({
   margin: "10px 0"
 });
 
-export const ServiceCommandUnit = ({ type, destinations }) => {
-  console.log("type " + type)
-  console.log({destinations})
+export const DndStore = ({ stores }) => {
+
+  console.log({stores})
+
   return (
-    <Droppable droppableId={type} type={`droppableSubItem`}>
+    
+    <Droppable droppableId="Stores" type={`droppableSubItem`} isDropDisabled={true}>
       {(provided, snapshot) => (
         <div
           ref={provided.innerRef}
           {...provided.droppableProps}
           style={getListStyle(snapshot.isDraggingOver)}
         >
-          {destinations.map((item, index) => (
-            <Draggable key={item.id} draggableId={item.id} index={index}>
+          {stores.map((item, index) => (
+            <Draggable key={item.place_id} draggableId={item.place_id} index={index}>
               {(provided, snapshot) => (
                 <>
                   <div
@@ -52,8 +54,7 @@ export const ServiceCommandUnit = ({ type, destinations }) => {
                       provided.draggableProps.style
                     )}
                   >
-                    {item.name} 
-                  
+                    {item.name}
                     <span
                       {...provided.dragHandleProps}
                       style={{
@@ -77,4 +78,4 @@ export const ServiceCommandUnit = ({ type, destinations }) => {
   );
 };
 
-export default ServiceCommandUnit;
+export default DndStore;
