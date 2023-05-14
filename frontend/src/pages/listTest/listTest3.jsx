@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { createRoot } from "react-dom/client";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 import ServiceCommandUnit from "./ServiceCommandUnit";
@@ -36,8 +35,9 @@ const getListStyle = (isDraggingOver) => ({
 });
 
 const ListTest3 = () => {
-  const [items, setItems] = useState(static_items);
-  debugger;
+  const [ItineraryDay, setItineraryDay] = useState(static_items);
+  
+  // debugger;
   const onDragEnd = (result) => {
     // dropped outside the list
     console.log(result);
@@ -48,20 +48,22 @@ const ListTest3 = () => {
     const sourceIndex = result.source.index;
     const destIndex = result.destination.index;
     if (result.type === "droppableItem") {
-      setItems(reorder(items, sourceIndex, destIndex));
+      setItineraryDay(reorder(ItineraryDay, sourceIndex, destIndex));
     } else if (result.type === "droppableSubItem") {
-      const itemSubItemMap = items.reduce((acc, item) => {
-        acc[item.id] = item.subItems;
+      const itemSubItemMap = ItineraryDay.reduce((acc, item) => {
+        acc[item.id] = item.destination;
+        console.log(acc)
         return acc;
       }, {});
-
+      console.log({itemSubItemMap})
       const sourceParentId = result.source.droppableId;
       const destParentId = result.destination.droppableId;
-
+      console.log(sourceParentId)
       const sourceSubItems = itemSubItemMap[sourceParentId];
+      console.log(sourceSubItems)
       const destSubItems = itemSubItemMap[destParentId];
 
-      let newItems = [...items];
+      let newItems = [...ItineraryDay];
 
       /** In this case subItems are reOrdered inside same Parent */
       if (sourceParentId === destParentId) {
@@ -72,11 +74,11 @@ const ListTest3 = () => {
         );
         newItems = newItems.map((item) => {
           if (item.id === sourceParentId) {
-            item.subItems = reorderedSubItems;
+            item.destination = reorderedSubItems;
           }
           return item;
         });
-        setItems(newItems);
+        setItineraryDay(newItems);
       } else {
         let newSourceSubItems = [...sourceSubItems];
         const [draggedItem] = newSourceSubItems.splice(sourceIndex, 1);
@@ -85,18 +87,18 @@ const ListTest3 = () => {
         newDestSubItems.splice(destIndex, 0, draggedItem);
         newItems = newItems.map((item) => {
           if (item.id === sourceParentId) {
-            item.subItems = newSourceSubItems;
+            item.destination = newSourceSubItems;
           } else if (item.id === destParentId) {
-            item.subItems = newDestSubItems;
+            item.destination = newDestSubItems;
           }
           return item;
         });
-        setItems(newItems);
+        setItineraryDay(newItems);
       }
     }
   };
 
-  console.log(items)
+  console.log(ItineraryDay)
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable" type="droppableItem">
@@ -106,7 +108,7 @@ const ListTest3 = () => {
             {...provided.droppableProps}
             style={getListStyle(snapshot.isDraggingOver)}
           >
-            {items.map((item, index) => (
+            {ItineraryDay.map((item, index) => (
               <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided, snapshot) => (
                   <>
@@ -130,7 +132,7 @@ const ListTest3 = () => {
                         Drag
                       </span>
                       <ServiceCommandUnit
-                        subItems={item.subItems}
+                        destinations={item.destination}
                         type={item.id}
                       />
                     </div>
@@ -143,6 +145,8 @@ const ListTest3 = () => {
           </div>
         )}
       </Droppable>
+
+       
     </DragDropContext>
   );
 };
