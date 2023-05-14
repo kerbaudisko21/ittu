@@ -306,6 +306,20 @@ const List = (props) => {
 
 
 
+  const updateArray = (index, value) => {
+    let Itinerary = [...ItineraryDay];
+    value = value.map((item) => ({ ...item, id: uuidv4()}))
+
+    Itinerary = Itinerary.map((item) => {
+      if (item.id === index) {
+  
+        item.destinations = value;
+      }
+      return item;
+    });
+    setItineraryDay(Itinerary);
+    
+  };
 
   return (
     <div className="list">
@@ -339,10 +353,12 @@ const List = (props) => {
                       <ServiceCommandUnit
                         destinations={item.destinations}
                         type={item.id}
-                      />
+                        addPlace={updateArray}
+
+                      />                          
                     </div>
-                    {provided.placeholder}
                   </>
+                
                 )}
               </Draggable>
             ))}
@@ -350,9 +366,6 @@ const List = (props) => {
           </div>
         )}
       </Droppable>
-   
-
-    
     </div>
   
       </div>
