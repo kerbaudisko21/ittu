@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from 'react';
 import { Droppable, Draggable } from "react-beautiful-dnd";
+import { Autocomplete } from '@react-google-maps/api';
 
 const grid = 8;
 
@@ -29,10 +30,29 @@ const getListStyle = (isDraggingOver) => ({
   margin: "10px 0"
 });
 
-export const ServiceCommandUnit = ({ type, destinations }) => {
+export const ServiceCommandUnit = ({ type, destinations,addPlace }) => {
   console.log("type " + type)
   console.log({destinations})
+
+  
+
+  const [autocomplete, setAutocomplete] = useState(null);
+
+  const onLoad = (autoC) => setAutocomplete(autoC);
+
+  const onPlaceChanged = () => {
+   
+   
+    const NewDestination = autocomplete.getPlace();
+    console.log(NewDestination)
+    destinations = [...destinations, NewDestination];
+    console.log(destinations)
+    addPlace(type, destinations)
+  };
+ 
+  
   return (
+    
     <Droppable droppableId={type} type={`droppableSubItem`}>
       {(provided, snapshot) => (
         <div
@@ -65,15 +85,27 @@ export const ServiceCommandUnit = ({ type, destinations }) => {
                       Drag
                     </span>
                   </div>
+                  
                   {provided.placeholder}
                 </>
               )}
+              
             </Draggable>
+            
           ))}
           {provided.placeholder}
+            <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}
+            options={{
+            componentRestrictions: { country: 'id' },
+            }}
+>
+<input type="text" />
+
+</Autocomplete>
         </div>
       )}
     </Droppable>
+   
   );
 };
 
