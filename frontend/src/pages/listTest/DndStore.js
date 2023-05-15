@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
-import { Autocomplete } from '@react-google-maps/api';
 
 const grid = 8;
 
@@ -30,38 +29,21 @@ const getListStyle = (isDraggingOver) => ({
   margin: "10px 0"
 });
 
-export const ServiceCommandUnit = ({ type, destinations,addPlace }) => {
-  console.log("type " + type)
-  console.log({destinations})
+export const DndStore = ({ stores }) => {
 
-  
+  console.log({stores})
 
-  const [autocomplete, setAutocomplete] = useState(null);
-
-  const onLoad = (autoC) => setAutocomplete(autoC);
-
-  const onPlaceChanged = () => {
-   
-   
-    const NewDestination = autocomplete.getPlace();
-    console.log(NewDestination)
-    destinations = [...destinations, NewDestination];
-    console.log(destinations)
-    addPlace(type, destinations)
-  };
- 
-  
   return (
     
-    <Droppable droppableId={type} type={`droppableSubItem`}>
+    <Droppable droppableId="Stores" type={`droppableSubItem`} isDropDisabled={true}>
       {(provided, snapshot) => (
         <div
           ref={provided.innerRef}
           {...provided.droppableProps}
           style={getListStyle(snapshot.isDraggingOver)}
         >
-          {destinations.map((item, index) => (
-            <Draggable key={item.id} draggableId={item.id} index={index}>
+          {stores.map((item, index) => (
+            <Draggable key={item.place_id} draggableId={item.place_id} index={index}>
               {(provided, snapshot) => (
                 <>
                   <div
@@ -72,8 +54,7 @@ export const ServiceCommandUnit = ({ type, destinations,addPlace }) => {
                       provided.draggableProps.style
                     )}
                   >
-                    {item.name} 
-                  
+                    {item.name}
                     <span
                       {...provided.dragHandleProps}
                       style={{
@@ -85,28 +66,16 @@ export const ServiceCommandUnit = ({ type, destinations,addPlace }) => {
                       Drag
                     </span>
                   </div>
-                  
                   {provided.placeholder}
                 </>
               )}
-              
             </Draggable>
-            
           ))}
           {provided.placeholder}
-            <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}
-            options={{
-            componentRestrictions: { country: 'id' },
-            }}
->
-<input type="text" />
-
-</Autocomplete>
         </div>
       )}
     </Droppable>
-   
   );
 };
 
-export default ServiceCommandUnit;
+export default DndStore;
