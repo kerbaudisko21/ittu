@@ -387,8 +387,8 @@ const List = (props) => {
       console.log(options)
     };
 
-    
-    
+  
+
 
   return (
     <div className="list">
@@ -426,6 +426,7 @@ const List = (props) => {
                         type={item.id}
                         addPlace={updateArray}
                         showDirection={updateOptions}
+                        response={response}
 
                       />                          
                     </div>
@@ -475,6 +476,7 @@ const List = (props) => {
         zoom={15} 
         center={center}
         mapContainerStyle={containerStyle}
+      
         >
           
          

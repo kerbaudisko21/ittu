@@ -30,10 +30,11 @@ const getListStyle = (isDraggingOver) => ({
   margin: "10px 0"
 });
 
-export const ServiceCommandUnit = ({ type, destinations, addPlace, showDirection }) => {
+export const ServiceCommandUnit = ({ type, destinations, addPlace, showDirection,response }) => {
   console.log("type " + type)
   console.log({destinations})
-
+  console.log(response)
+ 
   
 
   const [autocomplete, setAutocomplete] = useState(null);
@@ -78,7 +79,7 @@ export const ServiceCommandUnit = ({ type, destinations, addPlace, showDirection
           {...provided.droppableProps}
           style={getListStyle(snapshot.isDraggingOver)}
         >
-           <button onClick={getDirection}>dd</button>
+           <button onClick={getDirection}>Get Direction</button>
           {destinations.map((item, index) => (
             <Draggable key={item.id} draggableId={item.id} index={index}>
               {(provided, snapshot) => (
@@ -104,15 +105,45 @@ export const ServiceCommandUnit = ({ type, destinations, addPlace, showDirection
                       Drag
                     </span>
                   </div>
-                  
+        
+        {(() => {
+        if (index !== destinations.length -1 && response !== null) {
+          if( index < response.routes[0].legs.length ){
+          return (
+            <div>
+              {response.routes[0].legs[index].distance.text}
+             ||
+             {response.routes[0].legs[index].duration.text}
+             </div>
+          )}
+        } 
+        else {
+          return (
+            <div></div>
+          )
+        }
+
+
+      })()}
+
+
                   {provided.placeholder}
+
+
+                  
                 </>
-              )}
-              
-            </Draggable>
+                
+              )
+              }
             
-          ))}
+            </Draggable>
+           
+            
+          )
+          )}
+             
           {provided.placeholder}
+          
             <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}
             options={{
             componentRestrictions: { country: 'id' },
