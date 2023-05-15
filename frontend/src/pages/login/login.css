@@ -172,3 +172,9 @@ form input {
   color: black;
   margin-bottom: 0;
 }
+
+.linkAneh {
+  text-decoration: none;
+  font-size: 2vh;
+  display: flex;
+}

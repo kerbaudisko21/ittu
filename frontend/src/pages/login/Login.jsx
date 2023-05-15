@@ -1,8 +1,8 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useContext } from 'react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import './login.css';
 import Navbar from '../../components/navbar/Navbar';
@@ -83,7 +83,11 @@ const Login = (props) => {
     }
   };
 
-  const [isRegistered, setStatus] = useState(props.isLogin);
+  const [isRegistered, setStatus] = useState();
+
+  useEffect(() => {
+    setStatus(props.isLogin);
+  }, []);
 
   console.log(isRegistered);
 
@@ -134,9 +138,11 @@ const Login = (props) => {
               {error && <span>{error.message}</span>}
               <p className="message">
                 {!isRegistered ? 'Already have account ? ' : 'Don’t have account ? '}
-                <button className="btnAccount" onClick={() => setStatus(!isRegistered)}>
-                  {!isRegistered ? 'Login' : 'Sign Up'}
-                </button>
+                <Link className="linkAneh" to={'/login'}>
+                  <button className="btnAccount" onClick={() => setStatus(!isRegistered)}>
+                    {!isRegistered ? 'Login' : 'Sign Up'}
+                  </button>
+                </Link>
               </p>
             </form>
           </div>
