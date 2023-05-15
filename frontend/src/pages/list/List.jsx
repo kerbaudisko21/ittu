@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import "./list.css";
 
 import { GoogleApiWrapper } from 'google-maps-react';
@@ -8,6 +8,8 @@ import { useLocation } from "react-router-dom";
 import { Autocomplete } from '@react-google-maps/api';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
+import {GoogleMap, DirectionsService, DirectionsRenderer, Marker} from "@react-google-maps/api";
+
 
 
 import ServiceCommandUnit from "../listTest/ServiceCommandUnit";
@@ -157,11 +159,8 @@ const List = (props) => {
     console.log(event.target.value)
   };
 
-  const handleChange = ({center}) => {
-    setLocation( {latitude: center.lat,
-      longitude: center.lng} );
 
-  }
+
 
   const onLoad = (autoC) => setAutocomplete(autoC);
 
@@ -321,10 +320,82 @@ const List = (props) => {
     
   };
 
+  const containerStyle = {
+    width: "100%",
+    height: "800px",
+   };
+
+   const center = {
+     lat: location.latitude,
+      lng: location.longitude,
+   };
+
+
+   const [response, setResponse] = useState(null);
+   let [options, setOptions] = useState([])
+   let [stopPoints, setStopPoints] = useState([]) 
+
+   const directionsCallback = (res) => {
+    if (res !== null && response === null) {
+    console.log(res)
+    setResponse(res);
+    }
+    };
+  
+  
+    const updateOptions = (directions) => {
+    setOptions(null)
+    setResponse(null)
+     console.log(directions)
+
+     if(directions.length <= 1 ){
+      return
+     }
+      else if(directions.length === 2){
+      options = {
+          destination: directions[1],
+          origin: directions[0],
+          travelMode: "DRIVING",
+          }
+        }
+      else if (directions.length > 2){
+        let i = 0;
+        directions.map((item,index) => {
+          if(index!== 0 && index!== directions.length-1){
+            stopPoints[i] = {
+           location: item,
+           stopover: true,
+         };
+         i++;
+        }
+         console.log(stopPoints)
+         return stopPoints;
+       }
+       );
+
+       options = {
+        destination: directions[directions.length-1],
+        origin: directions[0],
+        travelMode: "DRIVING",
+        waypoints: stopPoints,
+
+          
+        }
+
+      }
+      setOptions(options)
+      console.log(options)
+    };
+
+    
+    
+
   return (
     <div className="list">
+      
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="planning">
+    
      <h1>{name}</h1> 
       <div>
       
@@ -354,6 +425,7 @@ const List = (props) => {
                         destinations={item.destinations}
                         type={item.id}
                         addPlace={updateArray}
+                        showDirection={updateOptions}
 
                       />                          
                     </div>
@@ -398,36 +470,46 @@ const List = (props) => {
         >
         <input type="text" />
         </Autocomplete>
-      <div style={{ height: '100vh', width: '100%' }}>
-        <GoogleMapReact
-        bootstrapURLKeys={{ key: 'AIzaSyDmowFuG5A64eipfP8pOHIh0v4onGzDKYk' }}
-        defaultZoom={17} 
-        center={
-         { lat: location.latitude,
-          lng: location.longitude,}
-          
-        }
-        onChange={handleChange}
+     
+        <GoogleMap
+        zoom={15} 
+        center={center}
+        mapContainerStyle={containerStyle}
         >
           
-           {stores.map((store) => (
-            <div   
-            lat={store.geometry.location.lat()}
-            lng={store.geometry.location.lng()}
-            text={store.name}
-            >            
-            <LocationOnOutlinedIcon
-            color="primary" fontSize="large" 
-          
-            />
-          </div>
-        ))}
+         
+          {/* {stores.map((store) => (
+          <Marker position={{
+            lat : store.geometry.location.lat(),
+            lng : store.geometry.location.lng()
+          }} />
+           ))} */}
+           
 
-          </GoogleMapReact>          
+           {response !== null && (
+ <DirectionsRenderer
+ // required
+ options={{
+ directions: response,
+ }}
+ />
+ )}
+
+ <DirectionsService
+ // required
+ options={options}
+ 
+ // required
+ callback={directionsCallback}
+ />
+
+
+
+          </GoogleMap>          
       </div>
 
         </div>
-    </div>
+  
   );
 };
 

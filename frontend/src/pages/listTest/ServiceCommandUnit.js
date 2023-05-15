@@ -30,7 +30,7 @@ const getListStyle = (isDraggingOver) => ({
   margin: "10px 0"
 });
 
-export const ServiceCommandUnit = ({ type, destinations,addPlace }) => {
+export const ServiceCommandUnit = ({ type, destinations, addPlace, showDirection }) => {
   console.log("type " + type)
   console.log({destinations})
 
@@ -49,10 +49,28 @@ export const ServiceCommandUnit = ({ type, destinations,addPlace }) => {
     console.log(destinations)
     addPlace(type, destinations)
   };
+  
+  let [direction, setDirection] = useState([]);
+
+  const getDirection = () => {
+    destinations.map((item,index) => {
+      direction[index] ={
+        lat : item.geometry.location.lat(),
+        lng : item.geometry.location.lng()
+      }
+      console.log(direction)
+      return direction;
+    }
+    
+    );
+    setDirection(direction)
+    showDirection(direction)
+  }
  
+
   
   return (
-    
+   
     <Droppable droppableId={type} type={`droppableSubItem`}>
       {(provided, snapshot) => (
         <div
@@ -60,6 +78,7 @@ export const ServiceCommandUnit = ({ type, destinations,addPlace }) => {
           {...provided.droppableProps}
           style={getListStyle(snapshot.isDraggingOver)}
         >
+           <button onClick={getDirection}>dd</button>
           {destinations.map((item, index) => (
             <Draggable key={item.id} draggableId={item.id} index={index}>
               {(provided, snapshot) => (
