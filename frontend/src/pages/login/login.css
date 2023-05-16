@@ -58,6 +58,7 @@
   width: 30%;
   /* height: 100%; */
   display: flexbox;
+  max-height: 75vh;
 
   border-radius: 0 25px 25px 0;
 }
@@ -65,6 +66,7 @@
 .container {
   display: fixed;
   padding: 10% 20%;
+  height: 63vh;
 }
 .LoginTitle {
   display: flex;
@@ -75,11 +77,15 @@
   color: white;
   font-weight: 400;
   -webkit-text-stroke: 0.4px black;
-  margin: 20% 0;
+  margin: 10% 0;
 }
 
 form {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 
 form label {
@@ -113,8 +119,11 @@ form input {
 }
 
 .formFooter {
-  padding-top: 10%;
+  padding-top: 5%;
   color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .btnSubmit {
   appearance: none;
@@ -125,9 +134,17 @@ form input {
   /* paddin-bottom: 1%; */
   color: white;
   border-radius: 16px;
-  width: 60%;
+  min-width: 60%;
   font-size: 2vh;
   cursor: pointer;
+}
+
+.google {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  justify-content: center;
+  align-items: center;
 }
 
 .message {
@@ -154,4 +171,10 @@ form input {
 .error {
   color: black;
   margin-bottom: 0;
+}
+
+.linkAneh {
+  text-decoration: none;
+  font-size: 2vh;
+  display: flex;
 }

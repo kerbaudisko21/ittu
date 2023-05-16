@@ -1,7 +1,7 @@
 import { createContext, useEffect, useReducer } from 'react';
 
 const INITIAL_STATE = {
-  user:  (localStorage.getItem("user") !== 'undefined') ? JSON.parse(localStorage.getItem("user")) : null,
+  user: localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : null,
   loading: false,
   error: null,
 };
@@ -10,6 +10,24 @@ export const AuthContext = createContext(INITIAL_STATE);
 
 const AuthReducer = (state, action) => {
   switch (action.type) {
+    case 'REGIS_START':
+      return {
+        user: null,
+        loading: true,
+        error: null,
+      };
+    case 'REGIS_SUCCESS':
+      return {
+        user: null,
+        loading: false,
+        error: null,
+      };
+    case 'REGIS_FAILURE':
+      return {
+        user: null,
+        loading: false,
+        error: action.payload,
+      };
     case 'LOGIN_START':
       return {
         user: null,
@@ -43,7 +61,7 @@ export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
 
   useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(state.user));
+    localStorage.setItem('user', JSON.stringify(state.user));
   }, [state.user]);
 
   return (
