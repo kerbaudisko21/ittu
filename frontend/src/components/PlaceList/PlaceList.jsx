@@ -5,7 +5,7 @@ import useFetch from "../../hooks/useFetch";
 const PlaceList = () => {
 
   const {data, loading, error} = useFetch("/countries");
-
+  console.log(data);
   return (
     <div className="placeList">
       {loading ? 
