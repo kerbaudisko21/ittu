@@ -332,22 +332,30 @@ const List = (props) => {
 
 
    const [response, setResponse] = useState(null);
+   const [OnArray, setOnArray] = useState(null);
    let [options, setOptions] = useState([])
    let [stopPoints, setStopPoints] = useState([]) 
 
    const directionsCallback = (res) => {
     if (res !== null && response === null) {
     console.log(res)
+
+    res = {
+      ...res,
+      id: OnArray
+    }
+    
+    console.log(res)
     setResponse(res);
     }
     };
   
   
-    const updateOptions = (directions) => {
+    const updateOptions = (type,directions) => {
     setOptions(null)
     setResponse(null)
      console.log(directions)
-
+    
      if(directions.length <= 1 ){
       return
      }
@@ -383,6 +391,9 @@ const List = (props) => {
         }
 
       }
+      console.log(type)
+      setOnArray(type)
+      console.log(OnArray)
       setOptions(options)
       console.log(options)
     };

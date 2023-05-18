@@ -65,7 +65,7 @@ export const ServiceCommandUnit = ({ type, destinations, addPlace, showDirection
     
     );
     setDirection(direction)
-    showDirection(direction)
+    showDirection(type,direction)
   }
  
 
@@ -107,15 +107,15 @@ export const ServiceCommandUnit = ({ type, destinations, addPlace, showDirection
                   </div>
         
         {(() => {
-        if (index !== destinations.length -1 && response !== null) {
+        if (index !== destinations.length -1 && response !== null ) {
           if( index < response.routes[0].legs.length ){
-          return (
+            if(type === response.id){return (
             <div>
               {response.routes[0].legs[index].distance.text}
              ||
              {response.routes[0].legs[index].duration.text}
              </div>
-          )}
+          )}}
         } 
         else {
           return (
