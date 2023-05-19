@@ -45,7 +45,7 @@ const List = (props) => {
   const { startDate, endDate,  name,latitude, longitude } = dateRange.state;
   const [stores, setStores] = useState([]);
   const [location, setLocation] = useState({});
-  const [type, setType] = useState('');
+  const [type, setType] = useState('restaurant');
   const [ItineraryDay, setItineraryDay] = useState([]);
   
   useEffect(() => {
@@ -112,18 +112,22 @@ const List = (props) => {
     );
     const request = {
       location: coordinatesLatLng,
-      radius: '500',
+      radius: '5000',
       type: [type],
     };
     const callback = (results, status) => {
       
       if (status === google.maps.places.PlacesServiceStatus.OK) {
+
+         results = results.filter((item) => item.business_status === "OPERATIONAL" && item.user_ratings_total > 50);
         setStores(results);
       }
     };
     
     service.nearbySearch(request, callback);
   }, [props, location, type]);
+
+  
   
 
   async function addWeatherToItinerary(itinerary) {
@@ -460,11 +464,9 @@ const List = (props) => {
       <p>Longitude: {location.longitude}</p>
 
       <select value={type} onChange={handleTypeChange}>
-        <option value="">All</option>
         <option value="restaurant">restaurant</option>
         <option value="lodging">hotel</option>
-        <option value="atm">atm</option>
-        <option value="attraction">attraction</option>
+        <option value="tourist_attraction">attraction</option>
       </select>
    
       <h1>Nearby Restaurants</h1>
