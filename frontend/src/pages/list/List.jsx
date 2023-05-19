@@ -402,9 +402,29 @@ const List = (props) => {
       console.log(options)
     };
 
-  
 
+    const deleteItem = (deleteId,type) => {
+      
+      console.log(deleteId)
+      console.log(type)
 
+      let newItinerary ;
+
+      newItinerary = ItineraryDay.map((item) => {
+        console.log(item)
+        if (item.id === type) {
+        const newDestination = [...item.destinations];
+        newDestination.splice(deleteId, 1);
+        console.log(newDestination)
+        item.destinations = newDestination
+        }
+        return item;
+      });
+      
+     setItineraryDay(newItinerary) 
+    }
+
+    console.log(ItineraryDay)
   return (
     <div className="list">
       
@@ -442,6 +462,7 @@ const List = (props) => {
                         addPlace={updateArray}
                         showDirection={updateOptions}
                         response={response}
+                        deleteItem={deleteItem}
 
                       />                          
                     </div>
