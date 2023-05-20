@@ -339,6 +339,7 @@ const List = (props) => {
    const [OnArray, setOnArray] = useState(null);
    let [options, setOptions] = useState([])
    let [stopPoints, setStopPoints] = useState([]) 
+   const [markerOn, SetMarkerOn] = useState(false);
 
    const directionsCallback = (res) => {
     if (res !== null && response === null) {
@@ -400,6 +401,7 @@ const List = (props) => {
       console.log(OnArray)
       setOptions(options)
       console.log(options)
+      SetMarkerOn(false)
     };
 
 
@@ -425,6 +427,11 @@ const List = (props) => {
     }
 
     console.log(ItineraryDay)
+
+    const ShowMarker = () => {
+      SetMarkerOn(true)
+    }
+
   return (
     <div className="list">
       
@@ -480,7 +487,7 @@ const List = (props) => {
       </div>
       <div className="placemap">
    
-      
+      <button onClick={ShowMarker}>Show Marker</button>
       <p>Latitude: {location.latitude}</p>
       <p>Longitude: {location.longitude}</p>
 
@@ -512,24 +519,38 @@ const List = (props) => {
         mapContainerStyle={containerStyle}
       
         >
-          
-         
-          {/* {stores.map((store) => (
+              {(() => {
+        if (markerOn === true ) {
+              return (
+            <div>
+              {stores.map((store) => (
           <Marker position={{
             lat : store.geometry.location.lat(),
             lng : store.geometry.location.lng()
           }} />
-           ))} */}
-           
-
-           {response !== null && (
- <DirectionsRenderer
+           ))}
+             </div>
+          )
+        } 
+        else if (response !== null && markerOn === false ){
+          return (
+            <div>
+               <DirectionsRenderer
  // required
  options={{
  directions: response,
  }}
  />
- )}
+            </div>
+          )
+        }
+      })()}
+       
+        
+         
+         
+          
+           
 
  <DirectionsService
  // required
