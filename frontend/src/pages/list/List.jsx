@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 import { Autocomplete } from '@react-google-maps/api';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
-import {GoogleMap, DirectionsService, DirectionsRenderer, Marker} from "@react-google-maps/api";
+import {GoogleMap, DirectionsService, DirectionsRenderer, Marker, InfoWindow } from "@react-google-maps/api";
 
 
 
@@ -432,6 +432,16 @@ const List = (props) => {
       SetMarkerOn(true)
     }
 
+    const [selectedMarker, setSelectedMarker] = useState(null);
+
+    const handleMouseOver = (marker) => {
+      setSelectedMarker(marker);
+    };
+  
+    const handleMouseOut = () => {
+      setSelectedMarker(null);
+    };
+
   return (
     <div className="list">
       
@@ -527,7 +537,20 @@ const List = (props) => {
           <Marker position={{
             lat : store.geometry.location.lat(),
             lng : store.geometry.location.lng()
-          }} />
+            
+          }} 
+          onMouseOver={() => handleMouseOver(store.place_id)}
+          onMouseOut={handleMouseOut}
+          
+          >
+          {selectedMarker === store.place_id && (
+            <InfoWindow>
+              <div>
+                <h3>{store.name}</h3>
+              </div>
+            </InfoWindow>
+          )}
+            </Marker>
            ))}
              </div>
           )
