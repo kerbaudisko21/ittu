@@ -9,7 +9,7 @@ import { useLocation } from "react-router-dom";
 import { Autocomplete } from '@react-google-maps/api';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
-import {GoogleMap, DirectionsService, DirectionsRenderer, Marker} from "@react-google-maps/api";
+import {GoogleMap, DirectionsService, DirectionsRenderer, Marker, InfoWindow } from "@react-google-maps/api";
 import {format} from 'date-fns'
 
 
@@ -47,7 +47,7 @@ const List = (props) => {
   const { startDate, endDate,  name,latitude, longitude } = dateRange.state;
   const [stores, setStores] = useState([]);
   const [location, setLocation] = useState({});
-  const [type, setType] = useState('');
+  const [type, setType] = useState('restaurant');
   const [ItineraryDay, setItineraryDay] = useState([]);
   
   useEffect(() => {
@@ -114,18 +114,22 @@ const List = (props) => {
     );
     const request = {
       location: coordinatesLatLng,
-      radius: '500',
+      radius: '5000',
       type: [type],
     };
     const callback = (results, status) => {
       
       if (status === google.maps.places.PlacesServiceStatus.OK) {
+
+         results = results.filter((item) => item.business_status === "OPERATIONAL" && item.user_ratings_total > 50);
         setStores(results);
       }
     };
     
     service.nearbySearch(request, callback);
   }, [props, location, type]);
+
+  
   
 
   async function addWeatherToItinerary(itinerary) {
@@ -334,22 +338,31 @@ const List = (props) => {
 
 
    const [response, setResponse] = useState(null);
+   const [OnArray, setOnArray] = useState(null);
    let [options, setOptions] = useState([])
    let [stopPoints, setStopPoints] = useState([]) 
+   const [markerOn, SetMarkerOn] = useState(false);
 
    const directionsCallback = (res) => {
     if (res !== null && response === null) {
+    console.log(res)
+
+    res = {
+      ...res,
+      id: OnArray
+    }
+    
     console.log(res)
     setResponse(res);
     }
     };
   
   
-    const updateOptions = (directions) => {
+    const updateOptions = (type,directions) => {
     setOptions(null)
     setResponse(null)
      console.log(directions)
-
+    
      if(directions.length <= 1 ){
       return
      }
@@ -385,8 +398,12 @@ const List = (props) => {
         }
 
       }
+      console.log(type)
+      setOnArray(type)
+      console.log(OnArray)
       setOptions(options)
       console.log(options)
+      SetMarkerOn(false)
     };
 
     const saveItinerary = async () => {
@@ -409,8 +426,43 @@ const List = (props) => {
 
       }
     }
-  
 
+    const deleteItem = (deleteId,type) => {
+      
+      console.log(deleteId)
+      console.log(type)
+
+      let newItinerary ;
+
+      newItinerary = ItineraryDay.map((item) => {
+        console.log(item)
+        if (item.id === type) {
+        const newDestination = [...item.destinations];
+        newDestination.splice(deleteId, 1);
+        console.log(newDestination)
+        item.destinations = newDestination
+        }
+        return item;
+      });
+      
+     setItineraryDay(newItinerary) 
+    }
+
+    console.log(ItineraryDay)
+
+    const ShowMarker = () => {
+      SetMarkerOn(true)
+    }
+
+    const [selectedMarker, setSelectedMarker] = useState(null);
+
+    const handleMouseOver = (marker) => {
+      setSelectedMarker(marker);
+    };
+  
+    const handleMouseOut = () => {
+      setSelectedMarker(null);
+    };
 
   return (
     <div className="list">
@@ -449,6 +501,7 @@ const List = (props) => {
                         addPlace={updateArray}
                         showDirection={updateOptions}
                         response={response}
+                        deleteItem={deleteItem}
 
                       />                          
                     </div>
@@ -466,16 +519,14 @@ const List = (props) => {
       </div>
       <div className="placemap">
    
-      
+      <button onClick={ShowMarker}>Show Marker</button>
       <p>Latitude: {location.latitude}</p>
       <p>Longitude: {location.longitude}</p>
 
       <select value={type} onChange={handleTypeChange}>
-        <option value="">All</option>
         <option value="restaurant">restaurant</option>
         <option value="lodging">hotel</option>
-        <option value="atm">atm</option>
-        <option value="attraction">attraction</option>
+        <option value="tourist_attraction">attraction</option>
       </select>
    
       <h1>Nearby Restaurants</h1>
@@ -500,24 +551,51 @@ const List = (props) => {
         mapContainerStyle={containerStyle}
       
         >
-          
-         
-          {/* {stores.map((store) => (
+              {(() => {
+        if (markerOn === true ) {
+              return (
+            <div>
+              {stores.map((store) => (
           <Marker position={{
             lat : store.geometry.location.lat(),
             lng : store.geometry.location.lng()
-          }} />
-           ))} */}
-           
-
-           {response !== null && (
- <DirectionsRenderer
+            
+          }} 
+          onMouseOver={() => handleMouseOver(store.place_id)}
+          onMouseOut={handleMouseOut}
+          
+          >
+          {selectedMarker === store.place_id && (
+            <InfoWindow>
+              <div>
+                <h3>{store.name}</h3>
+              </div>
+            </InfoWindow>
+          )}
+            </Marker>
+           ))}
+             </div>
+          )
+        } 
+        else if (response !== null && markerOn === false ){
+          return (
+            <div>
+               <DirectionsRenderer
  // required
  options={{
  directions: response,
  }}
  />
- )}
+            </div>
+          )
+        }
+      })()}
+       
+        
+         
+         
+          
+           
 
  <DirectionsService
  // required
