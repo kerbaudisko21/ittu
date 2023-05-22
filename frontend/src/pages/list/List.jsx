@@ -343,7 +343,7 @@ const List = (props) => {
    const [OnArray, setOnArray] = useState(null);
    let [options, setOptions] = useState([])
    let [stopPoints, setStopPoints] = useState([]) 
-   const [markerOn, SetMarkerOn] = useState(false);
+   const [markerOn, SetMarkerOn] = useState(true);
 
    const directionsCallback = (res) => {
     if (res !== null && response === null) {
@@ -543,7 +543,8 @@ const List = (props) => {
         if (markerOn === true ) {
               return (
             <div>
-              {stores.map((store) => (
+              {stores.map((store,index) => (
+               
           <Marker position={{
             lat : store.geometry.location.lat(),
             lng : store.geometry.location.lng()
@@ -551,6 +552,13 @@ const List = (props) => {
           }} 
           onMouseOver={() => handleMouseOver(store.place_id)}
           onMouseOut={handleMouseOut}
+
+          label={{
+            text: (index + 1).toString(),
+            color: '#fff',
+            fontSize: '12px',
+            fontWeight: 'bold',
+          }}
           
           >
           {selectedMarker === store.place_id && (
