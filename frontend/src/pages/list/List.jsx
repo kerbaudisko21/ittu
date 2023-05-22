@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import "./list.css";
+import axios from 'axios';
 
 import { GoogleApiWrapper } from 'google-maps-react';
 import { useLocation } from "react-router-dom";
@@ -409,6 +410,26 @@ const List = (props) => {
       SetMarkerOn(false)
     };
 
+    const saveItinerary = async () => {
+      let id = JSON.parse(localStorage.getItem('user'));
+  
+      let data = {
+        "title" : name,
+        "start_date": format(startDate,"MM/dd/yyyy"),
+        "end_date": format(endDate,"MM/dd/yyyy"),
+        "latitude": latitude,
+        "longtitude": longitude,
+        "itinerary_days":{ItineraryDay}
+      };
+      const res = axios.post(`/itinerary/${id._id}`, data);
+  
+      console.log(res);
+
+      if (res) {
+        window.location.href = '/';
+
+      }
+    }
 
     const deleteItem = (deleteId,type) => {
       
@@ -614,10 +635,9 @@ const List = (props) => {
 
 
           </GoogleMap>          
-      </div>
-
-        </div>
-        </div>
+    </div>
+        <button onClick={saveItinerary}>Create</button>
+    </div>
   
   );
 };

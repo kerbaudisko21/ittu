@@ -16,14 +16,9 @@ const ItinerarySchema = new mongoose.Schema({
     longtitude:{
         type:String
     },
-    itinerary_days:[{
-        date:Date,
-        destination:[{
-            name:{type:String},
-            lat:{type:String},
-            long:{type:String}
-        }]
-    }],
+    itinerary_days:{
+        type:JSON
+    },
 },{timestamps: true});
 
 export default mongoose.model("Itinerary", ItinerarySchema);

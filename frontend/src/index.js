@@ -6,13 +6,13 @@ import { SearchContextProvider } from './context/SearchContext.js';
 import { IsLoginContextProvider } from './context/IsLoginContext';
 import './index.css';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <AuthContextProvider>
-      <SearchContextProvider>
-        <IsLoginContextProvider>
-        <App />
-        </IsLoginContextProvider>
-      </SearchContextProvider>
-    </AuthContextProvider>
+      <AuthContextProvider>
+        <SearchContextProvider>
+          <IsLoginContextProvider>
+          <App />
+          </IsLoginContextProvider>
+        </SearchContextProvider>
+      </AuthContextProvider>
 );

@@ -44,10 +44,10 @@ const Login = (props) => {
     dispatch({ type: 'REGIS_START' });
     try {
       console.log(credentials);
-      // const res = await axios.post('/auth/register', credentials);
-      // console.log(res);
-      // dispatch({ type: 'REGIS_SUCCESS', payload: res.data.details });
-      // console.log({ payload: res.data.details });
+      const res = await axios.post('/auth/register', credentials);
+      console.log(res);
+      dispatch({ type: 'REGIS_SUCCESS', payload: res.data.details });
+      console.log({ payload: res.data.details });
       alert('user has been created!');
       window.location.href = '/login';
     } catch (err) {
