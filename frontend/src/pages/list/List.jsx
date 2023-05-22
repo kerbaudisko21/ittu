@@ -11,11 +11,14 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
 import {GoogleMap, DirectionsService, DirectionsRenderer, Marker, InfoWindow } from "@react-google-maps/api";
 import {format} from 'date-fns'
+import { PDFDownloadLink } from "@react-pdf/renderer";
+
 
 
 
 import ServiceCommandUnit from "../listTest/ServiceCommandUnit";
 import DndStore from '../listTest/DndStore';
+import PdfDownload from '../listTest/PdfDownload';
 
 const grid = 8;
 
@@ -466,7 +469,6 @@ const List = (props) => {
 
   return (
     <div className="list">
-      
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="planning">
     
@@ -537,6 +539,13 @@ const List = (props) => {
       </div>
       </DragDropContext>
       <div className="MapTempat">
+      <PDFDownloadLink document={<PdfDownload 
+      tripName={name}
+      ItineraryDay={ItineraryDay}
+      />} filename="FORM">
+      {({loading}) => (loading ? <button>Loading Document...</button> : <button>Download</button> )}
+      </PDFDownloadLink>
+
       <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}
           options={{
       componentRestrictions: { country: 'id' },
