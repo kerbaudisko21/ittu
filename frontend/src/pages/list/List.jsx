@@ -10,7 +10,6 @@ import { v4 as uuidv4 } from 'uuid';
 import {GoogleMap, DirectionsService, DirectionsRenderer, Marker, InfoWindow } from "@react-google-maps/api";
 import {format} from 'date-fns'
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import axios from "axios";
 
 
 
@@ -638,7 +637,7 @@ const List = (props) => {
     </div>
         <button onClick={saveItinerary}>Create</button>
     </div>
-  
+  </div>
   );
 };
 
