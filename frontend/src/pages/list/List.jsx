@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import "./list.css";
 
 import { GoogleApiWrapper } from 'google-maps-react';
-import GoogleMapReact from 'google-map-react';
-import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import { useLocation } from "react-router-dom";
 import { Autocomplete } from '@react-google-maps/api';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
@@ -11,6 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {GoogleMap, DirectionsService, DirectionsRenderer, Marker, InfoWindow } from "@react-google-maps/api";
 import {format} from 'date-fns'
 import { PDFDownloadLink } from "@react-pdf/renderer";
+import axios from "axios";
 
 
 
@@ -18,6 +17,8 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import ServiceCommandUnit from "../listTest/ServiceCommandUnit";
 import DndStore from '../listTest/DndStore';
 import PdfDownload from '../listTest/PdfDownload';
+
+import ListInformation from '../../components/ListInformation/ListInformation';
 
 const grid = 8;
 
@@ -46,7 +47,7 @@ const List = (props) => {
 
   const [autocomplete, setAutocomplete] = useState(null);
   const dateRange = useLocation();
-  const { startDate, endDate,  name,latitude, longitude } = dateRange.state;
+  const { startDate, endDate,  name,latitude, longitude, imageUnsplashSearch} = dateRange.state;
   const [stores, setStores] = useState([]);
   const [location, setLocation] = useState({});
   const [type, setType] = useState('restaurant');
@@ -446,12 +447,21 @@ const List = (props) => {
       setSelectedMarker(null);
     };
 
+
+
   return (
+    <div>
+      {/* <Navbar /> */}
     <div className="list">
+   
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="planning">
-    
-     <h1>{name}</h1> 
+      <ListInformation 
+      tripName = {name}
+      startTripDate = {startDate}
+      endTripDate ={endDate}
+      />
+      
       <div>
       
       <Droppable droppableId="droppable" type="droppableItem">
@@ -510,7 +520,7 @@ const List = (props) => {
         <option value="tourist_attraction">attraction</option>
       </select>
    
-      <h1>Nearby Restaurants</h1>
+      <h1>Nearby {type}</h1>
      
       <DndStore stores={stores} />
     
@@ -606,6 +616,7 @@ const List = (props) => {
           </GoogleMap>          
       </div>
 
+        </div>
         </div>
   
   );

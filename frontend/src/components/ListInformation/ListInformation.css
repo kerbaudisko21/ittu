@@ -1,0 +1,38 @@
+.listInformation{
+    background: url('../../Image/Homepage/Indonesia.png') no-repeat center/cover;
+    width: 100%;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    top: 0;
+    margin-bottom: 75px;
+}
+
+.information{
+    padding: 10px;
+    z-index: 1;
+    border-radius: 12px;
+    width: 350px;
+    margin-top: 100px;
+    height: 80px;
+    background-color: white;
+    box-shadow: 2.9px 5.8px 5.8px hsl(0deg 0% 0% / 0.41);
+}
+
+.tripLine{
+    border-top: 3px dashed black;   
+}
+
+.arrow {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    margin-right: 1px;
+  }
+  
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+  
