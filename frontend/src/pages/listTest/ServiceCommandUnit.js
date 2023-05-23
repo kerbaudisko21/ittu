@@ -30,8 +30,9 @@ const getListStyle = (isDraggingOver) => ({
   margin: "10px 0"
 });
 
-export const ServiceCommandUnit = ({ type, destinations, addPlace, showDirection,response }) => {
+export const ServiceCommandUnit = ({ type, destinations, addPlace, showDirection,response, deleteItem}) => {
   console.log("type " + type)
+  
   console.log({destinations})
   console.log(response)
  
@@ -65,7 +66,14 @@ export const ServiceCommandUnit = ({ type, destinations, addPlace, showDirection
     
     );
     setDirection(direction)
-    showDirection(direction)
+    showDirection(type,direction)
+  }
+
+  const onDelete =(index) =>{
+    const deleteId = index;
+    console.log(deleteId);
+    console.log(type);
+    deleteItem(deleteId,type)
   }
  
 
@@ -104,18 +112,19 @@ export const ServiceCommandUnit = ({ type, destinations, addPlace, showDirection
                     >
                       Drag
                     </span>
+                    <button onClick={() => onDelete(index)}>Delete</button>
                   </div>
         
         {(() => {
-        if (index !== destinations.length -1 && response !== null) {
+        if (index !== destinations.length -1 && response !== null ) {
           if( index < response.routes[0].legs.length ){
-          return (
+            if(type === response.id){return (
             <div>
               {response.routes[0].legs[index].distance.text}
              ||
              {response.routes[0].legs[index].duration.text}
              </div>
-          )}
+          )}}
         } 
         else {
           return (

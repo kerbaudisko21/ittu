@@ -21,6 +21,7 @@ const Header = () => {
       lat: 0,
       lng: 0,
       name: null,
+      imageUnsplashSearch: null,
       key: 'selection'
     }
   ]);
@@ -31,6 +32,7 @@ const Header = () => {
       endDate: dates[0].endDate,
       latitude: autocomplete.getPlace().geometry.location.lat(),
       longitude: autocomplete.getPlace().geometry.location.lng(),
+      imageUnsplashSearch: autocomplete.getPlace().name,
       name: autocomplete.getPlace().name + ' Trips',
       key: 'selection'
     } });
@@ -49,6 +51,7 @@ const Header = () => {
     console.log(lat)
     console.log(lng)
     console.log(name)
+    console.log(autocomplete.getPlace())
   };
 
   return (
