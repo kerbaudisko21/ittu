@@ -13,8 +13,8 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   margin: `0 10px 10px 0`,
 
   display: "inline-flex",
-  width: "120px",
-  padding: "10px",
+  width: "90%",
+  padding: "5%",
 
   // change background colour if dragging
   background: isDragging ? "lightgreen" : "grey",
@@ -28,7 +28,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 
 const getListStyle = (isDraggingOver) => ({
   background: isDraggingOver ? "lightblue" : "lightgrey",
-  padding: grid,
+  padding: 15,
   margin: "10px 0"
 });
 
@@ -42,8 +42,6 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
     const onLoad = (autoC) => setAutocomplete(autoC);
   
     const onPlaceChanged = () => {
-     
-     
       const NewDestination = autocomplete.getPlace();
       console.log(NewDestination)
       destinations = [...destinations, NewDestination];
@@ -76,6 +74,7 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
     }
    
   return (
+    <div> <button onClick={getDirection}>Get Direction</button>
     <Droppable droppableId={type} type={`droppableSubItem`}>
     {(provided, snapshot) => (
       <div
@@ -83,7 +82,6 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
         {...provided.droppableProps}
         style={getListStyle(snapshot.isDraggingOver)}
       >
-         <button onClick={getDirection}>Get Direction</button>
         {destinations.map((item, index) => (
           <Draggable key={item.id} draggableId={item.id} index={index}>
             {(provided, snapshot) => (
@@ -96,9 +94,7 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
                     provided.draggableProps.style
                   )}
                 >
-                  {item.name} 
-                
-                  <span
+                       <span
                     {...provided.dragHandleProps}
                     style={{
                       display: "block",
@@ -108,6 +104,7 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
                   >
                     Drag
                   </span>
+                  {item.name} 
                   <button onClick={() => onDelete(index)}>Delete</button>
                 </div>
       
@@ -160,6 +157,7 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
       </div>
     )}
   </Droppable>
+  </div>
   )
 }
 

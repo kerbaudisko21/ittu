@@ -4,8 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 import './listItinerary.css'
-import ListItineraryDestination from '../listItineraryDestination/ListItineraryDestination';
-
+import ListItineraryDestination from '../listItineraryDestination/ListItineraryDestination.jsx';
 
 
 
@@ -75,7 +74,6 @@ const ListItinerary = ({ItineraryDay,setItineraryDay,response,updateOptions}) =>
                         showDirection={updateOptions}
                         response={response}
                         deleteItem={deleteItem}
-
                       />                          
                     </div>
                   </>
