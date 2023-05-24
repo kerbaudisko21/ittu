@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { Autocomplete } from '@react-google-maps/api';
+import { FaBars } from 'react-icons/fa';
 
 
+import './listItineraryDestination.css'
 
 const grid = 8;
 
@@ -94,16 +96,19 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
                     provided.draggableProps.style
                   )}
                 >
-                       <span
-                    {...provided.dragHandleProps}
-                    style={{
-                      display: "block",
-                      margin: "0 10px",
-                      border: "1px solid #000"
-                    }}
-                  >
-                    Drag
-                  </span>
+                      <span
+                      {...provided.dragHandleProps}
+                      style={{
+                        margin: "0 10px",
+                      }}
+                    >
+                      <FaBars />
+                    </span>
+
+                  <div>
+                    {/* <img src={item.photos.getUrl()}  className='img'></img> */}
+                  </div>
+
                   {item.name} 
                   <button onClick={() => onDelete(index)}>Delete</button>
                 </div>
