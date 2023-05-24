@@ -9,12 +9,15 @@ console.log(ItineraryDay)
   return (
     <Document>
     <Page>
-      <Text>Hello World!</Text>
       <Text>{tripName}!</Text>
       {ItineraryDay.map((item) => (
-        <Text>{item.date.toDateString()}</Text>
-           ))}
-     
+      <div>
+    <Text>{item.date.toDateString()}!</Text>
+    {item.destinations.map((destination) => (
+      <Text>{destination.name}</Text>
+    ))}
+  </div>
+))}
 
     </Page>
   </Document>
