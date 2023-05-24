@@ -1,4 +1,18 @@
-.container{
-    justify-content: center;
+.listContainer{
     display: flex;
+    justify-content: center;
+}
+
+.itineraryContainer{
+    display: grid;
+    width: 80%;
+}
+
+.tripContainer{
+    padding: 10px;
+    background-color: white;
+    border-radius: 12px;
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 2.9px 5.8px 5.8px hsl(0deg 0% 0% / 0.41);
 }

@@ -2,31 +2,12 @@ import React from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
 
-import './listItinerary.css'
 
 import ServiceCommandUnit from '../../pages/listTest/ServiceCommandUnit';
+import './listItinerary.css'
 
 
-const grid = 8;
 
-const getItemStyle = (isDragging, draggableStyle) => ({
-  // some basic styles to make the items look a bit nicer
-  userSelect: "none",
-  padding: grid * 2,
-  margin: `0 0 ${grid}px 0`,
-
-  // change background colour if dragging
-  background: isDragging ? "lightgreen" : "grey",
-
-  // styles we need to apply on draggables
-  ...draggableStyle
-});
-
-const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? "lightblue" : "lightgrey",
-  padding: grid,
-  width: 200
-});
 
 const ListItinerary = ({ItineraryDay,setItineraryDay,response,updateOptions}) => {
 
@@ -66,25 +47,23 @@ const ListItinerary = ({ItineraryDay,setItineraryDay,response,updateOptions}) =>
       }
 
   return (
-    <div className='container'> 
+    <div className='listContainer'>
     <Droppable droppableId="droppable" type="droppableItem">
-        {(provided, snapshot) => (
+        {(provided) => (
           <div
             ref={provided.innerRef}
             {...provided.droppableProps}
-            style={getListStyle(snapshot.isDraggingOver)}
+            className='itineraryContainer'
+           
           >
             {ItineraryDay.map((item, index) => (
               <Draggable key={item.id} draggableId={item.id} index={index}>
-                {(provided, snapshot) => (
+                {(provided) => (
                   <>
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
-                      style={getItemStyle(
-                        snapshot.isDragging,
-                        provided.draggableProps.style
-                      )}
+                        className='tripContainer'
                     >
                       {item.date.toDateString()}
                       <p>Weather: {item.weather}</p>
