@@ -3,8 +3,8 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
 
 
-import ServiceCommandUnit from '../../pages/listTest/ServiceCommandUnit';
 import './listItinerary.css'
+import ListItineraryDestination from '../listItineraryDestination/ListItineraryDestination';
 
 
 
@@ -68,7 +68,7 @@ const ListItinerary = ({ItineraryDay,setItineraryDay,response,updateOptions}) =>
                       {item.date.toDateString()}
                       <p>Weather: {item.weather}</p>
                      <p>Temperature: {item.temperature}</p>
-                      <ServiceCommandUnit
+                      <ListItineraryDestination
                         destinations={item.destinations}
                         type={item.id}
                         addPlace={updateArray}
