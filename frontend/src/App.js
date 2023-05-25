@@ -5,7 +5,7 @@ import Schedule from './pages/schedule/Schedule';
 import Login from './pages/login/Login';
 import ListTest from './pages/listTest/listTest';
 import ListTest2 from './pages/listTest/listTest2';
-
+import Reference from './pages/reference/Reference';
 
 function App() {
   return (
@@ -18,6 +18,7 @@ function App() {
         <Route path="/list/:id" element={<Schedule />} />
         <Route path="/login" element={<Login isLogin={true} />} />
         <Route path="/register" element={<Login isLogin={false} />} />
+        <Route path="/reference" element={<Reference />} />
       </Routes>
     </BrowserRouter>
   );

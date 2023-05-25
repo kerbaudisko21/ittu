@@ -1,24 +1,30 @@
-import mongoose, { mongo } from 'mongoose'
+import mongoose, { mongo } from 'mongoose';
 
-const ItinerarySchema = new mongoose.Schema({
-    title:{
-        type:String,
+const ItinerarySchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
     },
-    start_date:{
-        type:Date
+    start_date: {
+      type: Date,
     },
-    end_date:{
-        type:Date
+    end_date: {
+      type: Date,
     },
-    latitude:{
-        type:String
+    latitude: {
+      type: String,
     },
-    longtitude:{
-        type:String
+    longtitude: {
+      type: String,
     },
-    itinerary_days:{
-        type:JSON
+    itinerary_days: {
+      type: JSON,
     },
-},{timestamps: true});
+    rating: {
+      type: JSON,
+    },
+  },
+  { timestamps: true }
+);
 
-export default mongoose.model("Itinerary", ItinerarySchema);
+export default mongoose.model('Itinerary', ItinerarySchema);

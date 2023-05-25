@@ -1,11 +1,12 @@
 .review {
   position: relative;
   display: flex;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 10px 8px 8px 4px rgba(0, 0, 0, 0.25);
   border-radius: 25px;
-  height: 40vh;
-  width: 30vw;
-  margin: 0.3% 0vh;
+  /* height: 305px; */
+  width: fit-content;
+  /* margin: 10px 0; */
+  /* margin: 0.3% 0vh; */
 }
 
 .review-box {
@@ -14,10 +15,19 @@
   display: block;
   flex-direction: column;
   align-items: center;
-  padding: 3%;
-  height: 88%;
+  padding: 20px 10px;
+  height: 100%;
+
+  /* width: 100%; */
   /* margin: -2%; */
   /* overflow: auto; */
+}
+
+.reviewTitle {
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  font-weight: 500;
 }
 
 .rate {
@@ -27,18 +37,10 @@
   /* padding-bottom: 1%; */
 }
 
-/* img {
-  height: 20px;
-} */
-/* .profile {
-  width: 20%;
-  height: 20%;
-} */
-
 .circle-img {
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 32px;
+  height: 32px;
   display: flex;
   padding: auto;
 }
@@ -48,6 +50,8 @@
   justify-content: left;
   align-items: center;
   gap: 15%;
+  font-size: 24px;
+  font-weight: 600;
   /* font-size:120 */
   /* width: fit; */
 }
@@ -66,14 +70,17 @@
   justify-content: right;
   align-items: center;
   gap: 5%;
+  font-size: 16px;
+  color: #938080;
 }
 
-.rating i {
-  font-size: 160%;
+.star {
+  font-size: 150%;
   /* margin: 8px; */
   cursor: pointer;
   transition: color 0.5s;
   color: #fabf35;
+  /* width: 10px; */
   /* margin: 2%; */
   /* display: flex; */
 }
@@ -84,7 +91,8 @@
   gap: 5%;
   justify-content: space-between;
   /* margin-bottom: -2%; */
-  height: 80%;
+  /* height: 80%; */
+  padding: 15px 0;
 }
 
 .comment h2 {
@@ -96,7 +104,7 @@
 
   text-size: auto;
 
-  font-family: "Inter";
+  font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
   font-size: 100%;
@@ -115,14 +123,14 @@
 }
 
 .country {
-  width: 100%;
+  width: 257px;
   background-size: cover;
   /* background-color: black; */
   /* padding: 10%; */
   border-radius: 25px;
   color: white;
   /* gap: 0px; */
-  height: 100%;
+  height: 176px;
 }
 
 .countryText {
