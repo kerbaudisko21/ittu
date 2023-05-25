@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { Autocomplete } from '@react-google-maps/api';
-import { FaBars, FaTrash, FaStar} from 'react-icons/fa';
+import { FaBars, FaTrash, FaStar, FaDirections, FaSearchLocation} from 'react-icons/fa';
 
 
 import './listItineraryDestination.css'
@@ -67,15 +67,23 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
    
   return (
     <div> 
-      <div  className='destinationSearchAddContainer'>
+  <div className='destinationUpperContainer'>
+  <div  className='destinationSearchAddContainer'>
+  <FaSearchLocation />
   <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}
           options={{
           componentRestrictions: { country: 'id' },
           }}
 >
+
 <input type="text"  placeholder="Add New Location"  className='destinationSearchAdd' />
 
 </Autocomplete>
+</div>
+<div  className='destinationDirectionContainer'>
+ 
+<button onClick={getDirection} className='destinationDirectionButton' > <FaDirections /> Get Direction</button>
+</div>
 </div>
     <Droppable droppableId={type} type={`droppableSubItem`}>
     {(provided, snapshot) => (
@@ -173,7 +181,7 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
       </div>
     )}
   </Droppable>
-            <button onClick={getDirection}>Get Direction</button>
+       
   </div>
   )
 }

@@ -92,20 +92,51 @@
   }
 
   .destinationRoutes{
-    
     margin-bottom: 1rem;
     display: flex;
     justify-content: center;
   }
 
-  .destinationSearchAddContainer{
-    margin-top: 1rem;
+  .destinationUpperContainer{
     display: flex;
-    justify-content: left;
-    margin-left: 0.5rem;
+    justify-content: space-between;
+    margin-top: 1rem;
+    margin-right: 0.9rem;
+    margin-left: 0.4rem;
+  }
+
+  .destinationSearchAddContainer{
+    align-items: center;
+    display: flex;
+    align-self: flex-start;
+    background-color: lightgray; 
+    border-radius: 8px;
+    padding: 0.5rem;
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
   }
 
   .destinationSearchAdd{
-    padding: 0.5rem;
+    background-color: lightgray; 
     border-radius: 8px;
+    outline: none;
+    border: none;
   }
+
+  .destinationDirectionContainer{
+    align-self: flex-end;
+    align-self: center;
+  }
+
+  .destinationDirectionButton{
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+    padding: 0.5rem;
+    border: 5px gray;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: lightgray; 
+  }
+
+  
+  .destinationDirectionButton:hover {
+    background-color: gray; 
+    }
