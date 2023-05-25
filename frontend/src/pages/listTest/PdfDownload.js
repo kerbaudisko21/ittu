@@ -9,7 +9,7 @@ console.log(ItineraryDay)
   return (
     <Document>
     <Page>
-      <Text>{tripName}!</Text>
+      <Text>{tripName}</Text>
       {ItineraryDay.map((item) => (
       <div>
     <Text>{item.date.toDateString()}!</Text>

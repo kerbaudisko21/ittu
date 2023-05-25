@@ -1,4 +1,47 @@
-.img{
-    width: 100px;
-    height: 100px;
+
+  
+.destinationContainer{
+    border-radius: 10px;
+   
+}
+
+.destinationName{
+    margin-bottom: 10px;
+    width: 100%;
+    
+}
+
+.destinationContainerInside{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.dndIcon{
+    padding: 8px;
+    justify-self: center;
+    align-self: center;
+    display:flex;
+}
+
+.destinationDescContainer{
+    display: flex;
+}
+
+.destinationImage {
+    width: 125px;
+    height: 125px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px ;
+  }
+
+.destinationDesc{
+    
+    padding: 0 10px 0;
+ 
+}
+
+.destinationRating{
+    display: flex;
+   
 }

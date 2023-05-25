@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { Autocomplete } from '@react-google-maps/api';
-import { FaBars } from 'react-icons/fa';
+import { FaBars, FaTrash, FaStar} from 'react-icons/fa';
 
 
 import './listItineraryDestination.css'
@@ -95,22 +95,41 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
                     snapshot.isDragging,
                     provided.draggableProps.style
                   )}
+                  className='destinationContainer'
                 >
                       <span
                       {...provided.dragHandleProps}
-                      style={{
-                        margin: "0 10px",
-                      }}
+                      className='dndIcon'
                     >
                       <FaBars />
                     </span>
+                    <div className='destinationContainerInside'>
+                    <div className='destinationName'>{item.name}</div>
+                    
+                    
+                    <div className='destinationDescContainer'>
+                      <div className='destinationImageContainer'>
+                    <img src={item.photos[0].getUrl()} alt="Logo" class="destinationImage" />
+                    </div>
+                    <div className='destinationDesc'>
+                    <p>{item.vicinity}</p>
 
-                  <div>
-                    {/* <img src={item.photos.getUrl()}  className='img'></img> */}
+                    <div className='destinationRating'>
+                    <p>{item?.rating} <FaStar/></p>
+                    <p>({item?.user_ratings_total})</p>
+                  <button onClick={() => onDelete(index)}>
+                    <FaTrash />
+                  </button>
                   </div>
 
-                  {item.name} 
-                  <button onClick={() => onDelete(index)}>Delete</button>
+                    </div>
+
+                   
+
+                    </div>
+                    
+
+                  </div>
                 </div>
       
       {(() => {
