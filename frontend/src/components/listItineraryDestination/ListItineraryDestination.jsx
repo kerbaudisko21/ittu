@@ -6,31 +6,21 @@ import { FaBars, FaTrash, FaStar} from 'react-icons/fa';
 
 import './listItineraryDestination.css'
 
-const grid = 8;
+
 
 const getItemStyle = (isDragging, draggableStyle) => ({
-  // some basic styles to make the items look a bit nicer
-  userSelect: "none",
-  padding: grid * 2,
-  margin: `0 10px 10px 0`,
-
-  display: "inline-flex",
-  width: "90%",
-  padding: "5%",
-
-  // change background colour if dragging
-  background: isDragging ? "lightgreen" : "grey",
+  margin: `0 10px 15px 0`,
   display: "inline-flex",
   padding: "10px",
-  margin: "0 10px 10px 0",
-  border: "1px solid grey",
+  
+  
   // styles we need to apply on draggables
   ...draggableStyle
 });
 
 const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? "lightblue" : "lightgrey",
-  padding: 15,
+  background: isDraggingOver ? "lightblue" : "white",
+  padding: "5px",
   margin: "10px 0"
 });
 
@@ -108,19 +98,23 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
                     
                     
                     <div className='destinationDescContainer'>
+
                       <div className='destinationImageContainer'>
                     <img src={item.photos[0].getUrl()} alt="Logo" class="destinationImage" />
+                    <div className='destinationRating'>
+                    <p>{item?.rating} <FaStar/></p>
+                    <p> ({item?.user_ratings_total})</p>
                     </div>
+                    </div>
+
                     <div className='destinationDesc'>
                     <p>{item.vicinity}</p>
 
-                    <div className='destinationRating'>
-                    <p>{item?.rating} <FaStar/></p>
-                    <p>({item?.user_ratings_total})</p>
-                  <button onClick={() => onDelete(index)}>
+                  
+                  <button className='destinationDeleteButton' onClick={() => onDelete(index)}>
                     <FaTrash />
                   </button>
-                  </div>
+                
 
                     </div>
 
@@ -136,7 +130,7 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
       if (index !== destinations.length -1 && response !== null ) {
         if( index < response.routes[0].legs.length ){
           if(type === response.id){return (
-          <div>
+          <div className='destinationRoutes'> 
             {response.routes[0].legs[index].distance.text}
            ||
            {response.routes[0].legs[index].duration.text}
@@ -151,12 +145,7 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
 
 
     })()}
-
-
-                {provided.placeholder}
-
-
-                
+                {provided.placeholder}     
               </>
               
             )
@@ -170,7 +159,11 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
            
         {provided.placeholder}
         
-          <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}
+          
+      </div>
+    )}
+  </Droppable>
+  <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}
           options={{
           componentRestrictions: { country: 'id' },
           }}
@@ -178,9 +171,6 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
 <input type="text" />
 
 </Autocomplete>
-      </div>
-    )}
-  </Droppable>
   </div>
   )
 }
