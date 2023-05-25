@@ -66,7 +66,17 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
     }
    
   return (
-    <div> <button onClick={getDirection}>Get Direction</button>
+    <div> 
+      <div  className='destinationSearchAddContainer'>
+  <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}
+          options={{
+          componentRestrictions: { country: 'id' },
+          }}
+>
+<input type="text"  placeholder="Add New Location"  className='destinationSearchAdd' />
+
+</Autocomplete>
+</div>
     <Droppable droppableId={type} type={`droppableSubItem`}>
     {(provided, snapshot) => (
       <div
@@ -163,14 +173,7 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
       </div>
     )}
   </Droppable>
-  <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}
-          options={{
-          componentRestrictions: { country: 'id' },
-          }}
->
-<input type="text" />
-
-</Autocomplete>
+            <button onClick={getDirection}>Get Direction</button>
   </div>
   )
 }

@@ -447,6 +447,7 @@ const List = (props) => {
       />
 
       </div>
+
       <div className="placemap">
    
       <button onClick={ShowMarker}>Show Marker</button>
@@ -467,12 +468,12 @@ const List = (props) => {
       </div>
       </DragDropContext>
       <div className="MapTempat">
-      <PDFDownloadLink document={<PdfDownload 
+      {/* <PDFDownloadLink document={<PdfDownload 
       tripName={name}
       ItineraryDay={ItineraryDay}
       />} filename="FORM">
       {({loading}) => (loading ? <button>Loading Document...</button> : <button>Download</button> )}
-      </PDFDownloadLink>
+      </PDFDownloadLink> */}
 
       <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}
           options={{
