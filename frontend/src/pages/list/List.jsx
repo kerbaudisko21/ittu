@@ -21,30 +21,12 @@ import PdfDownload from '../listTest/PdfDownload';
 import ListInformation from '../../components/ListInformation/ListInformation';
 import ListItinerary from '../../components/listItinerary/ListItinerary';
 
-const grid = 8;
-
-const getItemStyle = (isDragging, draggableStyle) => ({
-  // some basic styles to make the items look a bit nicer
-  userSelect: "none",
-  padding: grid * 2,
-  margin: `0 0 ${grid}px 0`,
-
-  // change background colour if dragging
-  background: isDragging ? "lightgreen" : "grey",
-
-  // styles we need to apply on draggables
-  ...draggableStyle
-});
-
-
-
-
 
 const List = (props) => {
 
   const [autocomplete, setAutocomplete] = useState(null);
   const dateRange = useLocation();
-  const { startDate, endDate,  name,latitude, longitude, imageUnsplashSearch} = dateRange.state;
+  const { startDate, endDate,  name,latitude, longitude, tripLocation} = dateRange.state;
   const [stores, setStores] = useState([]);
   const [location, setLocation] = useState({});
   const [type, setType] = useState('restaurant');
@@ -393,6 +375,8 @@ const List = (props) => {
   
       let data = {
         "title" : name,
+        "tripLocation": tripLocation,
+        "tripBgImage": imageUrl,
         "start_date": format(startDate,"MM/dd/yyyy"),
         "end_date": format(endDate,"MM/dd/yyyy"),
         "latitude": latitude,
@@ -426,6 +410,18 @@ const List = (props) => {
       setSelectedMarker(null);
     };
 
+    const [imageUrl, setImageUrl] = useState('');
+    useEffect(() => {
+
+      fetch(`https://api.unsplash.com/photos/random?query=${tripLocation}&orientation=landscape&client_id=cjj0NJ5aXgoO7iQZmizJJwOPeU2EH--C46El8zcmArQ`)
+        .then((response) => response.json())
+        .then((data) => {
+          setImageUrl(data.urls.regular);
+        });
+
+    }, [tripLocation])
+    ;
+  
 
 
   return (
@@ -439,6 +435,7 @@ const List = (props) => {
       tripName = {name}
       startTripDate = {startDate}
       endTripDate ={endDate}
+      imageUrl={imageUrl}
       />
       
       <ListItinerary 
