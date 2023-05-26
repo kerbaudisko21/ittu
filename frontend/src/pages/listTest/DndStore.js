@@ -1,7 +1,9 @@
 import React from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
+import { FaBars } from 'react-icons/fa';
 
-const grid = 8;
+
+const grid = 10;
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
@@ -10,7 +12,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   margin: `0 10px 10px 0`,
 
   display: "inline-flex",
-  width: "120px",
+  width: "90%",
   padding: "10px",
 
   // change background colour if dragging
@@ -54,17 +56,16 @@ export const DndStore = ({ stores }) => {
                       provided.draggableProps.style
                     )}
                   >
-                    {item.name}
                     <span
                       {...provided.dragHandleProps}
                       style={{
-                        display: "block",
                         margin: "0 10px",
-                        border: "1px solid #000"
                       }}
                     >
-                      Drag
+                      <FaBars />
                     </span>
+                    {item.name}
+                    
                   </div>
                   {provided.placeholder}
                 </>

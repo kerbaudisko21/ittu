@@ -1,0 +1,142 @@
+
+  
+.destinationContainer{
+    border: 1px solid lightgray;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.destinationName{
+    margin-bottom: 10px;
+    width: 100%;
+    
+}
+
+.destinationContainerInside{
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.dndIcon{
+    padding: 8px;
+    justify-self: center;
+    align-self: center;
+    display:flex;
+    color: gray;
+}
+
+
+.destinationDescContainer{
+    display: flex;
+}
+
+
+.destinationImageContainer{
+    position: relative;
+    width: 50%;
+    max-width: 300px;
+}
+
+.destinationImage {
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+    width: 125px;
+    height: 125px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px ;
+    display: block;
+  }
+
+.destinationDesc{
+    padding: 0 10px 0;
+}
+
+.destinationRating{
+    border-radius: 10px ;
+    position: absolute;
+  bottom: 0;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: 100%;
+  transition: .5s ease;
+  opacity:0;
+  color: white;
+  display: flex;
+ height: 25%;
+ padding-top: 3%;
+ justify-content: center;
+  text-align: center;
+   
+}
+
+.destinationImageContainer:hover .destinationRating {
+    opacity: 1;
+  }
+
+  .destinationDeleteButton{
+    position: absolute;
+    bottom: 0px;
+    right: 4%;
+    background-color: transparent; 
+    border: none; 
+    color: lightgray; 
+    cursor: pointer;
+  }
+
+  /* Darker background on mouse-over */
+  .destinationDeleteButton:hover {
+    color: black; 
+  }
+
+  .destinationRoutes{
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .destinationUpperContainer{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    margin-right: 0.9rem;
+    margin-left: 0.4rem;
+  }
+
+  .destinationSearchAddContainer{
+    align-items: center;
+    display: flex;
+    align-self: flex-start;
+    background-color: lightgray; 
+    border-radius: 8px;
+    padding: 0.5rem;
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+  }
+
+  .destinationSearchAdd{
+    background-color: lightgray; 
+    border-radius: 8px;
+    outline: none;
+    border: none;
+  }
+
+  .destinationDirectionContainer{
+    align-self: flex-end;
+    align-self: center;
+  }
+
+  .destinationDirectionButton{
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+    padding: 0.5rem;
+    border: 5px gray;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: lightgray; 
+  }
+
+  
+  .destinationDirectionButton:hover {
+    background-color: gray; 
+    }

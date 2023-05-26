@@ -14,11 +14,12 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 
 
 
-import ServiceCommandUnit from "../listTest/ServiceCommandUnit";
+
 import DndStore from '../listTest/DndStore';
 import PdfDownload from '../listTest/PdfDownload';
 
 import ListInformation from '../../components/ListInformation/ListInformation';
+import ListItinerary from '../../components/listItinerary/ListItinerary';
 
 const grid = 8;
 
@@ -35,11 +36,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   ...draggableStyle
 });
 
-const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? "lightblue" : "lightgrey",
-  padding: grid,
-  width: 200
-});
+
 
 
 
@@ -258,9 +255,6 @@ const List = (props) => {
       }
     } else if ( sourceParentId === "Stores"){
 
-
-
-      
       console.log('==> dest', destParentId);
       console.log(result)
       const itemSubItemMap = ItineraryDay.reduce((acc, item) => {
@@ -305,29 +299,12 @@ const List = (props) => {
           return item;
         });
         setItineraryDay(newItems);
-      
-
-    }
-    }
-  };
-
-
-
-
-  const updateArray = (index, value) => {
-    let Itinerary = [...ItineraryDay];
-    value = value.map((item) => ({ ...item, id: uuidv4()}))
-
-    Itinerary = Itinerary.map((item) => {
-      if (item.id === index) {
-  
-        item.destinations = value;
-      }
-      return item;
-    });
-    setItineraryDay(Itinerary);
     
+    }
+    }
   };
+
+
 
   const containerStyle = {
     width: "100%",
@@ -430,26 +407,6 @@ const List = (props) => {
       }
     }
 
-    const deleteItem = (deleteId,type) => {
-      
-      console.log(deleteId)
-      console.log(type)
-
-      let newItinerary ;
-
-      newItinerary = ItineraryDay.map((item) => {
-        console.log(item)
-        if (item.id === type) {
-        const newDestination = [...item.destinations];
-        newDestination.splice(deleteId, 1);
-        console.log(newDestination)
-        item.destinations = newDestination
-        }
-        return item;
-      });
-      
-     setItineraryDay(newItinerary) 
-    }
 
     console.log(ItineraryDay)
 
@@ -482,52 +439,15 @@ const List = (props) => {
       endTripDate ={endDate}
       />
       
-      <div>
-      
-      <Droppable droppableId="droppable" type="droppableItem">
-        {(provided, snapshot) => (
-          <div
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-            style={getListStyle(snapshot.isDraggingOver)}
-          >
-            {ItineraryDay.map((item, index) => (
-              <Draggable key={item.id} draggableId={item.id} index={index}>
-                {(provided, snapshot) => (
-                  <>
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      style={getItemStyle(
-                        snapshot.isDragging,
-                        provided.draggableProps.style
-                      )}
-                    >
-                      {item.date.toDateString()}
-                      <p>Weather: {item.weather}</p>
-                     <p>Temperature: {item.temperature}</p>
-                      <ServiceCommandUnit
-                        destinations={item.destinations}
-                        type={item.id}
-                        addPlace={updateArray}
-                        showDirection={updateOptions}
-                        response={response}
-                        deleteItem={deleteItem}
+      <ListItinerary 
+      ItineraryDay={ItineraryDay}
+      setItineraryDay={setItineraryDay}
+      response={response}
+      updateOptions={updateOptions}
+      />
 
-                      />                          
-                    </div>
-                  </>
-                
-                )}
-              </Draggable>
-            ))}
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
-    </div>
-  
       </div>
+
       <div className="placemap">
    
       <button onClick={ShowMarker}>Show Marker</button>
@@ -548,12 +468,12 @@ const List = (props) => {
       </div>
       </DragDropContext>
       <div className="MapTempat">
-      <PDFDownloadLink document={<PdfDownload 
+      {/* <PDFDownloadLink document={<PdfDownload 
       tripName={name}
       ItineraryDay={ItineraryDay}
       />} filename="FORM">
       {({loading}) => (loading ? <button>Loading Document...</button> : <button>Download</button> )}
-      </PDFDownloadLink>
+      </PDFDownloadLink> */}
 
       <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}
           options={{
