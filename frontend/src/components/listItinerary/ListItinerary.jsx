@@ -75,7 +75,10 @@ const ListItinerary = ({ItineraryDay,setItineraryDay,response,updateOptions}) =>
                       {...provided.draggableProps}
                         className='tripContainer'
                     >
+                      <div className='ItineraryTop'>
                       <h2 className='ItineraryDate'>{item.date.toDateString()}</h2>
+                      <img className="ItineraryIcon" src={`http://openweathermap.org/img/w/${item.icon}.png`}  alt='icon'/>
+                      </div>
                       <p>Weather: {item.weather}</p>
                       <p>Temperature: {item.temperature}</p>
                       <ListItineraryDestination

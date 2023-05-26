@@ -138,7 +138,9 @@ const List = (props) => {
       const lat = latitude;
       const lon = longitude;
       const weatherData = await getWeatherForecast(lat, lon, date);
+      console.log(weatherData)
       itinerary[i].weather = weatherData[0].weather[0].description;
+      itinerary[i].icon = weatherData[0].weather[0].icon;
       itinerary[i].temperature = weatherData[0].main.temp;
     }
     
