@@ -66,12 +66,15 @@ const ListItinerary = ({ ItineraryDay, setItineraryDay, response, updateOptions 
     return (
       <div className="list-test">
         <div {...getToggleProps({onClick: handleOnClick})}>
-        <div className='ItineraryTop'>
-        
+        <div className='ItineraryTopContainer'>
+          <div className='ItineraryTopButton'>
         {isExpanded ? <FaCaretDown /> : <FaCaretRight /> }
+        </div>
+        <div className='ItineraryTop'>
         <h2 className='ItineraryDate'>{item.date.toDateString()}</h2>
         <img className="ItineraryIcon" src={`http://openweathermap.org/img/w/${item.icon}.png`} alt='icon' />
-          </div>
+        </div>
+        </div>
         </div>
         <div {...getCollapseProps()}>
        {children}
