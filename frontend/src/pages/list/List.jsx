@@ -21,6 +21,14 @@ import PdfDownload from '../listTest/PdfDownload';
 import ListInformation from '../../components/ListInformation/ListInformation';
 import ListItinerary from '../../components/listItinerary/ListItinerary';
 
+<<<<<<< Updated upstream
+=======
+
+
+
+
+
+>>>>>>> Stashed changes
 
 const List = (props) => {
 
