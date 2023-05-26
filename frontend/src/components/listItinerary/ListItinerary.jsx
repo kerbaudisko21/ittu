@@ -1,6 +1,8 @@
 import React from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
+import { FaCaretDown, FaCaretRight} from 'react-icons/fa';
+import { useCollapse } from 'react-collapsed';
 
 
 
@@ -46,7 +48,15 @@ const ListItinerary = ({ItineraryDay,setItineraryDay,response,updateOptions}) =>
        setItineraryDay(newItinerary) 
       }
 
+      const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
+
   return (
+    <div className="collapsible">
+        <div {...getToggleProps()}>
+        {isExpanded ? <FaCaretDown /> : <FaCaretRight/>}
+      </div>
+      <div {...getCollapseProps()}>
+        <div className="content">
     <div className='listContainer'>
     <Droppable droppableId="droppable" type="droppableItem">
         {(provided) => (
@@ -65,9 +75,9 @@ const ListItinerary = ({ItineraryDay,setItineraryDay,response,updateOptions}) =>
                       {...provided.draggableProps}
                         className='tripContainer'
                     >
-                      {item.date.toDateString()}
+                      <h2 className='ItineraryDate'>{item.date.toDateString()}</h2>
                       <p>Weather: {item.weather}</p>
-                     <p>Temperature: {item.temperature}</p>
+                      <p>Temperature: {item.temperature}</p>
                       <ListItineraryDestination
                         destinations={item.destinations}
                         type={item.id}
@@ -86,6 +96,9 @@ const ListItinerary = ({ItineraryDay,setItineraryDay,response,updateOptions}) =>
           </div>
         )}
       </Droppable>
+      </div>
+      </div>
+      </div>
       </div>
   )
 }

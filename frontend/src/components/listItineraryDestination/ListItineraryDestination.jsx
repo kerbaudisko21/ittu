@@ -4,6 +4,7 @@ import { Autocomplete } from '@react-google-maps/api';
 import { FaBars, FaTrash, FaStar, FaDirections, FaSearchLocation} from 'react-icons/fa';
 
 
+
 import './listItineraryDestination.css'
 
 
@@ -65,6 +66,8 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
       deleteItem(deleteId,type)
     }
    
+    
+
   return (
     <div> 
   <div className='destinationUpperContainer'>

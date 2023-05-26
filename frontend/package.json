@@ -27,6 +27,7 @@
     "owl.carousel": "^2.3.4",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
+    "react-collapsed": "^4.0.2",
     "react-date-range": "^1.4.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.7",
