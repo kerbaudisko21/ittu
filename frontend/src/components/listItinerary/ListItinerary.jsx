@@ -51,7 +51,7 @@ const ListItinerary = ({ ItineraryDay, setItineraryDay, response, updateOptions 
   }
 
   const Collapsible = ({children , item}) => {
-    const [isExpanded, setExpanded] = useState(false);
+    const [isExpanded, setExpanded] = useState( item.expandedState);
     const { getCollapseProps, getToggleProps} = useCollapse(
       { 
         isExpanded : item.expandedState 
@@ -67,7 +67,8 @@ const ListItinerary = ({ ItineraryDay, setItineraryDay, response, updateOptions 
       <div className="list-test">
         <div {...getToggleProps({onClick: handleOnClick})}>
         <div className='ItineraryTop'>
-        {isExpanded ? <FaCaretDown /> : <FaCaretRight />}
+        
+        {isExpanded ? <FaCaretDown /> : <FaCaretRight /> }
         <h2 className='ItineraryDate'>{item.date.toDateString()}</h2>
         <img className="ItineraryIcon" src={`http://openweathermap.org/img/w/${item.icon}.png`} alt='icon' />
           </div>
