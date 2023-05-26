@@ -72,6 +72,7 @@ const ListItinerary = ({ ItineraryDay, setItineraryDay, response, updateOptions 
         </div>
         <div className='ItineraryTop'>
         <h2 className='ItineraryDate'>{item.date.toDateString()}</h2>
+        <h3>{ (item.temperature - 273).toFixed(1)} °C</h3>
         <img className="ItineraryIcon" src={`http://openweathermap.org/img/w/${item.icon}.png`} alt='icon' />
         </div>
         </div>
@@ -104,9 +105,6 @@ const ListItinerary = ({ ItineraryDay, setItineraryDay, response, updateOptions 
                       className='tripContainer'
                     >
                       <Collapsible item={item}>
-                        
-                      <p>Weather: {item.weather}</p>
-                          <p>Temperature: {item.temperature}</p>
                           <ListItineraryDestination
                             destinations={item.destinations}
                             type={item.id}

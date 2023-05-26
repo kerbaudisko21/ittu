@@ -30,7 +30,6 @@
 
 .ItineraryTop{
     width: 100%;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -41,4 +40,8 @@
 
 .ItineraryIcon{
     margin-right: 1.5rem;
+}
+
+.tripWeather{
+
 }
