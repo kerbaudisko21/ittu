@@ -24,7 +24,6 @@
 }
 
 .ItineraryTopButton{
-
     padding: 0.5rem;
 }
 
@@ -39,9 +38,11 @@
 }
 
 .ItineraryIcon{
-    margin-right: 1.5rem;
+    margin-right: 0.5rem;
 }
 
-.tripWeather{
-
+.ItineraryWeather{
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }

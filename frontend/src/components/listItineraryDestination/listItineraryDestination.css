@@ -100,7 +100,6 @@
   .destinationUpperContainer{
     display: flex;
     justify-content: space-between;
-    margin-top: 1rem;
     margin-right: 0.9rem;
     margin-left: 0.4rem;
   }

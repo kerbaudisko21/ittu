@@ -71,9 +71,13 @@ const ListItinerary = ({ ItineraryDay, setItineraryDay, response, updateOptions 
         {isExpanded ? <FaCaretDown /> : <FaCaretRight /> }
         </div>
         <div className='ItineraryTop'>
+       
         <h2 className='ItineraryDate'>{item.date.toDateString()}</h2>
-        <h3>{ (item.temperature - 273).toFixed(1)} °C</h3>
+       
+       <div className='ItineraryWeather'>
+       <p>{ (item.temperature - 273).toFixed(1)} °C</p>
         <img className="ItineraryIcon" src={`http://openweathermap.org/img/w/${item.icon}.png`} alt='icon' />
+        </div> 
         </div>
         </div>
         </div>
