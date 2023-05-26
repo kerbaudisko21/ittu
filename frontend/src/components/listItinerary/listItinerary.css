@@ -4,11 +4,13 @@
 }
 
 .itineraryContainer{
-    display: grid;
+    margin-left: -1.35rem;
+    justify-content: center;
     width: 80%;
 }
 
 .tripContainer{
+    
     padding: 10px;
     background-color: white;
     border-radius: 12px;
