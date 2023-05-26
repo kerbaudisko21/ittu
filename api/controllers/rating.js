@@ -6,8 +6,10 @@ export const createRating = async (req, res, next) => {
   console.log(itineraryId, req.body.user_id);
   try {
     const isExist = await Itinerary.findOne({
+      _id: itineraryId,
       'rating.user_id': req.body.user_id,
     });
+    console.log(isExist);
 
     if (isExist) throw { message: 'already rate' };
 

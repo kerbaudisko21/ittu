@@ -11,11 +11,20 @@ import { faMapMarkerAlt, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { Autocomplete } from '@react-google-maps/api';
 import Review from '../../components/reviewList/Review';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllItinerary } from '../../Features/Itinerary/ItinerarySlice';
 
 const Reference = () => {
   //   let userDetails = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : null;
 
   //   let userId = userDetails ? userDetails._id : '';
+  const dispatch = useDispatch();
+  const itinerary = useSelector((state) => state.itinerary?.list);
+
+  useEffect(() => {
+    dispatch(getAllItinerary());
+  }, []);
+
   const [openDate, setOpenDate] = useState(false);
   const [autocomplete, setAutocomplete] = useState(null);
   const navigate = useNavigate();
@@ -49,13 +58,12 @@ const Reference = () => {
     const lat = autocomplete.getPlace().geometry.location.lat();
     const lng = autocomplete.getPlace().geometry.location.lng();
     const name = autocomplete.getPlace().name;
-
-    console.log(lat);
-    console.log(lng);
-    console.log(name);
   };
+
+  if (!itinerary.length) return <div className="load">Loading</div>;
   return (
     <div className="refParent">
+      {console.log(itinerary, 'diatas')}
       <Navbar />
       <div className="refContainer">
         <div className="refHead">
@@ -110,84 +118,14 @@ const Reference = () => {
         </div>
         <div className="referenceList">
           <div className="refGrid-container">
-            <div className="refGrid-item">
-              <Review />
-            </div>
-            <div className="refGrid-item">
-              <Review />
-            </div>
-            <div className="refGrid-item">
-              <Review />
-            </div>
-            <div className="refGrid-item">
-              <Review />
-            </div>
-            <div className="refGrid-item">
-              <Review />
-            </div>
-            <div className="refGrid-item">
-              <Review />
-            </div>
-            <div className="refGrid-item">
-              <Review />
-            </div>
-            <div className="refGrid-item">
-              <Review />
-            </div>
-            <div className="refGrid-item">
-              <Review />
-            </div>
-            <div className="refGrid-item">
-              <Review />
-            </div>
-            <div className="refGrid-item">
-              <Review />
-            </div>
-            <div className="refGrid-item">
-              <Review />
-            </div>
-            <div className="refGrid-item">
-              <Review />
-            </div>
-            <div className="refGrid-item">
-              <Review />
-            </div>
-            <div className="refGrid-item">
-              <Review />
-            </div>
-            <div className="refGrid-item">
-              <Review />
-            </div>
-            <div className="refGrid-item">
-              <Review />
-            </div>
-            <div className="refGrid-item">
-              <Review />
-            </div>
-            <div className="refGrid-item">
-              <Review />
-            </div>
-            <div className="refGrid-item">
-              <Review />
-            </div>
-            <div className="refGrid-item">
-              <Review />
-            </div>
-            <div className="refGrid-item">
-              <Review />
-            </div>
-            <div className="refGrid-item">
-              <Review />
-            </div>
-            <div className="refGrid-item">
-              <Review />
-            </div>
-            <div className="refGrid-item">
-              <Review />
-            </div>
-            <div className="refGrid-item">
-              <Review />
-            </div>
+            {console.log(itinerary, 'dibawah')}
+            {itinerary.map((value, index) => {
+              return (
+                <div className="refGrid-item" key={index}>
+                  <Review itineraryDet={value} />
+                </div>
+              );
+            })}
           </div>
         </div>
 

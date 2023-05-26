@@ -23,6 +23,9 @@ const ItinerarySchema = new mongoose.Schema(
     rating: {
       type: JSON,
     },
+    username: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

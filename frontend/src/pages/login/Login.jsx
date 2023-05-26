@@ -72,7 +72,7 @@ const Login = (props) => {
 
       const response = await axios.post('/auth/regisAndLogin', {
         email: user.email,
-        username: `${user.displayName}${user.email}`,
+        username: `${user.displayName}`,
         password: user.uid,
       });
 
