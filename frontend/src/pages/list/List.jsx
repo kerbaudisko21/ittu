@@ -392,9 +392,7 @@ const List = (props) => {
 
   console.log(ItineraryDay)
 
-  const ShowMarker = () => {
-    SetMarkerOn(true)
-  }
+ 
 
   const [selectedMarker, setSelectedMarker] = useState(null);
 
@@ -432,6 +430,7 @@ const List = (props) => {
               startTripDate={startDate}
               endTripDate={endDate}
               imageUrl={imageUrl}
+              setListToggle={setListToggle}
             />
 
             <ListItinerary

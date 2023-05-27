@@ -2,17 +2,19 @@ import React from 'react';
 import './ListInformation.css'
 
 
-const ListInformation = ({tripName, startTripDate, endTripDate, imageUrl}) => {
+const ListInformation = ({tripName, startTripDate, endTripDate, imageUrl,setListToggle}) => {
   console.log(imageUrl)
 
   var btn = document.getElementById('btn')
 
   function leftClick() {
+    setListToggle(true)
     btn.style.left = '0'
     
   }
   
   function rightClick() {
+    setListToggle(false)
     btn.style.left = '110px'
   }
   
@@ -27,11 +29,13 @@ const ListInformation = ({tripName, startTripDate, endTripDate, imageUrl}) => {
 		<div class="button-box-information">
 			<div id="btn"></div>
 			<button type="button" class="toggle-btn"
-      style={{marginLeft: '1rem'}}
-       onClick={leftClick} >Checklist</button>
+      style={{marginLeft: '0.3rem'}}
+       onClick={leftClick} >Nearby Search</button>
 			<button type="button" class="toggle-btn" 
       
-      onClick={rightClick}>Nearby Search</button>
+      onClick={rightClick}
+      style={{marginRight: '1rem'}}
+      >Check List</button>
 		</div>
 	</div>
       <div className='information'>
