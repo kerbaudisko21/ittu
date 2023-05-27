@@ -34,8 +34,6 @@ const ListInformation = ({tripName, startTripDate, endTripDate, imageUrl}) => {
       onClick={rightClick}>Nearby Search</button>
 		</div>
 	</div>
-
-
       <div className='information'>
 
         <h1 className='tripName'>{tripName}</h1>
