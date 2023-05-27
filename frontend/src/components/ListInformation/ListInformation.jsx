@@ -9,6 +9,7 @@ const ListInformation = ({tripName, startTripDate, endTripDate, imageUrl}) => {
 
   function leftClick() {
     btn.style.left = '0'
+    
   }
   
   function rightClick() {
@@ -23,10 +24,14 @@ const ListInformation = ({tripName, startTripDate, endTripDate, imageUrl}) => {
     <div className='listInformation' >
 
   	<div class="form-box">
-		<div class="button-box">
+		<div class="button-box-information">
 			<div id="btn"></div>
-			<button type="button" class="toggle-btn" onClick={leftClick} >Left</button>
-			<button type="button" class="toggle-btn" onClick={rightClick}>Right</button>
+			<button type="button" class="toggle-btn"
+      style={{marginLeft: '1rem'}}
+       onClick={leftClick} >Checklist</button>
+			<button type="button" class="toggle-btn" 
+      
+      onClick={rightClick}>Nearby Search</button>
 		</div>
 	</div>
 
