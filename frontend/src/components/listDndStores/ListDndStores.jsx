@@ -31,7 +31,7 @@ const getListStyle = (isDraggingOver) => ({
   margin: "10px 0"
 });
 
-export const DndStore = ({ stores }) => {
+export const ListDndStore = ({ stores }) => {
 
   console.log({stores})
 
@@ -79,4 +79,4 @@ export const DndStore = ({ stores }) => {
   );
 };
 
-export default DndStore;
+export default ListDndStore;

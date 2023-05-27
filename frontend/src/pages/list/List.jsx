@@ -14,8 +14,6 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 
 
 
-
-import DndStore from '../listTest/DndStore';
 import PdfDownload from '../listTest/PdfDownload';
 
 import ListInformation from '../../components/ListInformation/ListInformation';

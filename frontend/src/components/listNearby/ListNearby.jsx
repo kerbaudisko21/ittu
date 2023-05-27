@@ -1,5 +1,5 @@
 import React from 'react'
-import DndStore from '../../pages/listTest/DndStore'
+import ListDndStore from '../listDndStores/ListDndStores'
 
 const ListNearby = ({ stores, SetMarkerOn, location, setType,type}) => {
     
@@ -28,7 +28,7 @@ const ListNearby = ({ stores, SetMarkerOn, location, setType,type}) => {
 
               <h1>Nearby {type}</h1>
 
-            <DndStore stores={stores} />
+            <ListDndStore stores={stores} />
 
         </div>
     )
