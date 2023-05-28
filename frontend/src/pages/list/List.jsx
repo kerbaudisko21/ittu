@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect} from 'react';
 import "./list.css";
 import axios from 'axios';
 
 import { GoogleApiWrapper } from 'google-maps-react';
 import { useLocation } from "react-router-dom";
 import { Autocomplete } from '@react-google-maps/api';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext} from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
 import { GoogleMap, DirectionsService, DirectionsRenderer, Marker, InfoWindow } from "@react-google-maps/api";
 import { format } from 'date-fns'
