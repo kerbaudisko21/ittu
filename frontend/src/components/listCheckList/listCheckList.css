@@ -1,0 +1,10 @@
+input[type="checkbox"]:checked + label {
+    text-decoration: line-through;
+  }
+
+.listCheckTitle{
+    font-size: 1.7rem;
+    margin-top: 2rem;
+    justify-content: center;
+    display: flex;
+}
