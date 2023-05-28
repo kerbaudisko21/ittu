@@ -1,36 +1,45 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Select from 'react-select';
 import ListDndStore from '../listDndStores/ListDndStores'
 import './listNearby.css'
 
 const ListNearby = ({ stores, SetMarkerOn, location, setType, type }) => {
+
+  const [Label, setLabel] = useState('Restaurant');
 
   const ShowMarker = () => {
     SetMarkerOn(true)
   }
 
   const handleTypeChange = (event) => {
-    setType(event.target.value);
-    console.log(event.target.value)
+    console.log(event.value)
+    setType(event.value);
+    setLabel(event.label)
   };
+
+  const options = [
+    { value: 'restaurant', label: 'Restaurant' },
+    { value: 'lodging', label: 'Hotel' },
+    { value: 'tourist_attraction', label: 'Attraction' }
+  ];
+  
 
 
   return (
     <div>
-        {/* <p>Latitude: {location.latitude}</p>
+      {/* <p>Latitude: {location.latitude}</p>
       <p>Longitude: {location.longitude}</p> */}
-      
-      <h2 className='listNearbyTitle'>Nearby {type}</h2>
+
+      <h2 className='listNearbyTitle'>Nearby {Label}</h2>
+    
+
       <div className='listNearbyTop'>
-      <select value={type} onChange={handleTypeChange}>
-        <option value="restaurant">restaurant</option>
-        <option value="lodging">hotel</option>
-        <option value="tourist_attraction">attraction</option>
-      </select>
-      <button onClick={ShowMarker}>Show Marker</button>
-      
+        <div className='listNearbyDropdown'>
+        </div>
+        <Select options={options} onChange={handleTypeChange}/>
+        <button onClick={ShowMarker}>Show Marker</button>
+
       </div>
-
-
       <ListDndStore stores={stores} />
 
     </div>

@@ -8,4 +8,12 @@
     margin-top: 0.5rem;
     justify-content: center;
     display: flex;
+    background: blue;
+}
+
+.listNearbyDropdown{
+    border-radius: 100px;
+    border: none;
+    outline: none;
+    scroll-behavior: smooth;
 }
