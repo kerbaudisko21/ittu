@@ -13,9 +13,7 @@
     color: gray;
 }
 
-.storesName {
-    width: 100%;
-}
+
 
 .storesImageContainer {
     position: relative;
@@ -72,4 +70,29 @@
   
   
   
+.storesUpperContainer{
+    display: flex;
+    max-width: 12.5rem;
+}
 
+.storesNumber{
+    display: flex;
+    align-items: center;
+}
+
+.storesRating{
+    display: flex;
+    justify-content: center ;
+}
+
+.storesNameContainer{
+    width: 100%;
+}
+
+.storesName {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    text-justify: inter-word;
+}

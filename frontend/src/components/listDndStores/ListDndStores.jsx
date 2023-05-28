@@ -53,8 +53,21 @@ export const ListDndStore = ({ stores }) => {
                     >
                       <FaBars />
                     </span>
-                    <div className="storesInsideContainer">
-                    <div className='storesName'>{index + 1}.{item.name}</div>
+                   
+                    <div className="storesInsideContainer"> 
+                    <div className="storesUpperContainer">
+                    <div className="storesNumber">{index + 1}</div>
+                    <div className="storesNameContainer">
+                    <div className='storesName'>{item.name}</div>
+                    <div className='storesRating'>
+                      <p>{item?.rating} <FaStar /></p>
+                        <p> ({item?.user_ratings_total})</p>
+                      </div>
+                      </div>
+                      </div>
+                     
+
+
                     <div className='storesDescContainer'>
                       <div className='storesImageContainer'>
                         <img src={item.photos[0].getUrl()} alt="Logo" class="storesImage" />
@@ -63,12 +76,6 @@ export const ListDndStore = ({ stores }) => {
                         </div>
                       </div>
                       </div>
-
-                      <div className='storesRating'>
-                      <p>{item?.rating} <FaStar /></p>
-                        <p> ({item?.user_ratings_total})</p>
-                      </div>
-
 
 
                     </div>
