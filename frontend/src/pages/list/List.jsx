@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import "./list.css";
 import axios from 'axios';
 
@@ -20,6 +20,7 @@ import ListInformation from '../../components/ListInformation/ListInformation';
 import ListItinerary from '../../components/listItinerary/ListItinerary';
 import ListNearby from '../../components/listNearby/ListNearby';
 import ListCheckList from '../../components/listCheckList/ListCheckList';
+import ListMap from '../../components/listMap/ListMap';
 
 
 const List = (props) => {
@@ -31,6 +32,7 @@ const List = (props) => {
   const [location, setLocation] = useState({});
   const [type, setType] = useState('restaurant');
   const [ItineraryDay, setItineraryDay] = useState([]);
+  const [markerOn, SetMarkerOn] = useState(true);
 
   useEffect(() => {
     function getDates() {
@@ -283,24 +285,10 @@ const List = (props) => {
     }
   };
 
-
-
-  const containerStyle = {
-    width: "100%",
-    height: "800px",
-  };
-
-  const center = {
-    lat: location.latitude,
-    lng: location.longitude,
-  };
-
-
   const [response, setResponse] = useState(null);
   const [OnArray, setOnArray] = useState(null);
   let [options, setOptions] = useState([])
   let [stopPoints, setStopPoints] = useState([])
-  const [markerOn, SetMarkerOn] = useState(true);
 
   const directionsCallback = (res) => {
     if (res !== null && response === null) {
@@ -315,7 +303,6 @@ const List = (props) => {
       setResponse(res);
     }
   };
-
 
   const updateOptions = (type, directions) => {
     setOptions(null)
@@ -395,13 +382,6 @@ const List = (props) => {
 
   const [selectedMarker, setSelectedMarker] = useState(null);
 
-  const handleMouseOver = (marker) => {
-    setSelectedMarker(marker);
-  };
-
-  const handleMouseOut = () => {
-    setSelectedMarker(null);
-  };
 
   const [imageUrl, setImageUrl] = useState('');
   useEffect(() => {
@@ -421,7 +401,6 @@ const List = (props) => {
     <div>
       {/* <Navbar /> */}
       <div className="list">
-
         <DragDropContext onDragEnd={onDragEnd}>
           <div className="planning">
             <ListInformation
@@ -440,10 +419,6 @@ const List = (props) => {
             />
 
           </div>
-
-
-
-
           <div className="placemap">
 
             {listToggle ? 
@@ -460,11 +435,8 @@ const List = (props) => {
             setChecklist={setChecklist}
             /></div>}
           </div>
-
-
-
-
         </DragDropContext>
+
         <div className="MapTempat">
           {/* <PDFDownloadLink document={<PdfDownload 
       tripName={name}
@@ -473,85 +445,17 @@ const List = (props) => {
       {({loading}) => (loading ? <button>Loading Document...</button> : <button>Download</button> )}
       </PDFDownloadLink> */}
 
-          <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}
-            options={{
-              componentRestrictions: { country: 'id' },
-            }}
-          >
-            <input type="text" />
-          </Autocomplete>
-
-          <GoogleMap
-            zoom={15}
-            center={center}
-            mapContainerStyle={containerStyle}
-
-          >
-            {(() => {
-              if (markerOn === true) {
-                return (
-                  <div>
-                    {stores.map((store, index) => (
-
-                      <Marker position={{
-                        lat: store.geometry.location.lat(),
-                        lng: store.geometry.location.lng()
-
-                      }}
-                        onMouseOver={() => handleMouseOver(store.place_id)}
-                        onMouseOut={handleMouseOut}
-
-                        label={{
-                          text: (index + 1).toString(),
-                          color: '#fff',
-                          fontSize: '12px',
-                          fontWeight: 'bold',
-                        }}
-
-                      >
-                        {selectedMarker === store.place_id && (
-                          <InfoWindow>
-                            <div>
-                              <h3>{store.name}</h3>
-                            </div>
-                          </InfoWindow>
-                        )}
-                      </Marker>
-                    ))}
-                  </div>
-                )
-              }
-              else if (response !== null && markerOn === false) {
-                return (
-                  <div>
-                    <DirectionsRenderer
-                      // required
-                      options={{
-                        directions: response,
-                      }}
-                    />
-                  </div>
-                )
-              }
-            })()}
-
-
-
-
-
-
-
-            <DirectionsService
-              // required
-              options={options}
-
-              // required
-              callback={directionsCallback}
-            />
-
-
-
-          </GoogleMap>
+      <ListMap 
+      location={location}
+      stores={stores}
+      markerOn={markerOn}
+      setSelectedMarker={setSelectedMarker}
+      selectedMarker={selectedMarker}
+      response={response}
+      options={options}
+      directionsCallback={directionsCallback}
+      />
+      
         </div>
         <button onClick={saveItinerary}>Create</button>
       </div>
