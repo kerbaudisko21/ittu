@@ -67,16 +67,15 @@
     scrollbar-width: none;  /* Firefox */
   }
   
-  
 .storesUpperContainer{
     display: flex;
     max-width: 12.5rem;
 }
 
-
 .storesRating{
     display: flex;
-    justify-content: center ;
+    justify-content: flex-start;
+    margin: 0.2rem 0;
 }
 
 .storesNameContainer{
@@ -85,16 +84,11 @@
 
 .storesName {
     width: 100%;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    text-justify: inter-word;
 }
 
 .storesLeftContainer{
     display: flex;
     flex-direction: column;
-
     position: relative;
 }
 
