@@ -34,11 +34,11 @@ const ListNearby = ({ stores, SetMarkerOn, location, setType, type }) => {
     
 
       <div className='listNearbyTop'>
-        <div className='listNearbyDropdown'>
-        </div>
-        <Select options={options} onChange={handleTypeChange}/>
-        <button onClick={ShowMarker}>Show Marker</button>
+        <div className='NearbyTopContainer'>
 
+        <Select options={options} onChange={handleTypeChange}  className='nearbyDropdown'/>
+        <button className='nearbyMarkerButton' onClick={ShowMarker}>Show Marker</button>
+        </div>
       </div>
       <ListDndStore stores={stores} />
 

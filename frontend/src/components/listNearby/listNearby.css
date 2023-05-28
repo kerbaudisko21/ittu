@@ -1,4 +1,5 @@
 .listNearbyTitle{
+    font-size: 1.7rem;
     margin-top: 2.5rem;
     justify-content: center;
     display: flex;
@@ -8,12 +9,31 @@
     margin-top: 0.5rem;
     justify-content: center;
     display: flex;
-    background: blue;
 }
 
-.listNearbyDropdown{
-    border-radius: 100px;
-    border: none;
-    outline: none;
-    scroll-behavior: smooth;
+.NearbyTopContainer{
+    width: 16rem;
+    justify-content: space-between;
+    display: flex;
 }
+
+.nearbyDropdown{
+    width: 9rem;
+    border-radius: 20px;
+}
+
+.nearbyMarkerButton{
+    text-align: center;
+    align-self: center;
+    height: 2rem;
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: lightgrey; 
+  }
+
+  .nearbyMarkerButton:hover {
+    background: aliceblue;
+}
+
