@@ -5,13 +5,15 @@ import jwt from 'jsonwebtoken';
 
 export const register = async (req, res, next) => {
   try {
+    console.log(req.body);
     var salt = bcrypt.genSaltSync(10);
     var hash = bcrypt.hashSync(req.body.password, salt);
-
+    console.log(req.body.imageProfile);
     const newUser = new User({
       username: req.body.username,
       email: req.body.email,
       password: hash,
+      imageProfile: req.file?.filename,
     });
     await newUser.save();
     res.status(200).send('User has been created.');
@@ -43,10 +45,10 @@ export const login = async (req, res, next) => {
 export const regisAndLogin = async (req, res, next) => {
   try {
     const user = await User.findOne({ username: req.body.username });
-
-    if (!user) register(req, res, next);
+    console.log(user, 'user login');
+    if (!user) return register(req, res, next);
     login(req, res, next);
-  } catch (error) {
+  } catch (err) {
     next(err);
   }
 };

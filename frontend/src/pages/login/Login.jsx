@@ -39,17 +39,60 @@ const Login = (props) => {
     }
   };
 
+  const imageToFile = async (apiFetch) => {
+    const returnData = null;
+    await fetch(`${apiFetch}`)
+      .then((response) => {
+        // Check if the request was successful
+        if (response.ok) {
+          return response.blob();
+        } else {
+          throw new Error('Failed to retrieve the image.');
+        }
+      })
+      .then((blob) => {
+        const reader = new FileReader();
+
+        // Define a callback function for when the file is loaded
+        reader.onloadend = () => {
+          // Use the FileReader's result as the image source
+          const link = reader.result;
+        };
+
+        // Start reading the blob as a data URL
+        reader.readAsDataURL(blob);
+        console.log(blob);
+        credentials['imageProfile'] = blob;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    return returnData;
+  };
+
   const handleClickRegis = async (e) => {
     e.preventDefault();
     dispatch({ type: 'REGIS_START' });
     try {
-      console.log(credentials);
-      const res = await axios.post('/auth/register', credentials);
-      console.log(res);
-      dispatch({ type: 'REGIS_SUCCESS', payload: res.data.details });
-      console.log({ payload: res.data.details });
+      await imageToFile(`https://ui-avatars.com/api/?name=${credentials.username}&background=random&format=png`);
+
+      console.log(credentials, credentials.imageProfile);
+      const res = await axios.post(
+        '/auth/register',
+        {
+          username: credentials.username,
+          email: credentials.email,
+          password: credentials.password,
+          imageProfile: credentials.imageProfile,
+        },
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
       alert('user has been created!');
-      window.location.href = '/login';
+      // window.location.href = '/login';
     } catch (err) {
       dispatch({ type: 'REGIS_FAILURE', payload: err.response.data });
     }
@@ -67,6 +110,7 @@ const Login = (props) => {
       //   username: `${user.displayName}${user.email}`,
       //   password: user.uid,
       // }); kalo pake set credential, credentialnya undefined pas pertama tekan
+      await imageToFile(`https://ui-avatars.com/api/?name=${user.displayName}&background=random&format=png`);
 
       console.log(user, credentials);
 
@@ -74,10 +118,11 @@ const Login = (props) => {
         email: user.email,
         username: `${user.displayName}`,
         password: user.uid,
+        imageProfile: credentials.imageProfile,
       });
 
       dispatch({ type: 'LOGIN_SUCCESS', payload: response.data.details });
-      window.location.href = '/';
+      // window.location.href = '/';
     } catch (err) {
       dispatch({ type: 'LOGIN_FAILURE', payload: err.response.data });
     }
@@ -92,54 +137,56 @@ const Login = (props) => {
   console.log(isRegistered);
 
   return (
-    <div className="main">
+    <div className="mainLogin">
       {console.log(React.version)}
+
+      {credentials?.imageProfile ? <img src={credentials?.imageProfile} alt="" /> : ''}
       <Navbar />
-      <div className="subMain">
-        <div className="subMainImage"></div>
-        <div className="formSide">
-          <div className="container">
-            <form className="form">
-              <div className="head">
+      <div className="subMainLogin">
+        <div className="subMainImageLogin"></div>
+        <div className="formSideLogin">
+          <div className="containerLogin">
+            <form className="formLogin">
+              <div className="headLogin">
                 <p className="LoginTitle"> ITTU </p>
               </div>
-              <div className="input">
-                <div className="in">
-                  <label className="label">Username</label>
+              <div>
+                <div>
+                  <label>Username</label>
                   <input label="Username" type="text" id="username" onChange={handleChange} placeholder="Username" />
                 </div>
                 {!isRegistered && (
-                  <div className="in">
-                    <label className="label">Email</label>
+                  <div>
+                    <label>Email</label>
                     <input label="Email" type="text" id="email" onChange={handleChange} placeholder="Email" />
                   </div>
                 )}
-                <div className="in">
-                  <label className="label">Password</label>
+                <div>
+                  <label>Password</label>
                   <input label="Password" type="password" id="password" onChange={handleChange} placeholder="Password" />
                 </div>
                 {/* <p className="error">{errors.password?.type === 'required' && 'Password is required'}</p> */}
               </div>
-              <div className="formFooter">
+              <div className="formFooterLogin">
                 {isRegistered ? (
-                  <button className="btnSubmit" disabled={loading} onClick={handleClickLogin}>
+                  <button className="btnSubmitLogin" disabled={loading} onClick={handleClickLogin}>
                     Login
                   </button>
                 ) : (
-                  <button className="btnSubmit" disabled={loading} onClick={handleClickRegis}>
+                  <button className="btnSubmitLogin" disabled={loading} onClick={handleClickRegis}>
                     Register
                   </button>
                 )}
-                <button className="btnSubmit google" disabled={loading} onClick={handleClickLoginGoogle}>
+                <button className="btnSubmitLogin google" disabled={loading} onClick={handleClickLoginGoogle}>
                   {isRegistered ? 'Login with Google' : 'Register with Google'}
                   <FcGoogle size={'24px'} />
                 </button>
               </div>
               {error && <span>{error.message}</span>}
-              <p className="message">
+              <p className="messageLogin">
                 {!isRegistered ? 'Already have account ? ' : 'Don’t have account ? '}
                 <Link className="linkAneh" to={'/login'}>
-                  <button className="btnAccount" onClick={() => setStatus(!isRegistered)}>
+                  <button className="btnAccountLogin" onClick={() => setStatus(!isRegistered)}>
                     {!isRegistered ? 'Login' : 'Sign Up'}
                   </button>
                 </Link>

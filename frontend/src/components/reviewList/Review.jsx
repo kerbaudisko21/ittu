@@ -8,7 +8,6 @@ import { AuthContext } from '../../context/AuthContext';
 import { useDispatch } from 'react-redux';
 import { toggleRating } from '../../Features/Itinerary/ItinerarySlice';
 
-// import Stars from 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css';
 const possibleRates = [1, 2, 3, 4, 5];
 
 const Review = (props) => {
@@ -16,7 +15,7 @@ const Review = (props) => {
   const { user } = useContext(AuthContext);
   const dispatch = useDispatch();
   const [ratingCounter, setRatingCounter] = useState(props.itineraryDet?.rating?.length || 0);
-  const [rating, setRating] = useState(props.itineraryDet?.rating?.some((i) => i.user_id?.includes(user._id)));
+  const [rating, setRating] = useState(props.itineraryDet?.rating?.some((i) => i.user_id?.includes(user?._id)));
 
   console.log(user, props.itineraryDet);
 
@@ -31,7 +30,7 @@ const Review = (props) => {
           <div
             className="country"
             style={{
-              backgroundImage: `url(${CountryImage})`,
+              backgroundImage: `url(${props?.itineraryDet?.tripBgImage})`,
               // zIndex: 0,
             }}
           >
@@ -43,7 +42,7 @@ const Review = (props) => {
         </div>
         <div className="rate">
           <div className="profile">
-            <img className="circle-img" src={ProfileImage} alt="avatar_img" />
+            <img className="circle-img" src={props?.itineraryDet?.userProfileImage} alt="test" />
             <p>Anna</p>
           </div>
           <div className="rating">
@@ -63,6 +62,7 @@ const Review = (props) => {
             ) : (
               <AiOutlineStar
                 onClick={() => {
+                  if (!user) return alert('You need to login before rate');
                   dispatch(toggleRating(true, props.itineraryDet._id));
                   console.log('clicked', user._id, props.itineraryDet);
                   setRatingCounter(ratingCounter + 1);

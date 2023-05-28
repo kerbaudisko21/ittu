@@ -26,6 +26,9 @@ const ItinerarySchema = new mongoose.Schema(
     username: {
       type: String,
     },
+    userProfileImage: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

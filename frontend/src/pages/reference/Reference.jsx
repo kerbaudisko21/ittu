@@ -13,6 +13,9 @@ import { Autocomplete } from '@react-google-maps/api';
 import Review from '../../components/reviewList/Review';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllItinerary } from '../../Features/Itinerary/ItinerarySlice';
+import { InputNumber } from 'primereact/inputnumber';
+
+import { Dropdown } from 'primereact/dropdown';
 
 const Reference = () => {
   //   let userDetails = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : null;
@@ -25,7 +28,8 @@ const Reference = () => {
     dispatch(getAllItinerary());
   }, []);
 
-  const [openDate, setOpenDate] = useState(false);
+  const [day, setDay] = useState('0');
+  const [selectedFilter, setSelectedFilter] = useState(null);
   const [autocomplete, setAutocomplete] = useState(null);
   const navigate = useNavigate();
   const [dates, setDate] = useState([
@@ -79,39 +83,31 @@ const Reference = () => {
                   types: ['(regions)'],
                 }}
               >
-                <div className="headerSearchItem">
+                <div className="headerSearchItem headerDest">
                   <FontAwesomeIcon icon={faMapMarkerAlt} className="headerIcon" />
                   <input type="text" placeholder="Destination" className="headerSearchInputDest" />
                 </div>
               </Autocomplete>
-              <div className="headerSearchItem">
-                <FontAwesomeIcon icon={faCalendar} className="headerIcon" />
-                <input type="text" readOnly className="headerSearchInput" placeholder="Start Date" onClick={() => setOpenDate(!openDate)} value={`${format(dates[0].startDate, 'MM/dd/yyyy')}`} />
-                {openDate && (
-                  <DateRange
-                    className="date"
-                    editableDateInputs={true}
-                    onChange={(item) => {
-                      setDate([item.selection]);
-                      setOpenDate(false);
-                    }}
-                    moveRangeOnFirstSelection={false}
-                    ranges={dates}
-                  />
-                )}
-              </div>
-              <div className="headerSearchItem">
-                <FontAwesomeIcon icon={faCalendar} className="headerIcon" />
-                <input
-                  type="text"
-                  placeholder="End Date"
-                  disabled
-                  className="headerSearchInput"
-                  value={`${format(dates[0].endDate, 'MM/dd/yyyy')}`}
-                  // onChange={() => {
-                  //   setOpenDate(false);
-                  // }}
+
+              <div className="headerSearchItem flex-auto headerInputNumber">
+                <InputNumber
+                  className="inputNumberStyle"
+                  value={day}
+                  showButtons
+                  // buttonLayout="vertical"
+                  onValueChange={(e) => {
+                    setDay(e.value >= 0 ? e.value : 0);
+                    // console.log(e.value);
+                  }}
+                  // prefix="Expires in "
+                  suffix=" days"
                 />
+
+                {/* <FontAwesomeIcon icon={faCalendar} className="headerIcon" /> */}
+              </div>
+
+              <div className="headerSearchItem flex-auto headerFilter">
+                <Dropdown value={selectedFilter} onChange={(e) => setSelectedFilter(e.value)} options={[{ name: 'Liked' }, { name: 'Not Like' }]} optionLabel="name" showClear placeholder="Filter By" className="dropdownFilter" />
               </div>
             </div>
           </div>
