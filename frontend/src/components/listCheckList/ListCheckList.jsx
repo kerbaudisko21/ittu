@@ -4,30 +4,29 @@ import { FaPlus } from 'react-icons/fa';
 
 import './listCheckList.css'
 
-function ListCheckList() {
-  const [todos, setTodos] = useState([]);
+function ListCheckList({checklist,setChecklist}) {
 
   const handleAddTodo = () => {
-    setTodos([...todos, { text: '', completed: false }]);
+    setChecklist([...checklist, { text: '', completed: false }]);
   };
 
   const handleTodoChange = (event, index) => {
-    const newTodos = [...todos];
-    newTodos[index].text = event.target.value;
-    setTodos(newTodos);
+    const newChecklist = [...checklist];
+    newChecklist[index].text = event.target.value;
+    setChecklist(newChecklist);
   };
 
   const handleCheckboxChange = (event, index) => {
-    const newTodos = [...todos];
-    newTodos[index].completed = event.target.checked;
-    setTodos(newTodos);
+    const newChecklist = [...checklist];
+    newChecklist[index].completed = event.target.checked;
+    setChecklist(newChecklist);
   };
 
   const handleTodoBlur = (event, index) => {
-    const newTodos = [...todos];
+    const newChecklist = [...checklist];
     if (event.target.value === '') {
-      newTodos.splice(index, 1);
-      setTodos(newTodos);
+      newChecklist.splice(index, 1);
+      setChecklist(newChecklist);
     }
   };
 
@@ -43,7 +42,7 @@ function ListCheckList() {
     </div>
     <div className='listCheckToDoContainer'>
       <ul>
-        {todos.map((todo, index) => (
+        {checklist.map((todo, index) => (
           <li key={index} className='listCheckToDo'>
             <input
               type="checkbox"
@@ -61,6 +60,7 @@ function ListCheckList() {
               onBlur={(event) => handleTodoBlur(event, index)}
               style={{
                 border: 'none',
+                outline: 'none',
                 textDecoration: todo.completed ? 'line-through' : 'none',
               }}
             />

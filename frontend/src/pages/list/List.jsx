@@ -23,7 +23,7 @@ import ListCheckList from '../../components/listCheckList/ListCheckList';
 
 
 const List = (props) => {
-
+  const [checklist, setChecklist] = useState([]);
   const [autocomplete, setAutocomplete] = useState(null);
   const dateRange = useLocation();
   const { startDate, endDate, name, latitude, longitude, tripLocation } = dateRange.state;
@@ -376,7 +376,8 @@ const List = (props) => {
       "end_date": format(endDate, "MM/dd/yyyy"),
       "latitude": latitude,
       "longtitude": longitude,
-      "itinerary_days": { ItineraryDay }
+      "itinerary_days": { ItineraryDay },
+      "checklist": {checklist},
     };
     const res = axios.post(`/itinerary/${id._id}`, data);
 
@@ -454,7 +455,10 @@ const List = (props) => {
             type={type}
             /></div> 
             : 
-            <div><ListCheckList /></div>}
+            <div><ListCheckList 
+            checklist={checklist}
+            setChecklist={setChecklist}
+            /></div>}
           </div>
 
 

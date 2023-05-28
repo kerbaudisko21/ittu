@@ -29,6 +29,9 @@ const ItinerarySchema = new mongoose.Schema(
     rating: {
       type: JSON,
     },
+    checklist: {
+      type: JSON,
+    },
   },
   { timestamps: true }
 );
