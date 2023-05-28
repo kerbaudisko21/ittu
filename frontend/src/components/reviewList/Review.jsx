@@ -17,7 +17,10 @@ const Review = (props) => {
   const [ratingCounter, setRatingCounter] = useState(props.itineraryDet?.rating?.length || 0);
   const [rating, setRating] = useState(props.itineraryDet?.rating?.some((i) => i.user_id?.includes(user?._id)));
 
-  console.log(user, props.itineraryDet);
+  // console.log(user, props.itineraryDet);
+
+  if (props?.filterLike === 'Liked' && !rating) return;
+  if (props?.filterLike === 'Not Like' && rating) return;
 
   return (
     <div className="review">
@@ -42,8 +45,9 @@ const Review = (props) => {
         </div>
         <div className="rate">
           <div className="profile">
-            <img className="circle-img" src={props?.itineraryDet?.userProfileImage} alt="test" />
-            <p>Anna</p>
+            {console.log(props.itineraryDet)}
+            <img className="circle-img" src={`http://localhost:8800/userProfile/${props?.itineraryDet?.userProfileImage}`} alt="test" />
+            <p>{props?.itineraryDet.username}</p>
           </div>
           <div className="rating">
             <p>{ratingCounter}</p>

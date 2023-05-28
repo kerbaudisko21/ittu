@@ -24,10 +24,6 @@ const Reference = () => {
   const dispatch = useDispatch();
   const itinerary = useSelector((state) => state.itinerary?.list);
 
-  useEffect(() => {
-    dispatch(getAllItinerary());
-  }, []);
-
   const [day, setDay] = useState('0');
   const [selectedFilter, setSelectedFilter] = useState(null);
   const [autocomplete, setAutocomplete] = useState(null);
@@ -42,6 +38,10 @@ const Reference = () => {
       key: 'selection',
     },
   ]);
+
+  useEffect(() => {
+    dispatch(getAllItinerary());
+  }, [selectedFilter]);
 
   const handleClick = () => {
     navigate('/List', {
@@ -118,10 +118,11 @@ const Reference = () => {
             {itinerary.map((value, index) => {
               return (
                 <div className="refGrid-item" key={index}>
-                  <Review itineraryDet={value} />
+                  <Review itineraryDet={value} filterLike={selectedFilter === 'liked'} />
                 </div>
               );
             })}
+            {console.log(selectedFilter)}
           </div>
         </div>
 

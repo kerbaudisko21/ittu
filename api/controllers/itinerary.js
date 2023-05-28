@@ -2,13 +2,17 @@ import Itinerary from '../models/Itinerary.js';
 import User from '../models/User.js';
 
 export const createItinerary = async (req, res, next) => {
-  const userId = req.params.userid;
+  // const userId = req.params.userid;
+  const user = await User.findById(req.params.userid);
   const newItinerary = new Itinerary(req.body);
+  newItinerary['username'] = user.username;
+  newItinerary['userProfileImage'] = user.imageProfile;
+  console.log(newItinerary, user);
 
   try {
     const savedItinerary = await newItinerary.save();
     try {
-      await User.findByIdAndUpdate(userId, { $push: { userItinerary: savedItinerary._id } });
+      await User.findByIdAndUpdate(user._id, { $push: { userItinerary: savedItinerary._id } });
     } catch (error) {
       next(error);
     }
