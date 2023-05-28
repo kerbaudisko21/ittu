@@ -49,16 +49,22 @@ export const ListDndStore = ({ stores }) => {
                     )}
                     className='storesContainer'
                   >
+                    <div className="storesLeftContainer">
+                    <div className="storesNumberContainer">
+                      <p className="storesNumber">{index + 1}</p> </div>
+                      <div  className='storesDndIcon'>
                     <span
                       {...provided.dragHandleProps}
-                      className='storesDndIcon'
+                      className='storeDndIcon'
                     >
-                      <FaBars />
+                      < FaBars  />
                     </span>
+                    </div>
+                    </div>
                    
                     <div className="storesInsideContainer"> 
                     <div className="storesUpperContainer">
-                    <div className="storesNumber">{index + 1}</div>
+
                     <div className="storesNameContainer">
                     <div className='storesName'>{item.name}</div>
                     <div className='storesRating'>
