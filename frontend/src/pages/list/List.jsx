@@ -1,55 +1,39 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./list.css";
 import axios from 'axios';
 
 import { GoogleApiWrapper } from 'google-maps-react';
 import { useLocation } from "react-router-dom";
 import { Autocomplete } from '@react-google-maps/api';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext} from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
-import {GoogleMap, DirectionsService, DirectionsRenderer, Marker, InfoWindow } from "@react-google-maps/api";
-import {format} from 'date-fns'
+import { GoogleMap, DirectionsService, DirectionsRenderer, Marker, InfoWindow } from "@react-google-maps/api";
+import { format } from 'date-fns'
 import { PDFDownloadLink } from "@react-pdf/renderer";
 
 
 
 
-
-import DndStore from '../listTest/DndStore';
 import PdfDownload from '../listTest/PdfDownload';
 
 import ListInformation from '../../components/ListInformation/ListInformation';
 import ListItinerary from '../../components/listItinerary/ListItinerary';
-
-const grid = 8;
-
-const getItemStyle = (isDragging, draggableStyle) => ({
-  // some basic styles to make the items look a bit nicer
-  userSelect: "none",
-  padding: grid * 2,
-  margin: `0 0 ${grid}px 0`,
-
-  // change background colour if dragging
-  background: isDragging ? "lightgreen" : "grey",
-
-  // styles we need to apply on draggables
-  ...draggableStyle
-});
-
-
-
+import ListNearby from '../../components/listNearby/ListNearby';
+import ListCheckList from '../../components/listCheckList/ListCheckList';
+import ListMap from '../../components/listMap/ListMap';
 
 
 const List = (props) => {
-
+  const [checklist, setChecklist] = useState([]);
   const [autocomplete, setAutocomplete] = useState(null);
   const dateRange = useLocation();
-  const { startDate, endDate,  name,latitude, longitude, imageUnsplashSearch} = dateRange.state;
+  const { startDate, endDate, name, latitude, longitude, tripLocation } = dateRange.state;
   const [stores, setStores] = useState([]);
   const [location, setLocation] = useState({});
   const [type, setType] = useState('restaurant');
   const [ItineraryDay, setItineraryDay] = useState([]);
-  
+  const [markerOn, SetMarkerOn] = useState(true);
+
   useEffect(() => {
     function getDates() {
       const dates = [];
@@ -60,30 +44,29 @@ const List = (props) => {
         newDate.setDate(newDate.getDate() + days);
         id = Number(id);
         id++;
-        
-        return { 
+
+        return {
           id: id.toString(),
-          date: newDate, 
+          date: newDate,
           weather: '',
           temperature: '',
           destinations: []
         }
-      
-        ;
 
-       
-        
+          ;
+
+
+
       }
       while (currentDate <= new Date(endDate)) {
         dates.push(addDays(currentDate, 0));
         currentDate = addDays(currentDate, 1).date;
         id = Number(id);
         id--;
-        
+
       }
       addWeatherToItinerary(dates);
     }
-
     getDates();
   }, [startDate, endDate]);
 
@@ -93,16 +76,16 @@ const List = (props) => {
     //   (position) => {
     //     const { latitude, longitude } = position.coords;
     //     setLocation({ latitude, longitude });
-        
+
     //   },
     //   () => {
     //     console.log('Permission denied');
     //   }
-      
+
     setLocation({ latitude, longitude });
-    
-  }, [latitude,longitude]);
- 
+
+  }, [latitude, longitude]);
+
   useEffect(() => {
     const { google } = props;
     const service = new google.maps.places.PlacesService(
@@ -118,19 +101,19 @@ const List = (props) => {
       type: [type],
     };
     const callback = (results, status) => {
-      
+
       if (status === google.maps.places.PlacesServiceStatus.OK) {
 
-         results = results.filter((item) => item.business_status === "OPERATIONAL" && item.user_ratings_total > 50);
+        results = results.filter((item) => item.business_status === "OPERATIONAL" && item.user_ratings_total > 50);
         setStores(results);
       }
     };
-    
+
     service.nearbySearch(request, callback);
   }, [props, location, type]);
 
-  
-  
+
+
 
   async function addWeatherToItinerary(itinerary) {
     for (let i = 0; i < itinerary.length; i++) {
@@ -138,19 +121,21 @@ const List = (props) => {
       const lat = latitude;
       const lon = longitude;
       const weatherData = await getWeatherForecast(lat, lon, date);
+      console.log(weatherData)
       itinerary[i].weather = weatherData[0].weather[0].description;
+      itinerary[i].icon = weatherData[0].weather[0].icon;
       itinerary[i].temperature = weatherData[0].main.temp;
     }
-    
+
     setItineraryDay(itinerary);
   }
-  
+
   async function getWeatherForecast(lat, lon, date) {
     const apiKey = 'ab153f1fe2b71c6c9649d3beaeefc00c';
     const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
     const response = await fetch(apiUrl);
     const data = await response.json();
-    
+
     // Filter the list based on the date you want
     const filteredList = data.list.filter(item => {
       const itemDate = new Date(item.dt_txt);
@@ -158,12 +143,8 @@ const List = (props) => {
     });
     return filteredList;
   }
-  
 
-  const handleTypeChange = (event) => {
-    setType(event.target.value);
-    console.log(event.target.value)
-  };
+
 
 
 
@@ -171,10 +152,10 @@ const List = (props) => {
   const onLoad = (autoC) => setAutocomplete(autoC);
 
   const onPlaceChanged = () => {
-     const latitude = autocomplete.getPlace().geometry.location.lat();
-     const longitude = autocomplete.getPlace().geometry.location.lng();
-    
-     setLocation({ latitude, longitude });
+    const latitude = autocomplete.getPlace().geometry.location.lat();
+    const longitude = autocomplete.getPlace().geometry.location.lng();
+
+    setLocation({ latitude, longitude });
   };
 
 
@@ -182,7 +163,7 @@ const List = (props) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
-  
+
     return result;
   };
 
@@ -200,364 +181,287 @@ const List = (props) => {
     const destParentId = result.destination.droppableId;
     if (result.type === "droppableItem") {
       setItineraryDay(reorder(ItineraryDay, sourceIndex, destIndex));
-    } 
+    }
     else if (result.type === "droppableSubItem") {
       console.log("droppableSubItem +")
-      if(sourceParentId !== 'Stores'){
-      const itemSubItemMap = ItineraryDay.reduce((acc, item) => {
-        acc[item.id] = item.destinations;
-        console.log(item.destinations)
-        console.log(acc)
-        return acc;
-      }, {});
-      console.log({itemSubItemMap})
+      if (sourceParentId !== 'Stores') {
+        const itemSubItemMap = ItineraryDay.reduce((acc, item) => {
+          acc[item.id] = item.destinations;
+          console.log(item.destinations)
+          console.log(acc)
+          return acc;
+        }, {});
+        console.log({ itemSubItemMap })
         console.log([sourceParentId])
         const sourceSubItems = itemSubItemMap[sourceParentId];
         console.log(sourceSubItems)
         const destSubItems = itemSubItemMap[destParentId];
-      
 
-      let newItems = [...ItineraryDay];
 
-      /** In this case subItems are reOrdered inside same Parent */
-      if (sourceParentId === destParentId) {
-        console.log("reordersub")
-        console.log("sourceSubItems " + sourceSubItems)
-        console.log("sourceIndex " + sourceIndex)
-        console.log("destIndex " + destIndex)
-        const reorderedSubItems = reorder(
-          sourceSubItems,
-          sourceIndex,
-          destIndex
-        );
-        newItems = newItems.map((item) => {
-          if (item.id === sourceParentId) {
-            item.destinations = reorderedSubItems;
-          }
-          return item;
-        });
-        setItineraryDay(newItems);
-      } else {
-        let newSourceSubItems = [...sourceSubItems];
-        const [draggedItem] = newSourceSubItems.splice(sourceIndex, 1);
+        let newItems = [...ItineraryDay];
 
-        let newDestSubItems = [...destSubItems];
-        newDestSubItems.splice(destIndex, 0, draggedItem);
-        newItems = newItems.map((item) => {
-          if (item.id === sourceParentId) {
-            item.destinations = newSourceSubItems;
-          } else if (item.id === destParentId) {
-            item.destinations = newDestSubItems;
-          }
-          return item;
-        });
-        setItineraryDay(newItems);
-      }
-    } else if ( sourceParentId === "Stores"){
+        /** In this case subItems are reOrdered inside same Parent */
+        if (sourceParentId === destParentId) {
+          console.log("reordersub")
+          console.log("sourceSubItems " + sourceSubItems)
+          console.log("sourceIndex " + sourceIndex)
+          console.log("destIndex " + destIndex)
+          const reorderedSubItems = reorder(
+            sourceSubItems,
+            sourceIndex,
+            destIndex
+          );
+          newItems = newItems.map((item) => {
+            if (item.id === sourceParentId) {
+              item.destinations = reorderedSubItems;
+            }
+            return item;
+          });
+          setItineraryDay(newItems);
+        } else {
+          let newSourceSubItems = [...sourceSubItems];
+          const [draggedItem] = newSourceSubItems.splice(sourceIndex, 1);
 
-      console.log('==> dest', destParentId);
-      console.log(result)
-      const itemSubItemMap = ItineraryDay.reduce((acc, item) => {
-        acc[item.id] = item.destinations;
-        console.log(item.destinations)
-        console.log(acc)
-        return acc;
-      }, {});
-      console.log(itemSubItemMap)
+          let newDestSubItems = [...destSubItems];
+          newDestSubItems.splice(destIndex, 0, draggedItem);
+          newItems = newItems.map((item) => {
+            if (item.id === sourceParentId) {
+              item.destinations = newSourceSubItems;
+            } else if (item.id === destParentId) {
+              item.destinations = newDestSubItems;
+            }
+            return item;
+          });
+          setItineraryDay(newItems);
+        }
+      } else if (sourceParentId === "Stores") {
 
-      const sourceStore = stores[sourceIndex];
-      console.log(sourceStore)
-  
-      const newDestSubItems1 = itemSubItemMap[destParentId];
-      console.log(newDestSubItems1)
-     
-      let newItems = [...ItineraryDay];
-   
+        console.log('==> dest', destParentId);
+        console.log(result)
+        const itemSubItemMap = ItineraryDay.reduce((acc, item) => {
+          acc[item.id] = item.destinations;
+          console.log(item.destinations)
+          console.log(acc)
+          return acc;
+        }, {});
+        console.log(itemSubItemMap)
+
+        const sourceStore = stores[sourceIndex];
+        console.log(sourceStore)
+
+        const newDestSubItems1 = itemSubItemMap[destParentId];
+        console.log(newDestSubItems1)
+
+        let newItems = [...ItineraryDay];
+
         let newSourceSubItems = [...stores];
         console.log(newSourceSubItems)
         const [draggedItem] = newSourceSubItems.splice(sourceIndex, 1);
         console.log([draggedItem])
         let newDestSubItems = [...newDestSubItems1];
-        console.log( newDestSubItems)
+        console.log(newDestSubItems)
 
-        newDestSubItems.splice(destIndex, 0, {...draggedItem, id: uuidv4()});
+        newDestSubItems.splice(destIndex, 0, { ...draggedItem, id: uuidv4() });
 
 
         newItems = newItems.map((item) => {
           if (item.id === sourceParentId) {
             console.log("sourceParentId")
             item.destinations = newSourceSubItems;
-           
+
           } else if (item.id === destParentId) {
-            
-          
-            
+
+
+
             item.destinations = newDestSubItems;
             console.log(newDestSubItems)
-            
+
           }
           return item;
         });
         setItineraryDay(newItems);
-    
-    }
+
+      }
     }
   };
 
+  const [response, setResponse] = useState(null);
+  const [OnArray, setOnArray] = useState(null);
+  let [options, setOptions] = useState([])
+  let [stopPoints, setStopPoints] = useState([])
 
-
-  const containerStyle = {
-    width: "100%",
-    height: "800px",
-   };
-
-   const center = {
-     lat: location.latitude,
-      lng: location.longitude,
-   };
-
-
-   const [response, setResponse] = useState(null);
-   const [OnArray, setOnArray] = useState(null);
-   let [options, setOptions] = useState([])
-   let [stopPoints, setStopPoints] = useState([]) 
-   const [markerOn, SetMarkerOn] = useState(true);
-
-   const directionsCallback = (res) => {
+  const directionsCallback = (res) => {
     if (res !== null && response === null) {
-    console.log(res)
+      console.log(res)
 
-    res = {
-      ...res,
-      id: OnArray
+      res = {
+        ...res,
+        id: OnArray
+      }
+
+      console.log(res)
+      setResponse(res);
     }
-    
-    console.log(res)
-    setResponse(res);
-    }
-    };
-  
-  
-    const updateOptions = (type,directions) => {
+  };
+
+  const updateOptions = (type, directions) => {
     setOptions(null)
     setResponse(null)
-     console.log(directions)
-    
-     if(directions.length <= 1 ){
-      return
-     }
-      else if(directions.length === 2){
-      options = {
-          destination: directions[1],
-          origin: directions[0],
-          travelMode: "DRIVING",
-          }
-        }
-      else if (directions.length > 2){
-        let i = 0;
-        directions.map((item,index) => {
-          if(index!== 0 && index!== directions.length-1){
-            stopPoints[i] = {
-           location: item,
-           stopover: true,
-         };
-         i++;
-        }
-         console.log(stopPoints)
-         return stopPoints;
-       }
-       );
+    console.log(directions)
 
-       options = {
-        destination: directions[directions.length-1],
+    if (directions.length <= 1) {
+      return
+    }
+    else if (directions.length === 2) {
+      options = {
+        destination: directions[1],
+        origin: directions[0],
+        travelMode: "DRIVING",
+      }
+    }
+    else if (directions.length > 2) {
+      let i = 0;
+      directions.map((item, index) => {
+        if (index !== 0 && index !== directions.length - 1) {
+          stopPoints[i] = {
+            location: item,
+            stopover: true,
+          };
+          i++;
+        }
+        console.log(stopPoints)
+        return stopPoints;
+      }
+      );
+
+      options = {
+        destination: directions[directions.length - 1],
         origin: directions[0],
         travelMode: "DRIVING",
         waypoints: stopPoints,
 
-          
-        }
 
       }
-      console.log(type)
-      setOnArray(type)
-      console.log(OnArray)
-      setOptions(options)
-      console.log(options)
-      SetMarkerOn(false)
-    };
 
-    const saveItinerary = async () => {
-      let id = JSON.parse(localStorage.getItem('user'));
-  
-      let data = {
-        "title" : name,
-        "start_date": format(startDate,"MM/dd/yyyy"),
-        "end_date": format(endDate,"MM/dd/yyyy"),
-        "latitude": latitude,
-        "longtitude": longitude,
-        "itinerary_days":{ItineraryDay}
-      };
-      const res = axios.post(`/itinerary/${id._id}`, data);
-  
-      console.log(res);
-
-      if (res) {
-        window.location.href = '/';
-
-      }
     }
+    console.log(type)
+    setOnArray(type)
+    console.log(OnArray)
+    setOptions(options)
+    console.log(options)
+    SetMarkerOn(false)
+  };
 
+  const saveItinerary = async () => {
+    let id = JSON.parse(localStorage.getItem('user'));
 
-    console.log(ItineraryDay)
+    let data = {
+      "title": name,
+      "tripLocation": tripLocation,
+      "tripBgImage": imageUrl,
+      "start_date": format(startDate, "MM/dd/yyyy"),
+      "end_date": format(endDate, "MM/dd/yyyy"),
+      "latitude": latitude,
+      "longtitude": longitude,
+      "itinerary_days": { ItineraryDay },
+      "checklist": {checklist},
+    };
+    const res = axios.post(`/itinerary/${id._id}`, data);
 
-    const ShowMarker = () => {
-      SetMarkerOn(true)
+    console.log(res);
+
+    if (res) {
+      window.location.href = '/';
+
     }
+  }
 
-    const [selectedMarker, setSelectedMarker] = useState(null);
+  console.log(ItineraryDay)
 
-    const handleMouseOver = (marker) => {
-      setSelectedMarker(marker);
-    };
-  
-    const handleMouseOut = () => {
-      setSelectedMarker(null);
-    };
+ 
 
+  const [selectedMarker, setSelectedMarker] = useState(null);
+
+
+  const [imageUrl, setImageUrl] = useState('');
+  useEffect(() => {
+    fetch(`https://api.unsplash.com/photos/random?query=${tripLocation}&orientation=landscape&client_id=cjj0NJ5aXgoO7iQZmizJJwOPeU2EH--C46El8zcmArQ`)
+      .then((response) => response.json())
+      .then((data) => {
+        setImageUrl(data.urls.regular);
+      });
+
+  }, [tripLocation])
+    ;
+
+  const [listToggle, setListToggle] = useState(true);
 
 
   return (
     <div>
       {/* <Navbar /> */}
-    <div className="list">
-   
-    <DragDropContext onDragEnd={onDragEnd}>
-      <div className="planning">
-      <ListInformation 
-      tripName = {name}
-      startTripDate = {startDate}
-      endTripDate ={endDate}
-      />
-      
-      <ListItinerary 
-      ItineraryDay={ItineraryDay}
-      setItineraryDay={setItineraryDay}
-      response={response}
-      updateOptions={updateOptions}
-      />
+      <div className="list">
+        <DragDropContext onDragEnd={onDragEnd}>
+          <div className="planning">
+            <ListInformation
+              tripName={name}
+              startTripDate={startDate}
+              endTripDate={endDate}
+              imageUrl={imageUrl}
+              setListToggle={setListToggle}
+            />
 
-      </div>
+            <ListItinerary
+              ItineraryDay={ItineraryDay}
+              setItineraryDay={setItineraryDay}
+              response={response}
+              updateOptions={updateOptions}
+            />
 
-      <div className="placemap">
-   
-      <button onClick={ShowMarker}>Show Marker</button>
-      <p>Latitude: {location.latitude}</p>
-      <p>Longitude: {location.longitude}</p>
+          </div>
+          <div className="placemap">
 
-      <select value={type} onChange={handleTypeChange}>
-        <option value="restaurant">restaurant</option>
-        <option value="lodging">hotel</option>
-        <option value="tourist_attraction">attraction</option>
-      </select>
-   
-      <h1>Nearby {type}</h1>
-     
-      <DndStore stores={stores} />
-    
+            {listToggle ? 
+            <div><ListNearby 
+            stores={stores}
+            SetMarkerOn={SetMarkerOn}
+            location={location}
+            setType={setType}
+            type={type}
+            /></div> 
+            : 
+            <div><ListCheckList 
+            checklist={checklist}
+            setChecklist={setChecklist}
+            /></div>}
+          </div>
+        </DragDropContext>
 
-      </div>
-      </DragDropContext>
-      <div className="MapTempat">
-      {/* <PDFDownloadLink document={<PdfDownload 
+        <div className="MapTempat">
+          {/* <PDFDownloadLink document={<PdfDownload 
       tripName={name}
       ItineraryDay={ItineraryDay}
       />} filename="FORM">
       {({loading}) => (loading ? <button>Loading Document...</button> : <button>Download</button> )}
       </PDFDownloadLink> */}
 
-      <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}
-          options={{
-      componentRestrictions: { country: 'id' },
-      }}
-        >
-        <input type="text" />
-        </Autocomplete>
-     
-        <GoogleMap
-        zoom={15} 
-        center={center}
-        mapContainerStyle={containerStyle}
+      <ListMap 
+      location={location}
+      stores={stores}
+      markerOn={markerOn}
+      setSelectedMarker={setSelectedMarker}
+      selectedMarker={selectedMarker}
+      response={response}
+      options={options}
+      directionsCallback={directionsCallback}
+      onLoad={onLoad}
+      onPlaceChanged={onPlaceChanged}
+      saveItinerary={saveItinerary}
+      />
       
-        >
-              {(() => {
-        if (markerOn === true ) {
-              return (
-            <div>
-              {stores.map((store,index) => (
-               
-          <Marker position={{
-            lat : store.geometry.location.lat(),
-            lng : store.geometry.location.lng()
-            
-          }} 
-          onMouseOver={() => handleMouseOver(store.place_id)}
-          onMouseOut={handleMouseOut}
-
-          label={{
-            text: (index + 1).toString(),
-            color: '#fff',
-            fontSize: '12px',
-            fontWeight: 'bold',
-          }}
-          
-          >
-          {selectedMarker === store.place_id && (
-            <InfoWindow>
-              <div>
-                <h3>{store.name}</h3>
-              </div>
-            </InfoWindow>
-          )}
-            </Marker>
-           ))}
-             </div>
-          )
-        } 
-        else if (response !== null && markerOn === false ){
-          return (
-            <div>
-               <DirectionsRenderer
- // required
- options={{
- directions: response,
- }}
- />
-            </div>
-          )
-        }
-      })()}
-       
-        
-         
-         
-          
-           
-
- <DirectionsService
- // required
- options={options}
- 
- // required
- callback={directionsCallback}
- />
-
-
-
-          </GoogleMap>          
+        </div>
+      </div>
     </div>
-        <button onClick={saveItinerary}>Create</button>
-    </div>
-  </div>
   );
 };
 

@@ -1,0 +1,120 @@
+.listDndStores{
+    margin-left: 0.6rem;
+}
+.storesContainer {
+    display: flex;
+    border: 1px solid lightgray;
+    width: 15rem;
+    height: 100%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.storesImageContainer {
+    position: relative;
+    width: 50%;
+    max-width: 300px;
+}
+
+.storesImage {
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+    width: 12.5rem;
+    height: 12.5rem;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+    display: block;
+}
+
+.storesDescContainer{
+    display: flex;
+}
+
+.storesDesc {
+    border-radius: 10px;
+    position: absolute;
+    bottom: 0;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+    width: 12.5rem;
+    opacity: 0;
+    transition: .5s ease;
+    overflow: auto;
+    color: white;
+    display: flex;
+    height: 25%;
+    padding-top: 3%;
+    justify-content: center;
+    text-align: center;
+    
+}
+
+.storeDesc{
+    width: 90%;
+}
+
+
+.storesImageContainer:hover .storesDesc {
+    opacity: 1;
+}
+
+.storesDesc::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .storesDesc {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+.storesUpperContainer{
+    display: flex;
+    max-width: 12.5rem;
+}
+
+.storesRating{
+    display: flex;
+    justify-content: flex-start;
+    margin: 0.2rem 0;
+}
+
+.storesNameContainer{
+    width: 100%;
+}
+
+.storesName {
+    width: 100%;
+}
+
+.storesLeftContainer{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.storesNumberContainer{
+    height: 20%;
+    display: flex;
+    justify-content: center;
+
+}
+.storesNumber{
+    display: flex;
+    align-items: center;
+}
+
+.storesDndIcon { 
+    height:80%;
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem;
+    color: gray;
+}
+
+.storeDndIcon{
+    display: flex;
+    align-items: center;
+}

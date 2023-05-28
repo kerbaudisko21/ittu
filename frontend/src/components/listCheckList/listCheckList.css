@@ -1,0 +1,78 @@
+input[type="checkbox"]:checked + label {
+    text-decoration: line-through;
+  }
+
+.listCheckContainer{
+    margin-top: 2rem;
+    margin-bottom: 10rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+}
+
+.listCheckTitle{
+    font-size: 1.7rem;
+    margin-left: 1rem;
+    justify-content: center;
+    display: flex;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+.listCheckContainerInside{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid lightgray;
+    width: 15rem;
+    height: 100%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.listCheckButtonContainer{
+    display: flex;
+    margin-left: 2rem;
+    justify-content: flex-start;
+    margin-bottom: 0.2rem;
+}
+.listCheckAddButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 90%;
+    height: 2rem;
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: lightgrey; 
+}
+
+.listCheckAddIcon{
+    margin-right: 0.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.listCheckAddText{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.listCheckToDoContainer{
+    margin-left: -0.4rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.listCheckToDo{
+    margin-top: 0.5rem;
+    list-style-type: none;
+    margin-right: 1rem;
+}

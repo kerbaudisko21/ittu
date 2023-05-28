@@ -10,7 +10,6 @@
 .destinationName{
     margin-bottom: 10px;
     width: 100%;
-    
 }
 
 .destinationContainerInside{
@@ -19,7 +18,7 @@
     position: relative;
 }
 
-.dndIcon{
+.destinationDndIcon{
     padding: 8px;
     justify-self: center;
     align-self: center;
@@ -54,8 +53,8 @@
 }
 
 .destinationRating{
-    border-radius: 10px ;
-    position: absolute;
+  border-radius: 10px ;
+  position: absolute;
   bottom: 0;
   background: rgb(0, 0, 0);
   background: rgba(0, 0, 0, 0.5);
@@ -100,7 +99,6 @@
   .destinationUpperContainer{
     display: flex;
     justify-content: space-between;
-    margin-top: 1rem;
     margin-right: 0.9rem;
     margin-left: 0.4rem;
   }
@@ -109,14 +107,14 @@
     align-items: center;
     display: flex;
     align-self: flex-start;
-    background-color: lightgray; 
+    background-color: lightgrey; 
     border-radius: 8px;
     padding: 0.5rem;
     box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
   }
 
   .destinationSearchAdd{
-    background-color: lightgray; 
+    background-color: lightgrey; 
     border-radius: 8px;
     outline: none;
     border: none;
@@ -133,10 +131,19 @@
     border: 5px gray;
     border-radius: 8px;
     cursor: pointer;
-    background-color: lightgray; 
+    background-color: lightgrey; 
   }
 
   
   .destinationDirectionButton:hover {
-    background-color: gray; 
+    background: aliceblue;
     }
+
+  .destinationDropHere{
+    color: gray;
+    border-radius: 10px;
+    background-color: aliceblue;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+  }
