@@ -454,10 +454,12 @@ const List = (props) => {
       response={response}
       options={options}
       directionsCallback={directionsCallback}
+      onLoad={onLoad}
+      onPlaceChanged={onPlaceChanged}
+      saveItinerary={saveItinerary}
       />
       
         </div>
-        <button onClick={saveItinerary}>Create</button>
       </div>
     </div>
   );

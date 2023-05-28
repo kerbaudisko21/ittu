@@ -26,7 +26,7 @@ export const ListDndStore = ({ stores }) => {
   console.log({ stores })
 
   return (
-    
+    <div className="listDndStores">
     <Droppable droppableId="Stores" type={`droppableSubItem`} isDropDisabled={true}>
  
       {(provided, snapshot) => (
@@ -99,7 +99,7 @@ export const ListDndStore = ({ stores }) => {
       )}
      
     </Droppable>
-   
+    </div>
   );
 };
 

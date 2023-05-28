@@ -1,0 +1,42 @@
+.mapGmaps{
+    position: relative;
+}
+
+.mapSearch{
+    position: absolute;
+    z-index: 1;
+    border-radius: 8px;
+    padding: 0.5rem;
+}
+
+.mapSearchInput{
+    align-items: center;
+    display: flex;
+    align-self: flex-start;
+    border: none;
+    margin-left: 1rem;
+    width: 20rem;
+    border-radius: 8px;
+    padding: 0.5rem;
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+}
+
+.mapSaveContainer{
+    position: absolute;
+    z-index: 1;
+    bottom: 1rem;
+    right: 2rem;
+}
+
+.mapSaveButton{
+    background-color: black;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    width: 120px;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+}
+
