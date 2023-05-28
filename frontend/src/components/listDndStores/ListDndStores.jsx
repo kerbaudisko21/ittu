@@ -1,42 +1,32 @@
 import React from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
-import { FaBars } from 'react-icons/fa';
+import { FaBars, FaStar } from 'react-icons/fa';
 
 
-const grid = 10;
+import "./listDndStores.css"
+
 
 const getItemStyle = (isDragging, draggableStyle) => ({
-  // some basic styles to make the items look a bit nicer
-  userSelect: "none",
-  padding: grid * 2,
-  margin: `0 10px 10px 0`,
-
-  display: "inline-flex",
-  width: "90%",
-  padding: "10px",
-
-  // change background colour if dragging
-  background: isDragging ? "lightgreen" : "grey",
+  margin: `0 10px 15px 0`,
   display: "inline-flex",
   padding: "10px",
-  margin: "0 10px 10px 0",
-  border: "1px solid grey",
-  // styles we need to apply on draggables
+
   ...draggableStyle
 });
 
 const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? "lightblue" : "lightgrey",
-  padding: grid,
-  margin: "10px 0"
+  background: isDraggingOver ? "aliceblue" : "white",
+  padding: "5px",
+  margin: "10px 0",
+  borderRadius: '10px'
 });
 
 export const ListDndStore = ({ stores }) => {
 
-  console.log({stores})
+  console.log({ stores })
 
   return (
-    
+
     <Droppable droppableId="Stores" type={`droppableSubItem`} isDropDisabled={true}>
       {(provided, snapshot) => (
         <div
@@ -55,17 +45,33 @@ export const ListDndStore = ({ stores }) => {
                       snapshot.isDragging,
                       provided.draggableProps.style
                     )}
+                    className='storesContainer'
                   >
                     <span
                       {...provided.dragHandleProps}
-                      style={{
-                        margin: "0 10px",
-                      }}
+                      className='storesDndIcon'
                     >
                       <FaBars />
                     </span>
-                    {item.name}
-                    
+                    <div className="storesInsideContainer">
+                    <div className='storesName'>{index + 1}.{item.name}</div>
+                    <div className='storesDescContainer'>
+                      <div className='storesImageContainer'>
+                        <img src={item.photos[0].getUrl()} alt="Logo" class="storesImage" />
+                        <div className='storesDesc'>
+                        <p>{item.vicinity}</p>
+                        </div>
+                      </div>
+                      </div>
+
+                      <div className='storesRating'>
+                      <p>{item?.rating} <FaStar /></p>
+                        <p> ({item?.user_ratings_total})</p>
+                      </div>
+
+
+
+                    </div>
                   </div>
                   {provided.placeholder}
                 </>

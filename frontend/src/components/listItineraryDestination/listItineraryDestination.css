@@ -10,7 +10,6 @@
 .destinationName{
     margin-bottom: 10px;
     width: 100%;
-    
 }
 
 .destinationContainerInside{
@@ -19,7 +18,7 @@
     position: relative;
 }
 
-.dndIcon{
+.destinationDndIcon{
     padding: 8px;
     justify-self: center;
     align-self: center;
@@ -54,8 +53,8 @@
 }
 
 .destinationRating{
-    border-radius: 10px ;
-    position: absolute;
+  border-radius: 10px ;
+  position: absolute;
   bottom: 0;
   background: rgb(0, 0, 0);
   background: rgba(0, 0, 0, 0.5);

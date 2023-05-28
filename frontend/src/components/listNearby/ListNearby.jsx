@@ -1,37 +1,40 @@
 import React from 'react'
 import ListDndStore from '../listDndStores/ListDndStores'
+import './listNearby.css'
 
-const ListNearby = ({ stores, SetMarkerOn, location, setType,type}) => {
-    
-    const ShowMarker = () => {
-        SetMarkerOn(true)
-      }
+const ListNearby = ({ stores, SetMarkerOn, location, setType, type }) => {
 
-      const handleTypeChange = (event) => {
-        setType(event.target.value);
-        console.log(event.target.value)
-      };
-    
+  const ShowMarker = () => {
+    SetMarkerOn(true)
+  }
 
-    return (
-        <div>
-            <button onClick={ShowMarker}>Show Marker</button>
-              <p>Latitude: {location.latitude}</p>
-              <p>Longitude: {location.longitude}</p>
+  const handleTypeChange = (event) => {
+    setType(event.target.value);
+    console.log(event.target.value)
+  };
 
-              <select value={type} onChange={handleTypeChange}>
 
-                <option value="restaurant">restaurant</option>
-                <option value="lodging">hotel</option>
-                <option value="tourist_attraction">attraction</option>
-              </select>
+  return (
+    <div>
+        {/* <p>Latitude: {location.latitude}</p>
+      <p>Longitude: {location.longitude}</p> */}
+      
+      <h2 className='listNearbyTitle'>Nearby {type}</h2>
+      <div className='listNearbyTop'>
+      <select value={type} onChange={handleTypeChange}>
+        <option value="restaurant">restaurant</option>
+        <option value="lodging">hotel</option>
+        <option value="tourist_attraction">attraction</option>
+      </select>
+      <button onClick={ShowMarker}>Show Marker</button>
+      
+      </div>
 
-              <h1>Nearby {type}</h1>
 
-            <ListDndStore stores={stores} />
+      <ListDndStore stores={stores} />
 
-        </div>
-    )
+    </div>
+  )
 }
 
 export default ListNearby

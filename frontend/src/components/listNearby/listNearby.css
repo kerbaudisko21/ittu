@@ -1,0 +1,11 @@
+.listNearbyTitle{
+    margin-top: 2.5rem;
+    justify-content: center;
+    display: flex;
+}
+
+.listNearbyTop{
+    margin-top: 0.5rem;
+    justify-content: center;
+    display: flex;
+}
