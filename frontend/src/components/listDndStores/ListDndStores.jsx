@@ -7,18 +7,18 @@ import "./listDndStores.css"
 
 
 const getItemStyle = (isDragging, draggableStyle) => ({
-  margin: `0 10px 15px 0`,
+  margin: `1rem 0 0 1rem`,
   display: "inline-flex",
-  padding: "10px",
-
+  padding: "1rem 0.5rem 1rem 0.5rem",
+  
+ 
   ...draggableStyle
 });
 
 const getListStyle = (isDraggingOver) => ({
   background: isDraggingOver ? "aliceblue" : "white",
-  padding: "5px",
-  margin: "10px 0",
-  borderRadius: '10px'
+  borderRadius: '10px',
+  
 });
 
 export const ListDndStore = ({ stores }) => {
@@ -26,14 +26,16 @@ export const ListDndStore = ({ stores }) => {
   console.log({ stores })
 
   return (
-
+    
     <Droppable droppableId="Stores" type={`droppableSubItem`} isDropDisabled={true}>
+ 
       {(provided, snapshot) => (
         <div
           ref={provided.innerRef}
           {...provided.droppableProps}
           style={getListStyle(snapshot.isDraggingOver)}
         >
+          
           {stores.map((item, index) => (
             <Draggable key={item.place_id} draggableId={item.place_id} index={index}>
               {(provided, snapshot) => (
@@ -72,7 +74,7 @@ export const ListDndStore = ({ stores }) => {
                       <div className='storesImageContainer'>
                         <img src={item.photos[0].getUrl()} alt="Logo" class="storesImage" />
                         <div className='storesDesc'>
-                        <p>{item.vicinity}</p>
+                        <p className="storeDesc ">{item.vicinity}</p>
                         </div>
                       </div>
                       </div>
@@ -85,10 +87,13 @@ export const ListDndStore = ({ stores }) => {
               )}
             </Draggable>
           ))}
+         
           {provided.placeholder}
         </div>
       )}
+     
     </Droppable>
+   
   );
 };
 
