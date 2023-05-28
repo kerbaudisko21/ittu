@@ -50,7 +50,8 @@ function ListCheckList() {
               checked={todo.completed}
               onChange={(event) => handleCheckboxChange(event, index)}
               style={{
-                marginRight: '0.5rem'
+                marginRight: '0.5rem',
+                accentColor:'white'
               }}
             />
             <input
