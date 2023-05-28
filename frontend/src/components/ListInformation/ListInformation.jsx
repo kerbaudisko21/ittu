@@ -39,10 +39,11 @@ const ListInformation = ({tripName, startTripDate, endTripDate, imageUrl,setList
 		</div>
 	</div>
       <div className='information'>
-
+      <div className='informationContainer'>
         <h1 className='tripName'>{tripName}</h1>
         <hr class="tripLine"></hr>
         <p>{startTripDate.toDateString()} <i class="arrow right"></i> {endTripDate.toDateString()}</p>
+        </div>
         </div>
     </div>
     </div>
