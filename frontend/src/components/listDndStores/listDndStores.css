@@ -43,7 +43,7 @@
     background: rgba(0, 0, 0, 0.5);
     color: #f1f1f1;
     width: 12.5rem;
-    opacity: 1;
+    opacity: 0;
     transition: .5s ease;
     overflow: auto;
     color: white;
