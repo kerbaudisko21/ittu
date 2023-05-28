@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { FaPlus } from 'react-icons/fa';
+
 
 import './listCheckList.css'
 
@@ -30,16 +32,26 @@ function ListCheckList() {
   };
 
   return (
-    <div>
+    <div className='listCheckContainer'>
+    <div className='listCheckContainerInside'>
     <h2 className='listCheckTitle'>Check List</h2>
-      <button onClick={handleAddTodo}>Add Todo</button>
+    <div className='listCheckButtonContainer'>
+    <button className='listCheckAddButton' onClick={handleAddTodo}>
+    <div className='listCheckAddIcon'><FaPlus /> </div>
+     <div className='listCheckAddText'>Add</div>
+    </button>
+    </div>
+    <div className='listCheckToDoContainer'>
       <ul>
         {todos.map((todo, index) => (
-          <li key={index} style={{ listStyleType: 'none' }}>
+          <li key={index} className='listCheckToDo'>
             <input
               type="checkbox"
               checked={todo.completed}
               onChange={(event) => handleCheckboxChange(event, index)}
+              style={{
+                marginRight: '0.5rem'
+              }}
             />
             <input
               type="text"
@@ -49,12 +61,13 @@ function ListCheckList() {
               style={{
                 border: 'none',
                 textDecoration: todo.completed ? 'line-through' : 'none',
-
               }}
             />
           </li>
         ))}
       </ul>
+      </div>
+      </div>
     </div>
   );
 }
