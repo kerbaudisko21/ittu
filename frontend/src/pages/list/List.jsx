@@ -14,7 +14,7 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 
 
 
-import PdfDownload from '../listTest/PdfDownload';
+import PdfDownload from '../../components/pdfDownload/PdfDownload';
 
 import ListInformation from '../../components/ListInformation/ListInformation';
 import ListItinerary from '../../components/listItinerary/ListItinerary';
@@ -438,12 +438,12 @@ const List = (props) => {
         </DragDropContext>
 
         <div className="MapTempat">
-          {/* <PDFDownloadLink document={<PdfDownload 
+        <PDFDownloadLink document={<PdfDownload 
       tripName={name}
       ItineraryDay={ItineraryDay}
       />} filename="FORM">
       {({loading}) => (loading ? <button>Loading Document...</button> : <button>Download</button> )}
-      </PDFDownloadLink> */}
+      </PDFDownloadLink>
 
       <ListMap 
       location={location}
@@ -458,7 +458,6 @@ const List = (props) => {
       onPlaceChanged={onPlaceChanged}
       saveItinerary={saveItinerary}
       />
-      
         </div>
       </div>
     </div>

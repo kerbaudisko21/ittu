@@ -4,9 +4,9 @@ import { GoogleMap, DirectionsService, DirectionsRenderer, Marker, InfoWindow, A
 import "./listMap.css"
 
 
-const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker, response, options, directionsCallback, onLoad, onPlaceChanged, saveItinerary}) => {
+const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker, response, options, directionsCallback, onLoad, onPlaceChanged, saveItinerary }) => {
 
- 
+
     const containerStyle = {
         width: "100%",
         height: "100vh",
@@ -105,8 +105,17 @@ const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker
                     />
                 </GoogleMap>
                 <div className='mapSaveContainer'>
-                <button className='mapSaveButton' onClick={saveItinerary}>Create</button>
+                    {/* <button className='mapSaveButton' onClick={saveItinerary}>Save</button> */}
+                    <div class="dropdown">
+                    <button class="dropSaveBtn">Save</button>
+                    <div class="dropdown-content">
+                        <button className='dropDownButton' onClick={saveItinerary}>Download PDF</button>
+                        <button className='dropDownButton' onClick={saveItinerary}>Save</button>
+                    </div> 
                 </div>
+                </div>
+
+               
             </div>
         </div>
     )
