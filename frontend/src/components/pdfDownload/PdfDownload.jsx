@@ -9,7 +9,6 @@ console.log(ItineraryDay)
   return (
     <Document>
     <Page>
-     
       <Text>{tripName}</Text>
       {ItineraryDay.map((item) => (
       <div>

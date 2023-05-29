@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { GoogleMap, DirectionsService, DirectionsRenderer, Marker, InfoWindow, Autocomplete } from "@react-google-maps/api";
 
 import "./listMap.css"
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import PdfDownload from '../pdfDownload/PdfDownload';
 
 
-const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker, response, options, directionsCallback, onLoad, onPlaceChanged, saveItinerary }) => {
+const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker, response, options, directionsCallback, onLoad, onPlaceChanged, saveItinerary, startDate, endDate, name, tripLocation, ItineraryDay,checklist
+}) => {
 
 
     const containerStyle = {
@@ -107,15 +110,24 @@ const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker
                 <div className='mapSaveContainer'>
                     {/* <button className='mapSaveButton' onClick={saveItinerary}>Save</button> */}
                     <div class="dropdown">
-                    <button class="dropSaveBtn">Save</button>
-                    <div class="dropdown-content">
-                        <button className='dropDownButton' onClick={saveItinerary}>Download PDF</button>
-                        <button className='dropDownButton' onClick={saveItinerary}>Save</button>
-                    </div> 
-                </div>
+                        <button class="dropSaveBtn">Save</button>
+                        <div class="dropdown-content">
+                            <PDFDownloadLink document={<PdfDownload
+                                tripName={name}
+                                ItineraryDay={ItineraryDay}
+                                startDate={startDate}
+                                endDate={endDate}
+                                tripLocation={tripLocation}
+                                checklist={checklist}
+                            />} filename="FORM">
+                                {({ loading }) => (loading ? <button>Loading Document...</button> : <button className='dropDownButton'>Download PDF</button>)}
+                            </PDFDownloadLink>
+                            <button className='dropDownButton' onClick={saveItinerary}>Save</button>
+                        </div>
+                    </div>
                 </div>
 
-               
+
             </div>
         </div>
     )

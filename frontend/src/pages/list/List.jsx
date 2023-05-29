@@ -438,13 +438,6 @@ const List = (props) => {
         </DragDropContext>
 
         <div className="MapTempat">
-        <PDFDownloadLink document={<PdfDownload 
-      tripName={name}
-      ItineraryDay={ItineraryDay}
-      />} filename="FORM">
-      {({loading}) => (loading ? <button>Loading Document...</button> : <button>Download</button> )}
-      </PDFDownloadLink>
-
       <ListMap 
       location={location}
       stores={stores}
@@ -457,6 +450,12 @@ const List = (props) => {
       onLoad={onLoad}
       onPlaceChanged={onPlaceChanged}
       saveItinerary={saveItinerary}
+      startDate={startDate}
+      endDate={endDate}
+      name={name}
+      tripLocation={tripLocation}
+      ItineraryDay={ItineraryDay}
+      checklist={checklist}
       />
         </div>
       </div>
