@@ -116,6 +116,34 @@ const Reference = () => {
           <div className="refGrid-container">
             {console.log(itinerary, 'dibawah')}
             {itinerary.map((value, index) => {
+              const dayLength = dateDiffInDays(value.start_date, value.end_date) + 1;
+              console.log(dayLength);
+              const rating = value?.rating?.some((i) => i.user_id?.includes(user?._id));
+
+              // if()
+              console.log(navigate, 'navigate');
+              console.log(autocomplete, 'autocom');
+
+              if (dayLength < day) return;
+
+              if (selectedFilter?.name === 'Liked') {
+                if (rating)
+                  return (
+                    <div className="refGrid-item" key={index}>
+                      <Review itineraryDet={value} dayLength={dayLength} />
+                    </div>
+                  );
+                return;
+              } else if (selectedFilter?.name === 'Not Like') {
+                if (!rating) {
+                  return (
+                    <div className="refGrid-item" key={index}>
+                      <Review itineraryDet={value} dayLength={dayLength} />
+                    </div>
+                  );
+                }
+                return;
+              }
               return (
                 <div className="refGrid-item" key={index}>
                   <Review itineraryDet={value} filterLike={selectedFilter === 'liked'} />

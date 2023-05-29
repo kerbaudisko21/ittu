@@ -7,6 +7,8 @@ import 'swiper/css';
 import 'swiper/css/free-mode';
 import { getAllItinerary } from '../../Features/Itinerary/ItinerarySlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button } from 'primereact/button';
+import { Link } from 'react-router-dom';
 
 const ReviewList = () => {
   const dispatch = useDispatch();
@@ -40,6 +42,12 @@ const ReviewList = () => {
           );
         })}
       </Swiper>
+      <br />
+      <div className="buttonToRef">
+        <Link to={'/reference'}>
+          <Button label="See All Reference Trip" severity="info" outlined rounded raised />
+        </Link>
+      </div>
       {/* <Review></Review> */}
     </div>
   );
