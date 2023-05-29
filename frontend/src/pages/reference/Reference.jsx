@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Footer from '../../components/footer/Footer';
 import Navbar from '../../components/navbar/Navbar';
 import './reference.css';
@@ -16,6 +16,7 @@ import { getAllItinerary } from '../../Features/Itinerary/ItinerarySlice';
 import { InputNumber } from 'primereact/inputnumber';
 
 import { Dropdown } from 'primereact/dropdown';
+import { AuthContext } from '../../context/AuthContext';
 
 const Reference = () => {
   //   let userDetails = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : null;
@@ -62,6 +63,18 @@ const Reference = () => {
     const lat = autocomplete.getPlace().geometry.location.lat();
     const lng = autocomplete.getPlace().geometry.location.lng();
     const name = autocomplete.getPlace().name;
+  };
+
+  const { user } = useContext(AuthContext);
+  const dateDiffInDays = (a, b) => {
+    const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+    // Discard the time and time-zone information.
+    a = new Date(a);
+    b = new Date(b);
+    const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+    const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+
+    return Math.floor((utc2 - utc1) / _MS_PER_DAY);
   };
 
   if (!itinerary.length) return <div className="load">Loading</div>;
