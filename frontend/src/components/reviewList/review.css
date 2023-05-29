@@ -5,6 +5,7 @@
   border-radius: 25px;
   /* height: 305px; */
   width: fit-content;
+  height: 100%;
   /* margin: 10px 0; */
   /* margin: 0.3% 0vh; */
   /* width: 280px; */
@@ -13,8 +14,9 @@
 .review-box {
   /* flex: auto; */
   /* gap: 10px; */
-  display: block;
+  display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   padding: 20px 10px;
   /* min-height: 258px; */
@@ -30,6 +32,10 @@
   display: flex;
   justify-content: center;
   font-weight: 500;
+}
+
+.reviewDays {
+  width: 100%;
 }
 
 .rate {

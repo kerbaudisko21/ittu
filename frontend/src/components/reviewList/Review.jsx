@@ -17,11 +17,6 @@ const Review = (props) => {
   const [ratingCounter, setRatingCounter] = useState(props.itineraryDet?.rating?.length || 0);
   const [rating, setRating] = useState(props.itineraryDet?.rating?.some((i) => i.user_id?.includes(user?._id)));
 
-  // console.log(user, props.itineraryDet);
-
-  if (props?.filterLike === 'Liked' && !rating) return;
-  if (props?.filterLike === 'Not Like' && rating) return;
-
   return (
     <div className="review">
       <div className="review-box">
@@ -43,14 +38,18 @@ const Review = (props) => {
             </div>
           </div>
         </div>
+        <div className="reviewDays">
+          <p>{`${props?.dayLength} days in ${props?.itineraryDet?.tripLocation}`}</p>
+        </div>
         <div className="rate">
           <div className="profile">
             {console.log(props.itineraryDet)}
-            <img className="circle-img" src={`http://localhost:8800/userProfile/${props?.itineraryDet?.userProfileImage}`} alt="test" />
+            <img className="circle-img profilePicture" src={`http://localhost:8800/userProfile/${props?.itineraryDet?.userProfileImage}`} alt="test" />
             <p>{props?.itineraryDet?.username}</p>
           </div>
           <div className="rating">
             <p>{ratingCounter}</p>
+            {/* <div className="pi-star"></div> */}
 
             {rating ? (
               // user?.userItinerary.includes(props.itineraryDet._id)
