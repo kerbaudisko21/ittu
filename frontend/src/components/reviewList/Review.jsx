@@ -47,7 +47,7 @@ const Review = (props) => {
           <div className="profile">
             {console.log(props.itineraryDet)}
             <img className="circle-img" src={`http://localhost:8800/userProfile/${props?.itineraryDet?.userProfileImage}`} alt="test" />
-            <p>{props?.itineraryDet.username}</p>
+            <p>{props?.itineraryDet?.username}</p>
           </div>
           <div className="rating">
             <p>{ratingCounter}</p>
