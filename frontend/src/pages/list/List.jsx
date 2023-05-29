@@ -5,11 +5,11 @@ import axios from 'axios';
 import { GoogleApiWrapper } from 'google-maps-react';
 import { useLocation } from "react-router-dom";
 import { Autocomplete } from '@react-google-maps/api';
-import { DragDropContext} from 'react-beautiful-dnd';
+import { DragDropContext } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
 import { GoogleMap, DirectionsService, DirectionsRenderer, Marker, InfoWindow } from "@react-google-maps/api";
 import { format } from 'date-fns'
-import { PDFDownloadLink } from "@react-pdf/renderer";
+import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 
 
 
@@ -364,7 +364,7 @@ const List = (props) => {
       "latitude": latitude,
       "longtitude": longitude,
       "itinerary_days": { ItineraryDay },
-      "checklist": {checklist},
+      "checklist": { checklist },
     };
     const res = axios.post(`/itinerary/${id._id}`, data);
 
@@ -378,21 +378,21 @@ const List = (props) => {
 
   console.log(ItineraryDay)
 
- 
+
 
   const [selectedMarker, setSelectedMarker] = useState(null);
 
 
   const [imageUrl, setImageUrl] = useState('');
-  useEffect(() => {
-    fetch(`https://api.unsplash.com/photos/random?query=${tripLocation}&orientation=landscape&client_id=cjj0NJ5aXgoO7iQZmizJJwOPeU2EH--C46El8zcmArQ`)
-      .then((response) => response.json())
-      .then((data) => {
-        setImageUrl(data.urls.regular);
-      });
+  // useEffect(() => {
+  //   fetch(`https://api.unsplash.com/photos/random?query=${tripLocation}&orientation=landscape&client_id=cjj0NJ5aXgoO7iQZmizJJwOPeU2EH--C46El8zcmArQ`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setImageUrl(data.urls.regular);
+  //     });
 
-  }, [tripLocation])
-    ;
+  // }, [tripLocation])
+  //   ;
 
   const [listToggle, setListToggle] = useState(true);
 
@@ -421,42 +421,55 @@ const List = (props) => {
           </div>
           <div className="placemap">
 
-            {listToggle ? 
-            <div><ListNearby 
-            stores={stores}
-            SetMarkerOn={SetMarkerOn}
-            location={location}
-            setType={setType}
-            type={type}
-            /></div> 
-            : 
-            <div><ListCheckList 
-            checklist={checklist}
-            setChecklist={setChecklist}
-            /></div>}
+            {listToggle ?
+              <div><ListNearby
+                stores={stores}
+                SetMarkerOn={SetMarkerOn}
+                location={location}
+                setType={setType}
+                type={type}
+              /></div>
+              :
+              <div><ListCheckList
+                checklist={checklist}
+                setChecklist={setChecklist}
+              /></div>}
           </div>
         </DragDropContext>
 
         <div className="MapTempat">
-      <ListMap 
-      location={location}
-      stores={stores}
-      markerOn={markerOn}
-      setSelectedMarker={setSelectedMarker}
-      selectedMarker={selectedMarker}
-      response={response}
-      options={options}
-      directionsCallback={directionsCallback}
-      onLoad={onLoad}
-      onPlaceChanged={onPlaceChanged}
-      saveItinerary={saveItinerary}
-      startDate={startDate}
-      endDate={endDate}
-      name={name}
-      tripLocation={tripLocation}
-      ItineraryDay={ItineraryDay}
-      checklist={checklist}
-      />
+          <ListMap
+            location={location}
+            stores={stores}
+            markerOn={markerOn}
+            setSelectedMarker={setSelectedMarker}
+            selectedMarker={selectedMarker}
+            response={response}
+            options={options}
+            directionsCallback={directionsCallback}
+            onLoad={onLoad}
+            onPlaceChanged={onPlaceChanged}
+            saveItinerary={saveItinerary}
+            startDate={startDate}
+            endDate={endDate}
+            name={name}
+            tripLocation={tripLocation}
+            ItineraryDay={ItineraryDay}
+            checklist={checklist}
+          />
+
+          <PDFViewer style={{
+            width: '100vh', height: '100vh'
+          }}>
+            <PdfDownload 
+             startDate={startDate}
+             endDate={endDate}
+             tripName={name}
+             tripLocation={tripLocation}
+             ItineraryDay={ItineraryDay}
+             checklist={checklist}
+            />
+          </PDFViewer>
         </div>
       </div>
     </div>

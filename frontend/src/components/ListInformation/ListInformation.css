@@ -43,13 +43,14 @@
 .button-box-information {
     box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
     margin-top: 0.5rem;
-    margin-left: 10.5rem;
+    margin-left: 10rem;
     display: flex;
     width: 14rem;
     justify-content: space-between;
 	position: absolute;
 	border-radius: 10px;
     background: lightgrey;
+    z-index: -1;
 	
 }
 

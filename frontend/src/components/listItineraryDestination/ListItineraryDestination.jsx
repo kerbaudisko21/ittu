@@ -129,6 +129,7 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
                                     <img src={item.photos[0].getUrl()} alt="Logo" class="destinationImage" />
                                     <div className='destinationRating'>
                                       <p>{item?.rating} <FaStar /></p>
+                                  
                                       <p> ({item?.user_ratings_total})</p>
                                     </div>
                                   </div>
