@@ -79,8 +79,7 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
               componentRestrictions: { country: 'id' },
             }}
           >
-
-            <input type="text" placeholder="Add New Location" className='destinationSearchAdd' />
+            <input type="text" onfocus="this.value=''"  placeholder="Add New Location" className='destinationSearchAdd' />
 
           </Autocomplete>
         </div>

@@ -37,7 +37,8 @@ const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker
                         componentRestrictions: { country: 'id' },
                     }}
                 >
-                    <input className='mapSearchInput' type="text" />
+                    <input  type="text"  onfocus="this.value=''" className='mapSearchInput' />
+
                 </Autocomplete>
             </div>
             <div className='mapGmaps'>
