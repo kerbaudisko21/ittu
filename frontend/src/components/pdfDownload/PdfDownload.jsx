@@ -24,7 +24,6 @@ const PdfDownload = ({ tripName, ItineraryDay,checklist,startDate,endDate }) => 
   });
 
 
-  
 
   return (
     <Document>
@@ -41,7 +40,6 @@ const PdfDownload = ({ tripName, ItineraryDay,checklist,startDate,endDate }) => 
                 <View style={styles.destination}>
                  <Text style={styles.destinationName}>{index+1}. {destination.name}</Text>       
                   <View style={styles.imageDesc}> 
-                  <Image style={styles.image} src='https://lh3.googleusercontent.com/places/ANJU3DsCJ0oW5D62_FqX-WCdAmetmicI7hwa6gyBHUoCuA4ii4d6y2m8pOtCID84lgYxIlsGpw0XuWLkvQFLeDXciB0tR6sti4zCdF4=s1600-w1280'/>
                    <Text>{destination.vicinity}</Text>
                    </View>  
                 </View>

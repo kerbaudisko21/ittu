@@ -38,7 +38,7 @@ const Header = () => {
     } });
   };
 
- 
+
 
   const onLoad = (autoC) => setAutocomplete(autoC);
 
@@ -52,6 +52,7 @@ const Header = () => {
     console.log(lng)
     console.log(name)
     console.log(autocomplete.getPlace())
+    console.log(autocomplete.getPlace().name)
   };
 
   return (
