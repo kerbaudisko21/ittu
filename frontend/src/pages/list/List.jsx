@@ -458,19 +458,6 @@ const List = (props) => {
             ItineraryDay={ItineraryDay}
             checklist={checklist}
           />
-
-          <PDFViewer style={{
-            width: '100vh', height: '100vh'
-          }}>
-            <PdfDownload 
-             startDate={startDate}
-             endDate={endDate}
-             tripName={name}
-             tripLocation={tripLocation}
-             ItineraryDay={ItineraryDay}
-             checklist={checklist}
-            />
-          </PDFViewer>
         </div>
       </div>
     </div>

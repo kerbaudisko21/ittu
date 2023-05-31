@@ -75,7 +75,7 @@ const ListItinerary = ({ ItineraryDay, setItineraryDay, response, updateOptions 
         <h2 className='ItineraryDate'>{new Date(item.date).toDateString()}</h2>
        
        <div className='ItineraryWeather'>
-       <p>{ (item.temperature - 273).toFixed(1)} °C</p>
+       <p className='ItineraryTemp'>{ (item.temperature - 273).toFixed(1)} °C</p>
         <img className="ItineraryIcon" src={`http://openweathermap.org/img/w/${item.icon}.png`} alt='icon' />
         </div> 
         </div>
