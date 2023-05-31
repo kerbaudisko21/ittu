@@ -15,7 +15,7 @@ function App() {
         <Route path="/list" element={<List />} />
         <Route path="/listtest" element={<ListTest />} />
         <Route path="/listtest2" element={<ListTest2 />} />
-        <Route path="/list/:id" element={<Schedule />} />
+        <Route path="/list/:userid/:id" element={<Schedule />} />
         <Route path="/login" element={<Login isLogin={true} />} />
         <Route path="/register" element={<Login isLogin={false} />} />
         <Route path="/reference" element={<Reference />} />

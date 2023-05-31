@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
+    "moment": "^2.29.4",
+    "primeicons": "^6.0.1",
+    "primereact": "^9.5.0",
+    "react-select": "^5.7.3"
+  }
+}

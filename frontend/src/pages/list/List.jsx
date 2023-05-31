@@ -11,9 +11,6 @@ import { GoogleMap, DirectionsService, DirectionsRenderer, Marker, InfoWindow } 
 import { format } from 'date-fns'
 import { PDFDownloadLink } from "@react-pdf/renderer";
 
-
-
-
 import PdfDownload from '../listTest/PdfDownload';
 
 import ListInformation from '../../components/ListInformation/ListInformation';
@@ -24,6 +21,7 @@ import ListMap from '../../components/listMap/ListMap';
 
 
 const List = (props) => {
+  console.log(props);
   const [checklist, setChecklist] = useState([]);
   const [autocomplete, setAutocomplete] = useState(null);
   const dateRange = useLocation();
@@ -70,21 +68,21 @@ const List = (props) => {
     getDates();
   }, [startDate, endDate]);
 
-  useEffect(() => {
-    // Get Current Position
-    // navigator.geolocation.getCurrentPosition(
-    //   (position) => {
-    //     const { latitude, longitude } = position.coords;
-    //     setLocation({ latitude, longitude });
+    useEffect(() => {
+      // Get Current Position
+      // navigator.geolocation.getCurrentPosition(
+      //   (position) => {
+      //     const { latitude, longitude } = position.coords;
+      //     setLocation({ latitude, longitude });
 
-    //   },
-    //   () => {
-    //     console.log('Permission denied');
-    //   }
+      //   },
+      //   () => {
+      //     console.log('Permission denied');
+      //   }
 
-    setLocation({ latitude, longitude });
+      setLocation({ latitude, longitude });
 
-  }, [latitude, longitude]);
+    }, [latitude, longitude]);
 
   useEffect(() => {
     const { google } = props;
@@ -186,6 +184,7 @@ const List = (props) => {
       console.log("droppableSubItem +")
       if (sourceParentId !== 'Stores') {
         const itemSubItemMap = ItineraryDay.reduce((acc, item) => {
+          console.log(ItineraryDay)
           acc[item.id] = item.destinations;
           console.log(item.destinations)
           console.log(acc)
@@ -359,8 +358,8 @@ const List = (props) => {
       "title": name,
       "tripLocation": tripLocation,
       "tripBgImage": imageUrl,
-      "start_date": format(startDate, "MM/dd/yyyy"),
-      "end_date": format(endDate, "MM/dd/yyyy"),
+      "start_date": format(startDate, "yyyy/MM/dd"),
+      "end_date": format(endDate, "yyyy/MM/dd"),
       "latitude": latitude,
       "longtitude": longitude,
       "itinerary_days": { ItineraryDay },
@@ -391,11 +390,9 @@ const List = (props) => {
         setImageUrl(data.urls.regular);
       });
 
-  }, [tripLocation])
-    ;
+  }, [tripLocation]);
 
   const [listToggle, setListToggle] = useState(true);
-
 
   return (
     <div>

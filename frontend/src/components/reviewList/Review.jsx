@@ -27,7 +27,6 @@ const Review = (props) => {
   const dispatch = useDispatch();
   const [ratingCounter, setRatingCounter] = useState(props.itineraryDet?.rating?.length || 0);
   const [rating, setRating] = useState(props.itineraryDet?.rating?.some((i) => i.user_id?.includes(user?._id)));
-  const dayLength = dateDiffInDays(props?.itineraryDet?.start_date, props?.itineraryDet?.end_date) + 1;
 
   // console.log(user, props.itineraryDet);
 
@@ -61,11 +60,12 @@ const Review = (props) => {
         <div className="rate">
           <div className="profile">
             {console.log(props.itineraryDet)}
-            <img className="circle-img" src={`http://localhost:8800/userProfile/${props?.itineraryDet?.userProfileImage}`} alt="test" />
+            <img className="circle-img profilePicture" src={`http://localhost:8800/userProfile/${props?.itineraryDet?.userProfileImage}`} alt="test" />
             <p>{props?.itineraryDet?.username}</p>
           </div>
           <div className="rating">
             <p>{ratingCounter}</p>
+            {/* <div className="pi-star"></div> */}
 
             {rating ? (
               // user?.userItinerary.includes(props.itineraryDet._id)
