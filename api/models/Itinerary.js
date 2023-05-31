@@ -5,10 +5,10 @@ const ItinerarySchema = new mongoose.Schema(
     title: {
       type: String,
     },
-    tripLocation:{
+    tripLocation: {
       type: String,
     },
-    tripBgImage:{
+    tripBgImage: {
       type: String,
     },
     start_date: {
@@ -28,6 +28,12 @@ const ItinerarySchema = new mongoose.Schema(
     },
     rating: {
       type: JSON,
+    },
+    username: {
+      type: String,
+    },
+    userProfileImage: {
+      type: String,
     },
     checklist: {
       type: JSON,

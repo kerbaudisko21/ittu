@@ -72,7 +72,7 @@ const ListItinerary = ({ ItineraryDay, setItineraryDay, response, updateOptions 
         </div>
         <div className='ItineraryTop'>
        
-        <h2 className='ItineraryDate'>{item.date.toDateString()}</h2>
+        <h2 className='ItineraryDate'>{new Date(item.date).toDateString()}</h2>
        
        <div className='ItineraryWeather'>
        <p>{ (item.temperature - 273).toFixed(1)} °C</p>

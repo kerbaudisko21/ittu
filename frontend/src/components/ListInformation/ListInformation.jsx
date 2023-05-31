@@ -2,6 +2,7 @@ import React from 'react';
 import './ListInformation.css'
 
 
+
 const ListInformation = ({tripName, startTripDate, endTripDate, imageUrl,setListToggle}) => {
   console.log(imageUrl)
 
@@ -42,7 +43,7 @@ const ListInformation = ({tripName, startTripDate, endTripDate, imageUrl,setList
       <div className='informationContainer'>
         <h1 className='tripName'>{tripName}</h1>
         <hr class="tripLine"></hr>
-        <p>{startTripDate.toDateString()} <i class="arrow right"></i> {endTripDate.toDateString()}</p>
+        <p>{new Date(startTripDate).toDateString()} <i class="arrow right"></i> {new Date(endTripDate).toDateString()}</p>
         </div>
         </div>
     </div>

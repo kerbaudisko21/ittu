@@ -43,6 +43,8 @@ app.use('/api/destinationTypes', destinationTypesRoute);
 app.use('/api/itinerary', ItineraryRoute);
 app.use('/api/rating', RatingRoute);
 
+app.use(express.static('Public'));
+
 app.use((err, req, res, next) => {
   const errStatus = err.status || 500;
   const errMessage = err.message || 'Something went wrong';

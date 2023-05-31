@@ -8,7 +8,7 @@
   top: 0;
 } */
 
-.main {
+.mainLogin {
   position: fixed;
   width: 100%;
 
@@ -16,7 +16,7 @@
   background-color: #000;
 }
 
-.main::before {
+.mainLogin::before {
   content: ' ';
   display: block;
   position: absolute;
@@ -29,7 +29,7 @@
   background-size: cover;
 }
 
-.subMain {
+.subMainLogin {
   display: flex;
   justify-content: center;
   text-align: center;
@@ -37,12 +37,12 @@
   padding: 8% 2% 1% 2%;
   margin: auto;
   position: fixed;
-  height: 75vh;
+  height: 95vh;
 
   top: 0;
 }
 
-.subMainImage {
+.subMainImageLogin {
   width: 40%;
   height: auto;
   /* min-height: 100%; */
@@ -53,42 +53,33 @@
   border-radius: 25px 0 0 25px;
 }
 
-.formSide {
+.formSideLogin {
   background-color: #1a4314;
   width: 30%;
   /* height: 100%; */
   display: flexbox;
-  max-height: 75vh;
+  /* max-height: 75vh; */
 
   border-radius: 0 25px 25px 0;
 }
 
-.container {
+.containerLogin {
   display: fixed;
   padding: 10% 20%;
-  height: 63vh;
-}
-.LoginTitle {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  padding: 0 6vh;
-  font-size: 4vh;
-  color: white;
-  font-weight: 400;
-  -webkit-text-stroke: 0.4px black;
-  margin: 10% 0;
+  height: 100%;
+  /* max-height: 100%; */
 }
 
-form {
+.formLogin {
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
+  min-height: 100%;
+  max-height: 100%;
 }
 
-form label {
+.formLogin label {
   display: flex;
   width: 90%;
   font-size: 2vh;
@@ -98,7 +89,7 @@ form label {
   color: #ffff;
 }
 
-form input {
+.formLogin input {
   background-color: #ffff;
   width: 95%;
   border-radius: 3px;
@@ -113,19 +104,30 @@ form input {
   border-radius: 16px;
 }
 
-::placeholder {
+.formLogin ::placeholder {
   padding: 15px;
   text-align: left;
 }
+.LoginTitle {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 0 6vh;
+  font-size: 4vh;
+  color: white;
+  font-weight: 400;
+  -webkit-text-stroke: 0.4px black;
+  margin: 10% 0;
+}
 
-.formFooter {
+.formFooterLogin {
   padding-top: 5%;
   color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.btnSubmit {
+.btnSubmitLogin {
   appearance: none;
   outline: 0;
   background-color: black;
@@ -147,13 +149,13 @@ form input {
   align-items: center;
 }
 
-.message {
+.messageLogin {
   padding: 1%;
   font-size: 2vh;
   color: white;
 }
 
-.btnAccount {
+.btnAccountLogin {
   /* height: 720px; */
   /* appearance: none; */
   /* text-decoration: none; */

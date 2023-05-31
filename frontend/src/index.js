@@ -5,14 +5,22 @@ import { AuthContextProvider } from './context/AuthContext.js';
 import { SearchContextProvider } from './context/SearchContext.js';
 import { IsLoginContextProvider } from './context/IsLoginContext';
 import './index.css';
+import 'primereact/resources/themes/lara-light-indigo/theme.css'; //theme
+import 'primereact/resources/primereact.min.css'; //core css
+import 'primeicons/primeicons.css'; //icons
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+import { Provider } from 'react-redux';
+import { Store } from './App/Store';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-      <AuthContextProvider>
-        <SearchContextProvider>
-          <IsLoginContextProvider>
+  <AuthContextProvider>
+    <SearchContextProvider>
+      <IsLoginContextProvider>
+        <Provider store={Store}>
           <App />
-          </IsLoginContextProvider>
-        </SearchContextProvider>
-      </AuthContextProvider>
+        </Provider>
+      </IsLoginContextProvider>
+    </SearchContextProvider>
+  </AuthContextProvider>
 );
