@@ -34,6 +34,11 @@ const List = (props) => {
   const [type, setType] = useState('restaurant');
   const [ItineraryDay, setItineraryDay] = useState([]);
   const [markerOn, SetMarkerOn] = useState(true);
+  
+  const [responseDirection, setResponseDirection] = useState(null);
+  const [OnArray, setOnArray] = useState(null);
+  let [options, setOptions] = useState([])
+  let [stopPoints, setStopPoints] = useState([])
 
   useEffect(() => {
     function getDates() {
@@ -170,7 +175,6 @@ const List = (props) => {
 
   const onDragEnd = (result) => {
     // dropped outside the list
-    console.log(result);
     console.log("innner drag");
     if (!result.destination) {
       console.log("No Destination");
@@ -235,6 +239,8 @@ const List = (props) => {
             return item;
           });
           setItineraryDay(newItems);
+          setResponseDirection(null)
+          setOptions(null)
         }
       } else if (sourceParentId === "Stores") {
 
@@ -282,33 +288,29 @@ const List = (props) => {
           return item;
         });
         setItineraryDay(newItems);
-
+        setResponseDirection(null)
+        setOptions(null)
       }
     }
   };
 
-  const [response, setResponse] = useState(null);
-  const [OnArray, setOnArray] = useState(null);
-  let [options, setOptions] = useState([])
-  let [stopPoints, setStopPoints] = useState([])
-
   const directionsCallback = (res) => {
-    if (res !== null && response === null) {
+    console.log("DirectionAPI")
+    if (res !== null && responseDirection === null) {
       console.log(res)
 
       res = {
         ...res,
         id: OnArray
       }
-
       console.log(res)
-      setResponse(res);
+      setResponseDirection(res);
     }
   };
 
   const updateOptions = (type, directions) => {
     setOptions(null)
-    setResponse(null)
+    setResponseDirection(null)
     console.log(directions)
 
     if (directions.length <= 1) {
@@ -378,7 +380,7 @@ const List = (props) => {
     }
   }
 
-  console.log(ItineraryDay)
+  console.log(responseDirection)
 
 
 
@@ -415,8 +417,11 @@ const List = (props) => {
             <ListItinerary
               ItineraryDay={ItineraryDay}
               setItineraryDay={setItineraryDay}
-              response={response}
+              responseDirection={responseDirection}
               updateOptions={updateOptions}
+              setResponseDirection={setResponseDirection}
+              setOptions={setOptions}
+              
             />
 
           </div>
@@ -445,7 +450,7 @@ const List = (props) => {
             markerOn={markerOn}
             setSelectedMarker={setSelectedMarker}
             selectedMarker={selectedMarker}
-            response={response}
+            responseDirection={responseDirection}
             options={options}
             directionsCallback={directionsCallback}
             onLoad={onLoad}

@@ -11,7 +11,7 @@ import ListItineraryDestination from '../listItineraryDestination/ListItineraryD
 
 
 
-const ListItinerary = ({ ItineraryDay, setItineraryDay, response, updateOptions }) => {
+const ListItinerary = ({ ItineraryDay, setItineraryDay, responseDirection, updateOptions,setResponseDirection,setOptions }) => {
 
   console.log(ItineraryDay)
 
@@ -26,6 +26,8 @@ const ListItinerary = ({ ItineraryDay, setItineraryDay, response, updateOptions 
       }
       return item;
     });
+    setResponseDirection(null)
+    setOptions(null)
     setItineraryDay(Itinerary);
   };
 
@@ -47,6 +49,8 @@ const ListItinerary = ({ ItineraryDay, setItineraryDay, response, updateOptions 
       return item;
     });
 
+    setResponseDirection(null)
+    setOptions(null)
     setItineraryDay(newItinerary)
   }
 
@@ -114,7 +118,8 @@ const ListItinerary = ({ ItineraryDay, setItineraryDay, response, updateOptions 
                             type={item.id}
                             addPlace={updateArray}
                             showDirection={updateOptions}
-                            response={response}
+                            responseDirection={responseDirection}
+                            setResponseDirection={setResponseDirection}
                             deleteItem={deleteItem}
                           />
                      

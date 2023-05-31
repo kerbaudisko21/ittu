@@ -26,10 +26,10 @@ const getListStyle = (isDraggingOver) => ({
   borderRadius: '10px'
 });
 
-const ListItineraryDestination = ({ type, destinations, addPlace, showDirection, response, deleteItem }) => {
+const ListItineraryDestination = ({ type, destinations, addPlace, showDirection, responseDirection, deleteItem,setResponseDirection }) => {
   console.log("type " + type)
   console.log({ destinations })
-  console.log(response)
+  console.log(responseDirection)
 
   const [autocomplete, setAutocomplete] = useState(null);
 
@@ -57,6 +57,7 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
 
     );
     setDirection(direction)
+    console.log(direction)
     showDirection(type, direction)
   }
 
@@ -65,6 +66,8 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
     console.log(deleteId);
     console.log(type);
     deleteItem(deleteId, type)
+    let res =  null;
+    setResponseDirection(res)
   }
 
 
@@ -154,14 +157,14 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
                             </div>
 
                             {(() => {
-                              if (index !== destinations.length - 1 && response !== null) {
-                                if (index < response.routes[0].legs.length) {
-                                  if (type === response.id) {
+                              if (index !== destinations.length - 1 && responseDirection !== null) {
+                                if (index < responseDirection.routes[0].legs.length) {
+                                  if (type === responseDirection.id) {
                                     return (
                                       <div className='destinationRoutes'>
-                                        {response.routes[0].legs[index].distance.text}
+                                        {responseDirection.routes[0].legs[index].distance.text}
                                         ||
-                                        {response.routes[0].legs[index].duration.text}
+                                        {responseDirection.routes[0].legs[index].duration.text}
                                       </div>
                                     )
                                   }

@@ -6,7 +6,7 @@ import { PDFDownloadLink } from '@react-pdf/renderer';
 import PdfDownload from '../pdfDownload/PdfDownload';
 
 
-const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker, response, options, directionsCallback, onLoad, onPlaceChanged, saveItinerary, startDate, endDate, name, tripLocation, ItineraryDay,checklist
+const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker, responseDirection, options, directionsCallback, onLoad, onPlaceChanged, saveItinerary, startDate, endDate, name, tripLocation, ItineraryDay,checklist
 }) => {
 
 
@@ -87,13 +87,13 @@ const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker
                                 </div>
                             )
                         }
-                        else if (response !== null && markerOn === false) {
+                        else if (responseDirection !== null && markerOn === false) {
                             return (
                                 <div>
                                     <DirectionsRenderer
                                         // required
                                         options={{
-                                            directions: response,
+                                            directions: responseDirection,
                                         }}
                                     />
                                 </div>
