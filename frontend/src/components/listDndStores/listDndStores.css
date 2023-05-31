@@ -119,3 +119,7 @@
     display: flex;
     align-items: center;
 }
+
+.pac-container:after{
+    content:none !important;
+}
