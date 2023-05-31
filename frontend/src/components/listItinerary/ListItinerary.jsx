@@ -77,11 +77,22 @@ const ListItinerary = ({ ItineraryDay, setItineraryDay, responseDirection, updat
         <div className='ItineraryTop'>
        
         <h2 className='ItineraryDate'>{new Date(item.date).toDateString()}</h2>
-       
-       <div className='ItineraryWeather'>
-       <p className='ItineraryTemp'>{ (item.temperature - 273).toFixed(1)} °C</p>
-        <img className="ItineraryIcon" src={`http://openweathermap.org/img/w/${item.icon}.png`} alt='icon' />
-        </div> 
+
+       {(() =>{
+        if(item.temperature != null && item.icon != null ){
+          return(
+        <div className='ItineraryWeather'>
+        <p className='ItineraryTemp'>{ (item.temperature - 273).toFixed(1)} °C</p>
+         <img className="ItineraryIcon" src={`http://openweathermap.org/img/w/${item.icon}.png`} alt='icon' />
+         </div>) }
+         else{
+          return(
+          <div className='ItineraryWeather'>
+           </div>)
+         }
+         })()
+       }
+ 
         </div>
         </div>
         </div>
