@@ -9,17 +9,17 @@ const PdfDownload = ({ tripName, ItineraryDay,checklist,startDate,endDate }) => 
 
   const styles = StyleSheet.create({
     page: { backgroundColor: 'white' },
-    section: { textAlign: 'center', marginTop: 30, marginBottom: 15, color: 'black'},
+    section: { textAlign: 'center', marginTop: 30, marginBottom: 15, color: 'black', fontSize: 25},
     trip: { textAlign: 'start', marginLeft: 30},
-    itinerary:  { textAlign: 'start', border: 1 ,borderRadius: 4, width: 520, padding: 10, marginBottom: 30},
-    date: {marginBottom: 15},
+    itinerary:  { textAlign: 'start' ,borderRadius: 4, width: 520, padding: 10, marginBottom: 30},
+    date: {marginBottom: 15, fontSize: 20},
     destination: { borderRadius: 4, marginRight: 30 , marginBottom: 15 },
-    destinationName: {marginBottom: 15},
+    destinationName: {marginBottom: 10},
     image: { height: 125,borderRadius: 8, objectFit: 'cover', objectPosition: 'center', marginRight: 10},
     imageDesc: {display: 'flex', flexDirection: 'row', width: 370},
-    checklistContainer: {textAlign: 'start', border: 1 ,borderRadius: 4, width: 520, padding: 10, marginLeft: 30},
-    checklist: {textAlign: 'start'},
-    checklistTextContainer: { borderRadius: 4, marginRight: 30 },
+    checklistContainer: {textAlign: 'start' ,borderRadius: 4, width: 520, padding: 10, marginLeft: 30},
+    checklist: {textAlign: 'start', fontSize: 20},
+    checklistTextContainer: { marginRight: 30 },
     checklistText: {marginTop: 5},
   });
 
@@ -39,10 +39,9 @@ const PdfDownload = ({ tripName, ItineraryDay,checklist,startDate,endDate }) => 
               {item.destinations.map((destination, index) => (
                 <View style={styles.destination}>
                  <Text style={styles.destinationName}>{index+1}. {destination.name}</Text>       
-                  <View style={styles.imageDesc}> 
                    <Text>{destination.vicinity}</Text>
                    </View>  
-                </View>
+                
               ))}
 
               </View>
