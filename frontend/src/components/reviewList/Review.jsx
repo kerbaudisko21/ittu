@@ -27,7 +27,7 @@ const Review = (props) => {
   const dispatch = useDispatch();
   const [ratingCounter, setRatingCounter] = useState(props.itineraryDet?.rating?.length || 0);
   const [rating, setRating] = useState(props.itineraryDet?.rating?.some((i) => i.user_id?.includes(user?._id)));
-
+  const dayLength = dateDiffInDays(props.itineraryDet?.start_date, props.itineraryDet?.end_date) + 1;
   // console.log(user, props.itineraryDet);
 
   if (props?.filterLike === 'Liked' && !rating) return;

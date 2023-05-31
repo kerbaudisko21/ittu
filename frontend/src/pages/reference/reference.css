@@ -54,6 +54,10 @@
   max-height: 50px;
 }
 
+.p-dropdown {
+  width: 100%;
+}
+
 .headerSearchItem {
   /* display: flex; */
   gap: 10px;
