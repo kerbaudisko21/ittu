@@ -390,15 +390,15 @@ const List = (props) => {
 
 
   const [imageUrl, setImageUrl] = useState('');
-  // useEffect(() => {
-  //   fetch(`https://api.unsplash.com/photos/random?query=${tripLocation}&orientation=landscape&client_id=cjj0NJ5aXgoO7iQZmizJJwOPeU2EH--C46El8zcmArQ`)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setImageUrl(data.urls.regular);
-  //     });
+  useEffect(() => {
+    fetch(`https://api.unsplash.com/photos/random?query=${tripLocation}&orientation=landscape&client_id=cjj0NJ5aXgoO7iQZmizJJwOPeU2EH--C46El8zcmArQ`)
+      .then((response) => response.json())
+      .then((data) => {
+        setImageUrl(data.urls.regular);
+      });
 
-  // }, [tripLocation])
-  //   ;
+  }, [tripLocation])
+    ;
 
   const [listToggle, setListToggle] = useState(true);
 
