@@ -4,9 +4,9 @@
 }
 
 .itineraryContainer{
-    margin-left: -1.35rem;
     justify-content: center;
     width: 80%;
+    z-index: 1;
 }
 
 .tripContainer{
@@ -45,4 +45,8 @@
     align-items: center;
     justify-content: center;
     display: flex;
+}
+
+.ItineraryDate{
+    font-size: 1.4rem;
 }

@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { GoogleMap, DirectionsService, DirectionsRenderer, Marker, InfoWindow, Autocomplete } from "@react-google-maps/api";
 
 import "./listMap.css"
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import PdfDownload from '../pdfDownload/PdfDownload';
 
 
-const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker, response, options, directionsCallback, onLoad, onPlaceChanged, saveItinerary, updateItinerary}) => {
+const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker, responseDirection, options, directionsCallback, onLoad, onPlaceChanged, saveItinerary, startDate, endDate, name, tripLocation, ItineraryDay,checklist
+}) => {
 
- 
+
     const containerStyle = {
         width: "100%",
         height: "100vh",
@@ -34,7 +37,8 @@ const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker
                         componentRestrictions: { country: 'id' },
                     }}
                 >
-                    <input className='mapSearchInput' type="text" />
+                    <input  type="text"  onfocus="this.value=''" className='mapSearchInput' />
+
                 </Autocomplete>
             </div>
             <div className='mapGmaps'>
@@ -83,13 +87,13 @@ const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker
                                 </div>
                             )
                         }
-                        else if (response !== null && markerOn === false) {
+                        else if (responseDirection !== null && markerOn === false) {
                             return (
                                 <div>
                                     <DirectionsRenderer
                                         // required
                                         options={{
-                                            directions: response,
+                                            directions: responseDirection,
                                         }}
                                     />
                                 </div>
@@ -105,9 +109,26 @@ const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker
                     />
                 </GoogleMap>
                 <div className='mapSaveContainer'>
-                <button className='mapSaveButton' onClick={saveItinerary}>Create</button>
-                <button className='mapSaveButton' onClick={updateItinerary}>Update</button>
+                    {/* <button className='mapSaveButton' onClick={saveItinerary}>Save</button> */}
+                    <div class="dropdown">
+                        <button class="dropSaveBtn">Save</button>
+                        <div class="dropdown-content">
+                            <PDFDownloadLink document={<PdfDownload
+                                tripName={name}
+                                ItineraryDay={ItineraryDay}
+                                startDate={startDate}
+                                endDate={endDate}
+                                tripLocation={tripLocation}
+                                checklist={checklist}
+                            />} filename="FORM">
+                                {({ loading }) => (loading ? <button>Loading Document...</button> : <button className='dropDownButton'>Download PDF</button>)}
+                            </PDFDownloadLink>
+                            <button className='dropDownButton' onClick={saveItinerary}>Save</button>
+                        </div>
+                    </div>
                 </div>
+
+
             </div>
         </div>
     )

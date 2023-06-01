@@ -1,7 +1,7 @@
 .review-list {
   width: 100%;
   /* max-width: 1024px; */
-  display: flex;
+  /* display: flex; */
   /* justify-content: space-between; */
   justify-content: center;
   /* gap: 20px; */
@@ -15,4 +15,9 @@
 
 .swiperSlide {
   padding: 20px 0;
+}
+
+.buttonToRef {
+  margin-top: -20px;
+  text-align: center;
 }

@@ -59,7 +59,6 @@ function ListCheckList({checklist,setChecklist}) {
               onChange={(event) => handleTodoChange(event, index)}
               onBlur={(event) => handleTodoBlur(event, index)}
               style={{
-                border: 'none',
                 outline: 'none',
                 textDecoration: todo.completed ? 'line-through' : 'none',
               }}

@@ -29,34 +29,7 @@ const Reference = () => {
   const [day, setDay] = useState(1);
   const [selectedFilter, setSelectedFilter] = useState('Not Like');
   const [autocomplete, setAutocomplete] = useState(null);
-  const navigate = useNavigate();
-  const [dates, setDate] = useState([
-    {
-      startDate: new Date(),
-      endDate: new Date(),
-      lat: 0,
-      lng: 0,
-      name: null,
-      key: 'selection',
-    },
-  ]);
-
-  useEffect(() => {
-    dispatch(getAllItinerary());
-  }, [selectedFilter, day]);
-
-  const handleClick = () => {
-    navigate('/List', {
-      state: {
-        startDate: dates[0].startDate,
-        endDate: dates[0].endDate,
-        latitude: autocomplete.getPlace().geometry.location.lat(),
-        longitude: autocomplete.getPlace().geometry.location.lng(),
-        name: autocomplete.getPlace().name + ' Trips',
-        key: 'selection',
-      },
-    });
-  };
+  const [name, setName] = useState(null);
 
   const dateDiffInDays = (a, b) => {
     const _MS_PER_DAY = 1000 * 60 * 60 * 24;
@@ -71,10 +44,14 @@ const Reference = () => {
   const onLoad = (autoC) => setAutocomplete(autoC);
 
   const onPlaceChanged = () => {
-    const lat = autocomplete.getPlace().geometry.location.lat();
-    const lng = autocomplete.getPlace().geometry.location.lng();
-    const name = autocomplete.getPlace().name;
+    setName(autocomplete.getPlace().name);
+    console.log(name);
   };
+
+  useEffect(() => {
+    dispatch(getAllItinerary());
+    console.log(name, 'test');
+  }, [selectedFilter, day, name]);
 
   if (!itinerary.length) return <div className="load">Loading</div>;
   return (
@@ -100,6 +77,20 @@ const Reference = () => {
                   <input type="text" placeholder="Destination" className="headerSearchInputDest" />
                 </div>
               </Autocomplete>
+
+              {/* <div className="headerSearchItem dropdownLocation"> */}
+              {/* <Dropdown
+                value={selectedPlace}
+                onChange={(e) => setSelectedPlace(e.value)}
+                options={place}
+                optionLabel="name"
+                placeholder="Select a Country"
+                filter
+                valueTemplate={selectedPlaceTemplate}
+                itemTemplate={placeOptionTemplate}
+                className="w-full md:w-14rem"
+              /> */}
+              {/* </div> */}
 
               <div className="headerSearchItem flex-auto headerInputNumber">
                 <InputNumber
@@ -131,6 +122,10 @@ const Reference = () => {
               const dayLength = dateDiffInDays(value.start_date, value.end_date) + 1;
               console.log(dayLength);
               const rating = value?.rating?.some((i) => i.user_id?.includes(user?._id));
+
+              if (autocomplete?.getPlace()?.name) if (autocomplete?.getPlace()?.name != value?.tripLocation) return;
+              // console.log(navigate, 'navigate');
+              // console.log(autocomplete?.getPlace(), 'autocom');
 
               if (dayLength < day) return;
 

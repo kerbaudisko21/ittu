@@ -10,12 +10,28 @@ import { toggleRating } from '../../Features/Itinerary/ItinerarySlice';
 
 const possibleRates = [1, 2, 3, 4, 5];
 
+const dateDiffInDays = (a, b) => {
+  const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+  // Discard the time and time-zone information.
+  a = new Date(a);
+  b = new Date(b);
+  const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+  const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+
+  return Math.floor((utc2 - utc1) / _MS_PER_DAY);
+};
+
 const Review = (props) => {
   const selectedRate = 5;
   const { user } = useContext(AuthContext);
   const dispatch = useDispatch();
   const [ratingCounter, setRatingCounter] = useState(props.itineraryDet?.rating?.length || 0);
   const [rating, setRating] = useState(props.itineraryDet?.rating?.some((i) => i.user_id?.includes(user?._id)));
+  const dayLength = dateDiffInDays(props.itineraryDet?.start_date, props.itineraryDet?.end_date) + 1;
+  // console.log(user, props.itineraryDet);
+
+  if (props?.filterLike === 'Liked' && !rating) return;
+  if (props?.filterLike === 'Not Like' && rating) return;
 
   return (
     <div className="review">
@@ -39,7 +55,7 @@ const Review = (props) => {
           </div>
         </div>
         <div className="reviewDays">
-          <p>{`${props?.dayLength} days in ${props?.itineraryDet?.tripLocation}`}</p>
+          <p>{`${dayLength} days in ${props?.itineraryDet?.tripLocation}`}</p>
         </div>
         <div className="rate">
           <div className="profile">
