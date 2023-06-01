@@ -11,7 +11,7 @@ import ListItineraryDestination from '../listItineraryDestination/ListItineraryD
 
 
 
-const ListItinerary = ({ ItineraryDay, setItineraryDay, response, updateOptions }) => {
+const ListItinerary = ({ ItineraryDay, setItineraryDay, responseDirection, updateOptions,setResponseDirection,setOptions }) => {
 
   console.log(ItineraryDay)
 
@@ -26,6 +26,8 @@ const ListItinerary = ({ ItineraryDay, setItineraryDay, response, updateOptions 
       }
       return item;
     });
+    setResponseDirection(null)
+    setOptions(null)
     setItineraryDay(Itinerary);
   };
 
@@ -47,6 +49,8 @@ const ListItinerary = ({ ItineraryDay, setItineraryDay, response, updateOptions 
       return item;
     });
 
+    setResponseDirection(null)
+    setOptions(null)
     setItineraryDay(newItinerary)
   }
 
@@ -73,11 +77,22 @@ const ListItinerary = ({ ItineraryDay, setItineraryDay, response, updateOptions 
         <div className='ItineraryTop'>
        
         <h2 className='ItineraryDate'>{new Date(item.date).toDateString()}</h2>
-       
-       <div className='ItineraryWeather'>
-       <p>{ (item.temperature - 273).toFixed(1)} °C</p>
-        <img className="ItineraryIcon" src={`http://openweathermap.org/img/w/${item.icon}.png`} alt='icon' />
-        </div> 
+
+       {(() =>{
+        if(item.temperature != null && item.icon != null ){
+          return(
+        <div className='ItineraryWeather'>
+        <p className='ItineraryTemp'>{ (item.temperature - 273).toFixed(1)} °C</p>
+         <img className="ItineraryIcon" src={`http://openweathermap.org/img/w/${item.icon}.png`} alt='icon' />
+         </div>) }
+         else{
+          return(
+          <div className='ItineraryWeather'>
+           </div>)
+         }
+         })()
+       }
+ 
         </div>
         </div>
         </div>
@@ -114,7 +129,8 @@ const ListItinerary = ({ ItineraryDay, setItineraryDay, response, updateOptions 
                             type={item.id}
                             addPlace={updateArray}
                             showDirection={updateOptions}
-                            response={response}
+                            responseDirection={responseDirection}
+                            setResponseDirection={setResponseDirection}
                             deleteItem={deleteItem}
                           />
                      

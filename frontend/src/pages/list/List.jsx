@@ -5,13 +5,16 @@ import axios from 'axios';
 import { GoogleApiWrapper } from 'google-maps-react';
 import { useLocation } from "react-router-dom";
 import { Autocomplete } from '@react-google-maps/api';
-import { DragDropContext} from 'react-beautiful-dnd';
+import { DragDropContext } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
 import { GoogleMap, DirectionsService, DirectionsRenderer, Marker, InfoWindow } from "@react-google-maps/api";
 import { format } from 'date-fns'
-import { PDFDownloadLink } from "@react-pdf/renderer";
+import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 
-import PdfDownload from '../listTest/PdfDownload';
+
+
+
+import PdfDownload from '../../components/pdfDownload/PdfDownload';
 
 import ListInformation from '../../components/ListInformation/ListInformation';
 import ListItinerary from '../../components/listItinerary/ListItinerary';
@@ -31,6 +34,11 @@ const List = (props) => {
   const [type, setType] = useState('restaurant');
   const [ItineraryDay, setItineraryDay] = useState([]);
   const [markerOn, SetMarkerOn] = useState(true);
+  
+  const [responseDirection, setResponseDirection] = useState(null);
+  const [OnArray, setOnArray] = useState(null);
+  let [options, setOptions] = useState([])
+  let [stopPoints, setStopPoints] = useState([])
 
   useEffect(() => {
     function getDates() {
@@ -120,10 +128,12 @@ const List = (props) => {
       const lon = longitude;
       const weatherData = await getWeatherForecast(lat, lon, date);
       console.log(weatherData)
-      itinerary[i].weather = weatherData[0].weather[0].description;
-      itinerary[i].icon = weatherData[0].weather[0].icon;
-      itinerary[i].temperature = weatherData[0].main.temp;
+      itinerary[i].weather = weatherData[0]?.weather[0].description;
+      itinerary[i].icon = weatherData[0]?.weather[0].icon;
+      itinerary[i].temperature = weatherData[0]?.main.temp;
     }
+
+ 
 
     setItineraryDay(itinerary);
   }
@@ -167,7 +177,6 @@ const List = (props) => {
 
   const onDragEnd = (result) => {
     // dropped outside the list
-    console.log(result);
     console.log("innner drag");
     if (!result.destination) {
       console.log("No Destination");
@@ -232,6 +241,8 @@ const List = (props) => {
             return item;
           });
           setItineraryDay(newItems);
+          setResponseDirection(null)
+          setOptions(null)
         }
       } else if (sourceParentId === "Stores") {
 
@@ -279,33 +290,29 @@ const List = (props) => {
           return item;
         });
         setItineraryDay(newItems);
-
+        setResponseDirection(null)
+        setOptions(null)
       }
     }
   };
 
-  const [response, setResponse] = useState(null);
-  const [OnArray, setOnArray] = useState(null);
-  let [options, setOptions] = useState([])
-  let [stopPoints, setStopPoints] = useState([])
-
   const directionsCallback = (res) => {
-    if (res !== null && response === null) {
+    console.log("DirectionAPI")
+    if (res !== null && responseDirection === null) {
       console.log(res)
 
       res = {
         ...res,
         id: OnArray
       }
-
       console.log(res)
-      setResponse(res);
+      setResponseDirection(res);
     }
   };
 
   const updateOptions = (type, directions) => {
     setOptions(null)
-    setResponse(null)
+    setResponseDirection(null)
     console.log(directions)
 
     if (directions.length <= 1) {
@@ -363,7 +370,7 @@ const List = (props) => {
       "latitude": latitude,
       "longtitude": longitude,
       "itinerary_days": { ItineraryDay },
-      "checklist": {checklist},
+      "checklist": { checklist },
     };
     const res = axios.post(`/itinerary/${id._id}`, data);
 
@@ -375,9 +382,9 @@ const List = (props) => {
     }
   }
 
-  console.log(ItineraryDay)
+  console.log(responseDirection)
 
- 
+
 
   const [selectedMarker, setSelectedMarker] = useState(null);
 
@@ -390,7 +397,8 @@ const List = (props) => {
         setImageUrl(data.urls.regular);
       });
 
-  }, [tripLocation]);
+  }, [tripLocation])
+    ;
 
   const [listToggle, setListToggle] = useState(true);
 
@@ -411,51 +419,52 @@ const List = (props) => {
             <ListItinerary
               ItineraryDay={ItineraryDay}
               setItineraryDay={setItineraryDay}
-              response={response}
+              responseDirection={responseDirection}
               updateOptions={updateOptions}
+              setResponseDirection={setResponseDirection}
+              setOptions={setOptions}
+              
             />
 
           </div>
           <div className="placemap">
 
-            {listToggle ? 
-            <div><ListNearby 
-            stores={stores}
-            SetMarkerOn={SetMarkerOn}
-            location={location}
-            setType={setType}
-            type={type}
-            /></div> 
-            : 
-            <div><ListCheckList 
-            checklist={checklist}
-            setChecklist={setChecklist}
-            /></div>}
+            {listToggle ?
+              <div><ListNearby
+                stores={stores}
+                SetMarkerOn={SetMarkerOn}
+                location={location}
+                setType={setType}
+                type={type}
+              /></div>
+              :
+              <div><ListCheckList
+                checklist={checklist}
+                setChecklist={setChecklist}
+              /></div>}
           </div>
         </DragDropContext>
 
         <div className="MapTempat">
-          {/* <PDFDownloadLink document={<PdfDownload 
-      tripName={name}
-      ItineraryDay={ItineraryDay}
-      />} filename="FORM">
-      {({loading}) => (loading ? <button>Loading Document...</button> : <button>Download</button> )}
-      </PDFDownloadLink> */}
-
-      <ListMap 
-      location={location}
-      stores={stores}
-      markerOn={markerOn}
-      setSelectedMarker={setSelectedMarker}
-      selectedMarker={selectedMarker}
-      response={response}
-      options={options}
-      directionsCallback={directionsCallback}
-      onLoad={onLoad}
-      onPlaceChanged={onPlaceChanged}
-      saveItinerary={saveItinerary}
-      />
-      
+          <ListMap
+            location={location}
+            stores={stores}
+            markerOn={markerOn}
+            setSelectedMarker={setSelectedMarker}
+            selectedMarker={selectedMarker}
+            responseDirection={responseDirection}
+            options={options}
+            directionsCallback={directionsCallback}
+            onLoad={onLoad}
+            onPlaceChanged={onPlaceChanged}
+            saveItinerary={saveItinerary}
+            startDate={startDate}
+            endDate={endDate}
+            name={name}
+            tripLocation={tripLocation}
+            ItineraryDay={ItineraryDay}
+            checklist={checklist}
+          />
         </div>
       </div>
     </div>
