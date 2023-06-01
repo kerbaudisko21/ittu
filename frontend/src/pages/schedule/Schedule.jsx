@@ -64,7 +64,7 @@ const Schedule = (props) => {
   useEffect(() => {
 
     setLocation({ latitude, longitude });
-    
+
   }, [latitude, longitude]);
 
   useEffect(() => {
