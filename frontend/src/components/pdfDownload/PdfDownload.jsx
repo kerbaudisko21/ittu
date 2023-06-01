@@ -30,12 +30,12 @@ const PdfDownload = ({ tripName, ItineraryDay,checklist,startDate,endDate }) => 
       <Page size="A4" style={styles.page}>
         <View style={styles.section}>
           <Text>{tripName}</Text>
-          <Text>{startDate.toDateString()} / {endDate.toDateString()}</Text>
+          <Text>{new Date(startDate).toDateString()} / {new Date(endDate).toDateString()}</Text>
         </View>
         <View style={styles.trip}>
-          {ItineraryDay.map((item) => (
+          {/* {ItineraryDay.map((item) => (
               <View style={styles.itinerary}>
-              <Text style={styles.date} >{item.date.toDateString()}</Text> 
+              <Text style={styles.date} >{new Date(item.date).toDateString()}</Text> 
               {item.destinations.map((destination, index) => (
                 <View style={styles.destination}>
                  <Text style={styles.destinationName}>{index+1}. {destination.name}</Text>       
@@ -46,15 +46,15 @@ const PdfDownload = ({ tripName, ItineraryDay,checklist,startDate,endDate }) => 
 
               </View>
 
-          ))}
+          ))} */}
         </View>
         <View style={styles.checklistContainer}>
           <Text style={styles.checklist}>Your Checklist</Text>       
-          {checklist.map((list, index) => (
+          {/* {checklist.map((list, index) => (
                 <View style={styles.checklistTextContainer}>
                  <Text style={styles.checklistText}>{index+1}. {list.text}</Text>       
                 </View>
-              ))}
+              ))} */}
           </View>
       </Page>
     </Document>
