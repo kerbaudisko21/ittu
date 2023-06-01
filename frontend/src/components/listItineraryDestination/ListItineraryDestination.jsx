@@ -116,7 +116,7 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
                             >
                               <span
                                 {...provided.dragHandleProps}
-                                className='destinationDndIcon'
+                                className='dndIcon'
                               >
                                 <FaBars />
                               </span>
