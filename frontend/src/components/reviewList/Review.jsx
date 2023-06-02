@@ -39,7 +39,6 @@ const Review = (props) => {
         <div className="reviewTitle">
           <p>{props?.itineraryDet?.title}</p>
         </div>
-
         <div className="content">
           <div
             className="country"
