@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { Autocomplete } from '@react-google-maps/api';
 import { FaBars, FaTrash, FaStar, FaDirections, FaSearchLocation } from 'react-icons/fa';
@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 import './listItineraryDestination.css'
+import { useLocation } from 'react-router-dom';
 
 
 
@@ -50,7 +51,15 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
   };
 
   let [direction, setDirection] = useState([]);
+  const[props, setProps] = useState(false);
+  const router = useLocation();
 
+  useEffect(() => {
+    if (router.pathname == '/List') {
+      setProps(true);
+    }
+  },[])
+  
   const getDirection = () => {
     destinations.map((item, index) => {
       direction[index] = {
@@ -75,7 +84,6 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
     let res =  null;
     setResponseDirection(res)
   }
-
 
 
   return (

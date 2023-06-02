@@ -96,10 +96,11 @@ const Reference = () => {
                 <InputNumber
                   className="inputNumberStyle"
                   value={day}
+                  min='1'
                   showButtons
                   // buttonLayout="vertical"
                   onValueChange={(e) => {
-                    setDay(e.value >= 1 ? e.value : 1);
+                    setDay(e.value);
                     console.log(e.value);
                   }}
                   prefix="More than "

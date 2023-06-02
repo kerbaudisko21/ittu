@@ -4,9 +4,10 @@ import { GoogleMap, DirectionsService, DirectionsRenderer, Marker, InfoWindow, A
 import "./listMap.css"
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import PdfDownload from '../pdfDownload/PdfDownload';
+import { matchPath, matchRoutes, useLocation, useParams } from 'react-router-dom';
 
 
-const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker, responseDirection, options, directionsCallback, onLoad, onPlaceChanged, saveItinerary, startDate, endDate, name, tripLocation, ItineraryDay,checklist
+const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker, responseDirection, options, directionsCallback, onLoad, onPlaceChanged, updateItinerary ,saveItinerary, startDate, endDate, name, tripLocation, ItineraryDay,checklist
 }) => {
 
 
@@ -29,6 +30,19 @@ const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker
     };
 
     console.log(center)
+    const router = useLocation();
+     const[props, setProps] = useState(0);
+    const params = useParams();
+    console.log(params)
+    useEffect(() => {
+        if (router.pathname == '/List') {
+          setProps(0);
+        } else if (router.pathname == `/list/${params.userid}/${params.id}`) {
+            setProps(1);
+        } else {
+            setProps(2)
+        }
+      },[])
 
     return (
         <div>
@@ -111,22 +125,30 @@ const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker
                 </GoogleMap>
                 <div className='mapSaveContainer'>
                     {/* <button className='mapSaveButton' onClick={saveItinerary}>Save</button> */}
-                    <div class="dropdown">
-                        <button class="dropSaveBtn">Save</button>
-                        <div class="dropdown-content">
-                            <PDFDownloadLink document={<PdfDownload
-                                tripName={name}
-                                ItineraryDay={ItineraryDay}
-                                startDate={startDate}
-                                endDate={endDate}
-                                tripLocation={tripLocation}
-                                checklist={checklist}
-                            />} filename="FORM">
-                                {({ loading }) => (loading ? <button>Loading Document...</button> : <button className='dropDownButton'>Download PDF</button>)}
-                            </PDFDownloadLink>
-                            <button className='dropDownButton' onClick={saveItinerary}>Save</button>
-                        </div>
-                    </div>
+                        {(props == 0) ?
+                                                    <div class="dropdown">
+                                                    <button class="dropSaveBtn">Save</button>
+                                                    <div class="dropdown-content">
+                                                        <PDFDownloadLink document={<PdfDownload
+                                                            tripName={name}
+                                                            ItineraryDay={ItineraryDay}
+                                                            startDate={startDate}
+                                                            endDate={endDate}
+                                                            tripLocation={tripLocation}
+                                                            checklist={checklist}
+                                                        />} filename="FORM">
+                                                            {({ loading }) => (loading ? <button>Loading Document...</button> : <button className='dropDownButton'>Download PDF</button>)}
+                                                        </PDFDownloadLink>
+                                                        <button className='dropDownButton' onClick={saveItinerary}>Save</button>
+                                                    </div>
+                                                </div>
+                             :
+                             (props == 1) ?
+                                <button className='dropSaveBtn' onClick={updateItinerary}>Update</button>
+                             :
+                             <></>
+                            }
+
                 </div>
 
 

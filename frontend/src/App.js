@@ -6,6 +6,7 @@ import Login from './pages/login/Login';
 import ListTest from './pages/listTest/listTest';
 import ListTest2 from './pages/listTest/listTest2';
 import Reference from './pages/reference/Reference';
+import ViewList from './pages/viewList/ViewList';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/listtest" element={<ListTest />} />
         <Route path="/listtest2" element={<ListTest2 />} />
         <Route path="/list/:userid/:id" element={<Schedule />} />
+        <Route path="/list/:id" element={<ViewList />} />
         <Route path="/login" element={<Login isLogin={true} />} />
         <Route path="/register" element={<Login isLogin={false} />} />
         <Route path="/reference" element={<Reference />} />

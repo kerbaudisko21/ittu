@@ -7,6 +7,7 @@ import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { AuthContext } from '../../context/AuthContext';
 import { useDispatch } from 'react-redux';
 import { toggleRating } from '../../Features/Itinerary/ItinerarySlice';
+import { useNavigate } from 'react-router-dom';
 
 const possibleRates = [1, 2, 3, 4, 5];
 
@@ -28,14 +29,30 @@ const Review = (props) => {
   const [ratingCounter, setRatingCounter] = useState(props.itineraryDet?.rating?.length || 0);
   const [rating, setRating] = useState(props.itineraryDet?.rating?.some((i) => i.user_id?.includes(user?._id)));
   const dayLength = dateDiffInDays(props.itineraryDet?.start_date, props.itineraryDet?.end_date) + 1;
+  const router = useNavigate();
   // console.log(user, props.itineraryDet);
 
   if (props?.filterLike === 'Liked' && !rating) return;
   if (props?.filterLike === 'Not Like' && rating) return;
 
+  const toReference = () => {
+
+    router(`/list/${props.itineraryDet._id}`, { state:   {
+      itineraryId: props.itineraryDet._id,
+      tripBgImage: props.itineraryDet.tripBgImage,
+      startDate: props.itineraryDet.start_date,
+      endDate: props.itineraryDet.end_date,
+      latitude: props.itineraryDet.latitude,
+      longitude: props.itineraryDet.longtitude,
+      tripLocation: props.itineraryDet.tripLocation,
+      name: props.itineraryDet.title,
+      itinerary_days: props.itineraryDet.itinerary_days.ItineraryDay
+    } });
+  }
+
   return (
     <div className="review">
-      <div className="review-box">
+      <div className="review-box" onClick={toReference} style={{cursor: 'pointer'}}>
         <div className="reviewTitle">
           <p>{props?.itineraryDet?.title}</p>
         </div>
