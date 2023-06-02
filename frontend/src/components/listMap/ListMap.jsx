@@ -28,6 +28,7 @@ const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker
         setSelectedMarker(null);
     };
 
+    console.log(center)
 
     return (
         <div>

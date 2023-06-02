@@ -14,8 +14,9 @@ import { GoogleApiWrapper } from 'google-maps-react';
 
 
 const Schedule = (props) => {
+  
   const itinerary = useLocation();
-  const { startDate, endDate, name, latitude, longitude, tripLocation, itinerary_days, itineraryId } = itinerary.state;
+  let { startDate,tripBgImage, endDate, name, latitude, longitude, tripLocation, itinerary_days, itineraryId } = itinerary.state;
   console.log(itinerary.state);
   const [checklist, setChecklist] = useState([]);
   const [autocomplete, setAutocomplete] = useState(null);
@@ -24,6 +25,7 @@ const Schedule = (props) => {
   const [type, setType] = useState('restaurant');
   const [ItineraryDay, setItineraryDay] = useState([]);
   const [markerOn, SetMarkerOn] = useState(true);
+
 
   useEffect(() => {
     function getDates() {
@@ -61,11 +63,19 @@ const Schedule = (props) => {
     getDates();
   }, [startDate, endDate]);
 
+
   useEffect(() => {
+    console.log(latitude)
+    console.log(longitude)
 
-    setLocation({ latitude, longitude });
+    latitude = Number(latitude)
+    longitude = Number(longitude)
+   
+      setLocation({  latitude , longitude });
+   
+  }
+  , [latitude, longitude]);
 
-  }, [latitude, longitude]);
 
   useEffect(() => {
     const { google } = props;
@@ -124,15 +134,18 @@ const Schedule = (props) => {
     });
     return filteredList;
   }
-
+  console.log(tripBgImage)
   const [imageUrl, setImageUrl] = useState('');
+  
   useEffect(() => {
+    if(tripBgImage != null){
+    setImageUrl(tripBgImage);}
+    else{
     fetch(`https://api.unsplash.com/photos/random?query=${tripLocation}&orientation=landscape&client_id=cjj0NJ5aXgoO7iQZmizJJwOPeU2EH--C46El8zcmArQ`)
-      .then((response) => response.json())
-      .then((data) => {
-        setImageUrl(data.urls.regular);
-      });
-
+    .then((response) => response.json())
+    .then((data) => {
+      setImageUrl(data.urls.regular);
+    });}
   }, [tripLocation]);
 
   const [listToggle, setListToggle] = useState(true);
@@ -143,7 +156,8 @@ const Schedule = (props) => {
   const onPlaceChanged = () => {
     const latitude = autocomplete.getPlace().geometry.location.lat();
     const longitude = autocomplete.getPlace().geometry.location.lng();
-
+    console.log(typeof latitude)
+    console.log(longitude)
     setLocation({ latitude, longitude });
   };
 
@@ -275,13 +289,14 @@ const Schedule = (props) => {
     }
   };
 
-  const [response, setResponse] = useState(null);
+  const [responseDirection, setResponseDirection] = useState(null);
+
   const [OnArray, setOnArray] = useState(null);
   let [options, setOptions] = useState([])
   let [stopPoints, setStopPoints] = useState([])
 
   const directionsCallback = (res) => {
-    if (res !== null && response === null) {
+    if (res !== null && responseDirection === null) {
       console.log(res)
 
       res = {
@@ -290,13 +305,13 @@ const Schedule = (props) => {
       }
 
       console.log(res)
-      setResponse(res);
+      setResponseDirection(res);
     }
   };
 
   const updateOptions = (type, directions) => {
     setOptions(null)
-    setResponse(null)
+    setResponseDirection(null)
     console.log(directions)
 
     if (directions.length <= 1) {
@@ -381,13 +396,14 @@ const Schedule = (props) => {
             <ListItinerary
               ItineraryDay={ItineraryDay} // {ItineraryDays}
               setItineraryDay={setItineraryDay}
-              response={response}
+              responseDirection={responseDirection}
+              setResponseDirection={setResponseDirection}
               updateOptions={updateOptions}
+              setOptions={setOptions}
             />
 
           </div>
           <div className="placemap">
-
             {listToggle ? 
             <div><ListNearby 
             stores={stores}
@@ -418,13 +434,20 @@ const Schedule = (props) => {
       markerOn={markerOn}
       setSelectedMarker={setSelectedMarker}
       selectedMarker={selectedMarker}
-      response={response}
+      responseDirection={responseDirection}
       options={options}
       directionsCallback={directionsCallback}
       onLoad={onLoad}
       onPlaceChanged={onPlaceChanged}
       updateItinerary={updateItinerary}
-      />
+      startDate={startDate}
+      endDate={endDate}
+      name={name}
+      tripLocation={tripLocation}
+      ItineraryDay={ItineraryDay}
+      checklist={checklist}
+    />
+   
       
         </div>
       </div>

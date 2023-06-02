@@ -27,13 +27,13 @@ const Home = () => {
         ) : (
           <></>
         )}
-        <h1 className="homeTitle">Recommended Places</h1>
-        <PlaceList />
-        <h1 className="homeTitle">Features</h1>
-        <FeatureList />
+        {/* <h1 className="homeTitle">Recommended Places</h1>
+        <PlaceList /> */}
+        {/* <h1 className="homeTitle">Features</h1>
+        <FeatureList /> */}
         <h1 className="homeTitle">Discover Your Next Adventure</h1>
         <ReviewList />
-        <NewsBox />
+        {/* <NewsBox /> */}
         <br></br>
         <Footer />
       </div>

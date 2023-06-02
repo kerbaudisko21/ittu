@@ -133,7 +133,7 @@ const List = (props) => {
       itinerary[i].temperature = weatherData[0]?.main.temp;
     }
 
- 
+
 
     setItineraryDay(itinerary);
   }
@@ -271,7 +271,7 @@ const List = (props) => {
         let newDestSubItems = [...newDestSubItems1];
         console.log(newDestSubItems)
 
-        newDestSubItems.splice(destIndex, 0, { ...draggedItem, id: uuidv4() });
+        newDestSubItems.splice(destIndex, 0, { ...draggedItem, id: uuidv4() , placePhotoUrl: draggedItem.photos[0].getUrl()});
 
 
         newItems = newItems.map((item) => {

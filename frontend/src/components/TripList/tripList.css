@@ -31,19 +31,21 @@
 }
 
 .tInfo {
+  margin-top: 1rem;
+  margin: 0 2rem 0 2rem;
   display: flex;
+  text-align: center;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.tTitle {
-  margin-bottom: -10px;
-}
+
 
 .btnTrip {
-  width: 50%;
-  height: 30px;
+  margin-top: 1rem;
+  width: 8rem;
+  height: 2.5rem;
   display: flex;
   font-size: 25px;
   justify-content: center;
@@ -54,6 +56,7 @@
   background-color: #222121;
   cursor: pointer;
   transition: 0.4s ease-in-out;
+
 }
 
 .btnTrip:hover {

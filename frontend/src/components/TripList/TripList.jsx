@@ -34,6 +34,7 @@ const TripList = (props) => {
 
     navigate(`/list/${profile._id}/${props.tripDet._id}`, { state:   {
       itineraryId: props.tripDet._id,
+      tripBgImage: props.tripDet.tripBgImage,
       startDate: props.tripDet.start_date,
       endDate: props.tripDet.end_date,
       latitude: props.tripDet.latitude,
@@ -53,7 +54,7 @@ const TripList = (props) => {
           {/* {data.map((data) => ( */}
           <div className="tContainer" key={props.tripDet._id}>
             <div className="tImg">
-              <img src={imgTrip} alt="" />
+              <img src={props.tripDet.tripBgImage} alt="" />
             </div>
             <div className="tInfo">
               <h1 className="tTitle">{props.tripDet.title}</h1>
