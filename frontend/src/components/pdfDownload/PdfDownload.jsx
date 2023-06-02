@@ -45,7 +45,6 @@ const PdfDownload = ({ tripName, ItineraryDay,checklist,startDate,endDate }) => 
               ))}
 
               </View>
-
           ))}
         </View>
         <View style={styles.checklistContainer}>

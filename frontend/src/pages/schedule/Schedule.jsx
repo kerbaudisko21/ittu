@@ -289,13 +289,14 @@ const Schedule = (props) => {
     }
   };
 
-  const [response, setResponse] = useState(null);
+  const [responseDirection, setResponseDirection] = useState(null);
+
   const [OnArray, setOnArray] = useState(null);
   let [options, setOptions] = useState([])
   let [stopPoints, setStopPoints] = useState([])
 
   const directionsCallback = (res) => {
-    if (res !== null && response === null) {
+    if (res !== null && responseDirection === null) {
       console.log(res)
 
       res = {
@@ -304,13 +305,13 @@ const Schedule = (props) => {
       }
 
       console.log(res)
-      setResponse(res);
+      setResponseDirection(res);
     }
   };
 
   const updateOptions = (type, directions) => {
     setOptions(null)
-    setResponse(null)
+    setResponseDirection(null)
     console.log(directions)
 
     if (directions.length <= 1) {
@@ -395,8 +396,10 @@ const Schedule = (props) => {
             <ListItinerary
               ItineraryDay={ItineraryDay} // {ItineraryDays}
               setItineraryDay={setItineraryDay}
-              response={response}
+              responseDirection={responseDirection}
+              setResponseDirection={setResponseDirection}
               updateOptions={updateOptions}
+              setOptions={setOptions}
             />
 
           </div>
@@ -431,7 +434,7 @@ const Schedule = (props) => {
       markerOn={markerOn}
       setSelectedMarker={setSelectedMarker}
       selectedMarker={selectedMarker}
-      response={response}
+      responseDirection={responseDirection}
       options={options}
       directionsCallback={directionsCallback}
       onLoad={onLoad}

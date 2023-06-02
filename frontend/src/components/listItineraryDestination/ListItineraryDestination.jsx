@@ -129,7 +129,20 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
                                 <div className='destinationDescContainer'>
 
                                   <div className='destinationImageContainer'>
-                                    {/* <img src={item.photos[0].getUrl()} alt="Logo" class="destinationImage" /> */}
+                                  {(()=>{
+                                      if(item?.placePhotoUrl){
+                                        return(
+                                          <img src={item.placePhotoUrl} alt="Logo" class="destinationImage" />
+                                        )
+                                      }
+                                        else{
+                                          return(
+                                            <img src={item.photos[0].getUrl()} alt="Logo" class="destinationImage" />
+                                          )
+                                        }
+                                      
+                                    })()}
+                                  
                                     {(()=>{
                                       if(item?.rating){
                                         return(
@@ -163,17 +176,17 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
 
                             {(() => {
                               if (index !== destinations.length - 1 && responseDirection !== null) {
-                                // if (index < responseDirection.routes[0].legs.length) {
-                                //   if (type === responseDirection.id) {
-                                //     return (
-                                //       <div className='destinationRoutes'>
-                                //         {responseDirection.routes[0].legs[index].distance.text}
-                                //         ||
-                                //         {responseDirection.routes[0].legs[index].duration.text}
-                                //       </div>
-                                //     )
-                                //   }
-                                // }
+                                if (index < responseDirection.routes[0].legs.length) {
+                                  if (type === responseDirection.id) {
+                                    return (
+                                      <div className='destinationRoutes'>
+                                        {responseDirection.routes[0].legs[index].distance.text}
+                                        ||
+                                        {responseDirection.routes[0].legs[index].duration.text}
+                                      </div>
+                                    )
+                                  }
+                                }
                               }
                               else {
                                 return (
