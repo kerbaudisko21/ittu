@@ -6,9 +6,14 @@
   /* height: 305px; */
   width: fit-content;
   height: 100%;
+  transition: 0.25s ease-in-out;
   /* margin: 10px 0; */
   /* margin: 0.3% 0vh; */
   /* width: 280px; */
+}
+
+.review:hover {
+  transform: scale(1.1);
 }
 
 .review-box {
@@ -81,10 +86,14 @@
   cursor: pointer;
   transition: color 0.5s;
   color: #fabf35;
+  transition: 0.25s ease-in-out;
 
   /* width: 10px; */
   /* margin: 2%; */
   /* display: flex; */
+}
+.star:hover {
+  transform: scale(1.3);
 }
 
 .content {

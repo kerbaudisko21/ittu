@@ -19,7 +19,7 @@ const Navbar = () => {
   window.addEventListener('scroll', setFixed);
   const { user } = useContext(AuthContext);
 
-  const {dispatch } = useContext(AuthContext);
+  const { dispatch } = useContext(AuthContext);
 
   const handleClickLogout = async (e) => {
     e.preventDefault();
@@ -29,11 +29,14 @@ const Navbar = () => {
     window.location.href = '/login';
   };
 
-
   return (
     <div className="navbar">
       <div className={fix ? 'navContainer fixed' : 'navContainer'}>
-        <span className="logo">ITTU</span>
+        <span>
+          <Link to={'/'} className="logo">
+            ITTU
+          </Link>
+        </span>
         {user ? (
           <div className="navItems">
             <button className="navButton">{user.username}</button>
