@@ -44,7 +44,7 @@ const Reference = () => {
   const onLoad = (autoC) => setAutocomplete(autoC);
 
   const onPlaceChanged = () => {
-    setName(autocomplete.getPlace().name);
+    setName(autocomplete?.getPlace()?.name);
     console.log(name);
   };
 

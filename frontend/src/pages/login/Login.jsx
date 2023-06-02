@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useContext } from 'react';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import './login.css';
 import Navbar from '../../components/navbar/Navbar';
@@ -13,6 +13,8 @@ const provider = new GoogleAuthProvider();
 // import { IsLoginContext } from '../../context/isLoginContext';
 
 const Login = (props) => {
+  const { user } = useContext(AuthContext);
+
   const [credentials, setCredentials] = useState({
     username: undefined,
     password: undefined,
@@ -92,7 +94,7 @@ const Login = (props) => {
         }
       );
       alert('user has been created!');
-      // window.location.href = '/login';
+      window.location.href = '/login';
     } catch (err) {
       dispatch({ type: 'REGIS_FAILURE', payload: err.response.data });
     }
@@ -104,22 +106,22 @@ const Login = (props) => {
     try {
       let { user } = await signInWithPopup(auth, provider);
 
-      console.log(user);
-      // setCredentials({
-      //   email: user.email,
-      //   username: `${user.displayName}${user.email}`,
-      //   password: user.uid,
-      // }); kalo pake set credential, credentialnya undefined pas pertama tekan
       await imageToFile(`https://ui-avatars.com/api/?name=${user.displayName}&background=random&format=png`);
 
-      console.log(user, credentials);
-
-      const response = await axios.post('/auth/regisAndLogin', {
-        email: user.email,
-        username: `${user.displayName}`,
-        password: user.uid,
-        imageProfile: credentials.imageProfile,
-      });
+      const response = await axios.post(
+        '/auth/regisAndLogin',
+        {
+          email: user.email,
+          username: `${user.displayName}`,
+          password: user.uid,
+          imageProfile: credentials.imageProfile,
+        },
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
 
       dispatch({ type: 'LOGIN_SUCCESS', payload: response.data.details });
       // window.location.href = '/';
@@ -136,11 +138,10 @@ const Login = (props) => {
 
   console.log(isRegistered);
 
+  if (user) return <Navigate to={'/'} />;
+
   return (
     <div className="mainLogin">
-      {console.log(React.version)}
-
-      {credentials?.imageProfile ? <img src={credentials?.imageProfile} alt="" /> : ''}
       <Navbar />
       <div className="subMainLogin">
         <div className="subMainImageLogin"></div>
@@ -153,19 +154,18 @@ const Login = (props) => {
               <div>
                 <div>
                   <label>Username</label>
-                  <input label="Username" type="text" id="username" onChange={handleChange} placeholder="Username" />
+                  <input type="text" id="username" onChange={handleChange} placeholder="Username" />
                 </div>
                 {!isRegistered && (
                   <div>
                     <label>Email</label>
-                    <input label="Email" type="text" id="email" onChange={handleChange} placeholder="Email" />
+                    <input type="text" id="email" onChange={handleChange} placeholder="Email" />
                   </div>
                 )}
                 <div>
                   <label>Password</label>
-                  <input label="Password" type="password" id="password" onChange={handleChange} placeholder="Password" />
+                  <input type="password" id="password" onChange={handleChange} placeholder="Password" />
                 </div>
-                {/* <p className="error">{errors.password?.type === 'required' && 'Password is required'}</p> */}
               </div>
               <div className="formFooterLogin">
                 {isRegistered ? (
@@ -182,7 +182,7 @@ const Login = (props) => {
                   <FcGoogle size={'24px'} />
                 </button>
               </div>
-              {error && <span>{error.message}</span>}
+              {error && <span className="error">{error.message}</span>}
               <p className="messageLogin">
                 {!isRegistered ? 'Already have account ? ' : 'Don’t have account ? '}
                 <Link className="linkAneh" to={'/login'}>
