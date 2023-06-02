@@ -1,5 +1,4 @@
 
-  
 .destinationContainer{
     border: 1px solid lightgray;
     background-color: white;
@@ -49,6 +48,7 @@
   }
 
 .destinationDesc{
+    min-width: 8rem;
     padding: 0 10px 0;
 }
 
@@ -142,6 +142,7 @@
   .destinationDropHere{
     color: gray;
     border-radius: 10px;
+    margin-right: 0.5rem;
     background-color: aliceblue;
     padding: 1rem;
     display: flex;

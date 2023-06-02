@@ -343,8 +343,6 @@ const Schedule = (props) => {
   };
 
   const updateItinerary = async () => {
-    let id = JSON.parse(localStorage.getItem('user'));
-
     let data = {
       "title": name,
       "tripLocation": tripLocation,
