@@ -17,6 +17,8 @@ const ReviewList = () => {
     dispatch(getAllItinerary());
   }, []);
 
+  if (itinerary.length == 0) return <h1>No Itinerary Trip</h1>;
+
   return (
     <div className="review-list">
       <Swiper
@@ -24,9 +26,10 @@ const ReviewList = () => {
         grabCursor={true}
         modules={[FreeMode]}
         className="review-carousel"
-        slidesPerView={5}
-        slidesOffsetBefore={200}
-        slidesOffsetAfter={100}
+        slidesPerView={itinerary.length < 5 ? itinerary.length : 5}
+
+        // slidesOffsetBefore={200}
+        // slidesOffsetAfter={100}
         // centeredSlides={true}
         // width={}
 

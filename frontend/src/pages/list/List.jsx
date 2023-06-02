@@ -21,6 +21,7 @@ import ListItinerary from '../../components/listItinerary/ListItinerary';
 import ListNearby from '../../components/listNearby/ListNearby';
 import ListCheckList from '../../components/listCheckList/ListCheckList';
 import ListMap from '../../components/listMap/ListMap';
+import Swal from 'sweetalert2';
 
 
 const List = (props) => {
@@ -378,13 +379,17 @@ const List = (props) => {
       "checklist": { checklist },
     };
     const res = axios.post(`/itinerary/${id._id}`, data);
+    Swal.fire({
+      icon: 'success',
+      title: 'User berhasil diupdate',
+      text: 'Mohon untuk melakukan login kembali',
+      confirmButtonText: 'Ok',
+    }).then((ok) => {
+      if (ok.isConfirmed) {
+        window.location.href = '/';
+      }
+    })
 
-    console.log(res);
-
-    if (res) {
-      window.location.href = '/';
-
-    }
   }
 
   console.log(responseDirection)

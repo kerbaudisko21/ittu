@@ -4,7 +4,7 @@
   
   
   .planning {
-    width: 30%;
+    width: 40%;
     height: 100vh;
     overflow: auto;
     z-index: 1;
@@ -22,11 +22,11 @@
   }
   
   
-  .placemap {
+  /* .placemap {
     width: 20%;
     height: 100vh;
     overflow: auto;
-  }
+  } */
   
   .placemap::-webkit-scrollbar {
     display: none;
@@ -39,7 +39,7 @@
   }
   
   .MapTempat {
-    width: 50%;
+    width: 60%;
     height: 100%;
   }
   .map-container{

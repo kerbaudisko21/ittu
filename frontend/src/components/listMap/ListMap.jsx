@@ -4,13 +4,12 @@ import { GoogleMap, DirectionsService, DirectionsRenderer, Marker, InfoWindow, A
 import "./listMap.css"
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import PdfDownload from '../pdfDownload/PdfDownload';
-import { matchPath, matchRoutes, useLocation, useParams } from 'react-router-dom';
+import { matchPath, matchRoutes, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 
-const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker, responseDirection, options, directionsCallback, onLoad, onPlaceChanged, updateItinerary ,saveItinerary, startDate, endDate, name, tripLocation, ItineraryDay,checklist
-}) => {
-
-
+const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker, responseDirection, options, directionsCallback, onLoad, onPlaceChanged, 
+                    updateItinerary ,saveItinerary, startDate, endDate, name, tripLocation, ItineraryDay,checklist}) => {
+                        
     const containerStyle = {
         width: "100%",
         height: "100vh",
@@ -29,11 +28,11 @@ const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker
         setSelectedMarker(null);
     };
 
-    console.log(center)
     const router = useLocation();
      const[props, setProps] = useState(0);
     const params = useParams();
-    console.log(params)
+    const navigate = useNavigate();
+
     useEffect(() => {
         if (router.pathname == '/List') {
           setProps(0);
@@ -43,6 +42,10 @@ const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker
             setProps(2)
         }
       },[])
+    
+    const toHomePage = () => {
+        navigate('/');
+    }
 
     return (
         <div>
@@ -146,7 +149,7 @@ const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker
                              (props == 1) ?
                                 <button className='dropSaveBtn' onClick={updateItinerary}>Update</button>
                              :
-                             <></>
+                             <button className='dropSaveBtn' onClick={toHomePage}>Kembali</button>
                             }
 
                 </div>

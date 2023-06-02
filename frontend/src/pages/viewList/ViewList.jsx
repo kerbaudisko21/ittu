@@ -11,6 +11,7 @@ import axios from 'axios';
 import { format } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
 import { GoogleApiWrapper } from 'google-maps-react';
+import './viewList.css'
 
 
 const Schedule = (props) => {

@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import './navbar.css';
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
+import Swal from 'sweetalert2';
+
 
 const Navbar = () => {
   const [fix, setFix] = useState(false);
@@ -24,9 +26,16 @@ const Navbar = () => {
   const handleClickLogout = async (e) => {
     e.preventDefault();
     localStorage.removeItem('user');
-    alert('you are log out');
     dispatch({ type: 'LOGOUT' });
-    window.location.href = '/login';
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Log out successfull!',
+      showConfirmButton: false,
+      timer: 1500
+    }).then(() => {
+      window.location.href = '/login';
+    })
   };
 
   return (

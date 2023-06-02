@@ -9,8 +9,8 @@ import Navbar from '../../components/navbar/Navbar';
 import { FcGoogle } from 'react-icons/fc';
 import { auth } from './../../firebase';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import Swal from 'sweetalert2'
 const provider = new GoogleAuthProvider();
-// import { IsLoginContext } from '../../context/isLoginContext';
 
 const Login = (props) => {
   const { user } = useContext(AuthContext);
@@ -21,8 +21,7 @@ const Login = (props) => {
   });
 
   const { loading, error, dispatch } = useContext(AuthContext);
-  // const { isLogin } = useContext(IsLoginContext);
-  // const navigate = useNavigate();
+
 
   const handleChange = (e) => {
     setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -93,8 +92,15 @@ const Login = (props) => {
           },
         }
       );
-      alert('user has been created!');
-      window.location.href = '/login';
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'User has been created!',
+        showConfirmButton: false,
+        timer: 1500
+      }).then(() => {
+        window.location.href = '/login';
+      })
     } catch (err) {
       dispatch({ type: 'REGIS_FAILURE', payload: err.response.data });
     }

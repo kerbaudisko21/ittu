@@ -11,6 +11,7 @@ import axios from 'axios';
 import { format } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
 import { GoogleApiWrapper } from 'google-maps-react';
+import Swal from 'sweetalert2';
 
 
 const Schedule = (props) => {
@@ -381,12 +382,15 @@ const Schedule = (props) => {
     };
     const res = axios.put(`/itinerary/${itineraryId}`, data);
 
-    console.log(data);
-
-    if (res) {
-      window.location.href = '/';
-
-    }
+    Swal.fire({
+      icon: 'success',
+      title: 'Itinerary succesfully updated!',
+      confirmButtonText: 'Ok',
+    }).then((ok) => {
+      if (ok.isConfirmed) {
+        window.location.href = '/';
+      }
+    })
   }
 
 
