@@ -16,7 +16,7 @@ import { GoogleApiWrapper } from 'google-maps-react';
 const Schedule = (props) => {
   
   const itinerary = useLocation();
-  const { startDate,tripBgImage, endDate, name, latitude, longitude, tripLocation, itinerary_days, itineraryId } = itinerary.state;
+  let { startDate,tripBgImage, endDate, name, latitude, longitude, tripLocation, itinerary_days, itineraryId } = itinerary.state;
   console.log(itinerary.state);
   const [checklist, setChecklist] = useState([]);
   const [autocomplete, setAutocomplete] = useState(null);
@@ -65,9 +65,17 @@ const Schedule = (props) => {
 
 
   useEffect(() => {
-      setLocation({ latitude, longitude });
+    console.log(latitude)
+    console.log(longitude)
+
+    latitude = Number(latitude)
+    longitude = Number(longitude)
+   
+      setLocation({  latitude , longitude });
+   
   }
   , [latitude, longitude]);
+
 
   useEffect(() => {
     const { google } = props;
@@ -148,7 +156,8 @@ const Schedule = (props) => {
   const onPlaceChanged = () => {
     const latitude = autocomplete.getPlace().geometry.location.lat();
     const longitude = autocomplete.getPlace().geometry.location.lng();
-
+    console.log(typeof latitude)
+    console.log(longitude)
     setLocation({ latitude, longitude });
   };
 
