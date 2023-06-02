@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { Autocomplete } from '@react-google-maps/api';
 import { FaBars, FaTrash, FaStar, FaDirections, FaSearchLocation } from 'react-icons/fa';
-
+import { v4 as uuidv4 } from 'uuid';
 
 
 import './listItineraryDestination.css'
@@ -38,6 +38,12 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
   const onPlaceChanged = () => {
     const NewDestination = autocomplete.getPlace();
     console.log(NewDestination)
+
+    NewDestination['id'] =  uuidv4()
+    NewDestination['placePhotoUrl'] = NewDestination.photos[0].getUrl()
+    NewDestination['latDirection'] = NewDestination.geometry.location.lat()
+    NewDestination['lngDirection'] = NewDestination.geometry.location.lng()
+
     destinations = [...destinations, NewDestination];
     console.log(destinations)
     addPlace(type, destinations)
@@ -48,8 +54,8 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
   const getDirection = () => {
     destinations.map((item, index) => {
       direction[index] = {
-        lat: item.geometry.location.lat(),
-        lng: item.geometry.location.lng()
+        lat: item.latDirection,
+        lng: item.lngDirection
       }
       console.log(direction)
       return direction;

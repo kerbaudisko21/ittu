@@ -222,6 +222,8 @@ const Schedule = (props) => {
             return item;
           });
           setItineraryDay(newItems);
+          setResponseDirection(null)
+          setOptions(null)
         } else {
           let newSourceSubItems = [...sourceSubItems];
           const [draggedItem] = newSourceSubItems.splice(sourceIndex, 1);
@@ -237,6 +239,8 @@ const Schedule = (props) => {
             return item;
           });
           setItineraryDay(newItems);
+          setResponseDirection(null)
+          setOptions(null)
         }
       } else if (sourceParentId === "Stores") {
 
@@ -265,7 +269,11 @@ const Schedule = (props) => {
         let newDestSubItems = [...newDestSubItems1];
         console.log(newDestSubItems)
 
-        newDestSubItems.splice(destIndex, 0, { ...draggedItem, id: uuidv4() });
+        newDestSubItems.splice(destIndex, 0, { ...draggedItem, id: uuidv4() ,
+          placePhotoUrl: draggedItem.photos[0].getUrl()
+          ,latDirection : draggedItem.geometry.location.lat()
+          ,lngDirection : draggedItem.geometry.location.lng()
+        });
 
 
         newItems = newItems.map((item) => {
@@ -284,6 +292,8 @@ const Schedule = (props) => {
           return item;
         });
         setItineraryDay(newItems);
+        setResponseDirection(null)
+        setOptions(null)
 
       }
     }
@@ -296,6 +306,7 @@ const Schedule = (props) => {
   let [stopPoints, setStopPoints] = useState([])
 
   const directionsCallback = (res) => {
+    console.log("DirectionAPI")
     if (res !== null && responseDirection === null) {
       console.log(res)
 
@@ -303,7 +314,6 @@ const Schedule = (props) => {
         ...res,
         id: OnArray
       }
-
       console.log(res)
       setResponseDirection(res);
     }

@@ -17,7 +17,7 @@ const ListItinerary = ({ ItineraryDay ,setItineraryDay, responseDirection, updat
 
   const updateArray = (index, value) => {
     let Itinerary = [...ItineraryDay];
-    value = value.map((item) => ({ ...item, id: uuidv4() }))
+    
 
     Itinerary = Itinerary.map((item) => {
       if (item.id === index) {

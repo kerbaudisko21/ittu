@@ -226,6 +226,8 @@ const List = (props) => {
             return item;
           });
           setItineraryDay(newItems);
+          setResponseDirection(null)
+          setOptions(null)
         } else {
           let newSourceSubItems = [...sourceSubItems];
           const [draggedItem] = newSourceSubItems.splice(sourceIndex, 1);
@@ -271,7 +273,10 @@ const List = (props) => {
         let newDestSubItems = [...newDestSubItems1];
         console.log(newDestSubItems)
 
-        newDestSubItems.splice(destIndex, 0, { ...draggedItem, id: uuidv4() , placePhotoUrl: draggedItem.photos[0].getUrl()});
+        newDestSubItems.splice(destIndex, 0, { ...draggedItem, id: uuidv4() , placePhotoUrl: draggedItem.photos[0].getUrl() 
+          ,latDirection : draggedItem.geometry.location.lat()
+          ,lngDirection : draggedItem.geometry.location.lng()
+        });
 
 
         newItems = newItems.map((item) => {
