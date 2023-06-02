@@ -14,8 +14,9 @@ import { GoogleApiWrapper } from 'google-maps-react';
 
 
 const Schedule = (props) => {
+  
   const itinerary = useLocation();
-  const { startDate, endDate, name, latitude, longitude, tripLocation, itinerary_days, itineraryId } = itinerary.state;
+  const { startDate,tripBgImage, endDate, name, latitude, longitude, tripLocation, itinerary_days, itineraryId } = itinerary.state;
   console.log(itinerary.state);
   const [checklist, setChecklist] = useState([]);
   const [autocomplete, setAutocomplete] = useState(null);
@@ -24,6 +25,7 @@ const Schedule = (props) => {
   const [type, setType] = useState('restaurant');
   const [ItineraryDay, setItineraryDay] = useState([]);
   const [markerOn, SetMarkerOn] = useState(true);
+
 
   useEffect(() => {
     function getDates() {
@@ -61,11 +63,11 @@ const Schedule = (props) => {
     getDates();
   }, [startDate, endDate]);
 
+
   useEffect(() => {
-
-    setLocation({ latitude, longitude });
-
-  }, [latitude, longitude]);
+      setLocation({ latitude, longitude });
+  }
+  , [latitude, longitude]);
 
   useEffect(() => {
     const { google } = props;
@@ -124,15 +126,18 @@ const Schedule = (props) => {
     });
     return filteredList;
   }
-
+  console.log(tripBgImage)
   const [imageUrl, setImageUrl] = useState('');
+  
   useEffect(() => {
+    if(tripBgImage != null){
+    setImageUrl(tripBgImage);}
+    else{
     fetch(`https://api.unsplash.com/photos/random?query=${tripLocation}&orientation=landscape&client_id=cjj0NJ5aXgoO7iQZmizJJwOPeU2EH--C46El8zcmArQ`)
-      .then((response) => response.json())
-      .then((data) => {
-        setImageUrl(data.urls.regular);
-      });
-
+    .then((response) => response.json())
+    .then((data) => {
+      setImageUrl(data.urls.regular);
+    });}
   }, [tripLocation]);
 
   const [listToggle, setListToggle] = useState(true);
@@ -387,7 +392,6 @@ const Schedule = (props) => {
 
           </div>
           <div className="placemap">
-
             {listToggle ? 
             <div><ListNearby 
             stores={stores}
@@ -424,6 +428,7 @@ const Schedule = (props) => {
       onLoad={onLoad}
       onPlaceChanged={onPlaceChanged}
       updateItinerary={updateItinerary}
+
       />
       
         </div>
