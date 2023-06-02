@@ -75,7 +75,8 @@
   border-radius: 8px;
   border: none;
   outline: none;
-  background-color: #f6ecec;
+  background-color: white;
+  border: 1px solid #dadfe3;
   width: 500px;
   height: 100%;
 }
@@ -117,14 +118,18 @@
 }
 
 .p-inputnumber-input {
-  border-radius: 8px 0 0 8px;
-  border: none;
-  outline: none;
-  background-color: #f6ecec;
+  /* border-radius: 10px 0 0 8px; */
+  /* border: none;
+  outline: none; */
+  /* background-color: #f6ecec; */
   /* width: 180px; */
-  height: 100%;
-  padding-left: 15px;
+  /* height: 100%; */
+  /* padding-left: 15px; */
   /* display: inline-block; */
+}
+
+.p-inputnumber-button-up {
+  background-color: #1a4314;
 }
 
 .p-dropdown {

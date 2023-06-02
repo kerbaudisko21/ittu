@@ -53,7 +53,7 @@ const Reference = () => {
     console.log(name, 'test');
   }, [selectedFilter, day, name]);
 
-  if (!itinerary.length) return <div className="load">Loading</div>;
+  // if (!itinerary.length) return <div className="load">Loading</div>;
   return (
     <div className="refParent">
       {console.log(itinerary, 'diatas')}
@@ -104,6 +104,8 @@ const Reference = () => {
                   }}
                   prefix="More than "
                   suffix=" days"
+                  decrementButtonClassName="p-button-success"
+                  incrementButtonClassName="p-button-success"
                 />
 
                 {/* <FontAwesomeIcon icon={faCalendar} className="headerIcon" /> */}
@@ -118,43 +120,46 @@ const Reference = () => {
         <div className="referenceList">
           <div className="refGrid-container">
             {/* {console.log(itinerary, 'dibawah')} */}
-            {itinerary.map((value, index) => {
-              const dayLength = dateDiffInDays(value.start_date, value.end_date) + 1;
-              console.log(dayLength);
-              const rating = value?.rating?.some((i) => i.user_id?.includes(user?._id));
 
-              if (autocomplete?.getPlace()?.name) if (autocomplete?.getPlace()?.name != value?.tripLocation) return;
-              // console.log(navigate, 'navigate');
-              // console.log(autocomplete?.getPlace(), 'autocom');
+            {itinerary.length ? (
+              itinerary.map((value, index) => {
+                const dayLength = dateDiffInDays(value.start_date, value.end_date) + 1;
+                console.log(dayLength);
+                const rating = value?.rating?.some((i) => i.user_id?.includes(user?._id));
 
-              if (dayLength < day) return;
+                if (autocomplete?.getPlace()?.name) if (autocomplete?.getPlace()?.name != value?.tripLocation) return;
+                // console.log(navigate, 'navigate');
+                // console.log(autocomplete?.getPlace(), 'autocom');
 
-              if (selectedFilter?.name === 'Liked') {
-                if (rating)
-                  return (
-                    <div className="refGrid-item" key={index}>
-                      <Review itineraryDet={value} dayLength={dayLength} />
-                    </div>
-                  );
-                return;
-              } else if (selectedFilter?.name === 'Not Like') {
-                if (!rating) {
-                  return (
-                    <div className="refGrid-item" key={index}>
-                      <Review itineraryDet={value} dayLength={dayLength} />
-                    </div>
-                  );
+                if (dayLength < day) return;
+
+                if (selectedFilter?.name === 'Liked') {
+                  if (rating)
+                    return (
+                      <div className="refGrid-item" key={index}>
+                        <Review itineraryDet={value} dayLength={dayLength} />
+                      </div>
+                    );
+                  return;
+                } else if (selectedFilter?.name === 'Not Like') {
+                  if (!rating) {
+                    return (
+                      <div className="refGrid-item" key={index}>
+                        <Review itineraryDet={value} dayLength={dayLength} />
+                      </div>
+                    );
+                  }
+                  return;
                 }
-                return;
-              }
-              return (
-                <div className="refGrid-item" key={index}>
-                  <Review itineraryDet={value} dayLength={dayLength} />
-                </div>
-              );
-            })}
-
-            {console.log(selectedFilter)}
+                return (
+                  <div className="refGrid-item" key={index}>
+                    <Review itineraryDet={value} dayLength={dayLength} />
+                  </div>
+                );
+              })
+            ) : (
+              <h3>Loading...</h3>
+            )}
           </div>
         </div>
 
