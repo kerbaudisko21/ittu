@@ -437,8 +437,14 @@ const Schedule = (props) => {
       onLoad={onLoad}
       onPlaceChanged={onPlaceChanged}
       updateItinerary={updateItinerary}
-
-      />
+      startDate={startDate}
+      endDate={endDate}
+      name={name}
+      tripLocation={tripLocation}
+      ItineraryDay={ItineraryDay}
+      checklist={checklist}
+    />
+   
       
         </div>
       </div>
