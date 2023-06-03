@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import { Autocomplete } from '@react-google-maps/api';
 import {format} from 'date-fns'
+import Loading from '../loading/Loading';
 
 const TripList = (props) => {
 
@@ -48,7 +49,7 @@ const TripList = (props) => {
   return (
     <div className="tripList">
       {props.load ? (
-        'loading'
+        <Loading />
       ) : props.tripDet != '' ? (
         <>
           {/* {data.map((data) => ( */}

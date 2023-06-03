@@ -30,8 +30,7 @@ const Review = (props) => {
   const [rating, setRating] = useState(props.itineraryDet?.rating?.some((i) => i.user_id?.includes(user?._id)));
   const dayLength = dateDiffInDays(props.itineraryDet?.start_date, props.itineraryDet?.end_date) + 1;
   const router = useNavigate();
-  // console.log(user, props.itineraryDet);
-
+  
   if (props?.filterLike === 'Liked' && !rating) return;
   if (props?.filterLike === 'Not Like' && rating) return;
 
@@ -52,11 +51,11 @@ const Review = (props) => {
 
   return (
     <div className="review">
-      <div className="review-box" onClick={toReference} style={{cursor: 'pointer'}}>
+      <div className="review-box">
         <div className="reviewTitle">
           <p>{props?.itineraryDet?.title}</p>
         </div>
-        <div className="content">
+        <div className="content"  onClick={toReference} style={{cursor: 'pointer'}}>
           <div
             className="country"
             style={{
@@ -75,7 +74,6 @@ const Review = (props) => {
         </div>
         <div className="rate">
           <div className="profile">
-            {console.log(props.itineraryDet)}
             <img className="circle-img profilePicture" src={`http://localhost:8800/userProfile/${props?.itineraryDet?.userProfileImage}`} alt="test" />
             <p>{props?.itineraryDet?.username.substring(0, 12)}</p>
           </div>
@@ -88,7 +86,6 @@ const Review = (props) => {
               <AiFillStar
                 onClick={() => {
                   dispatch(toggleRating(false, props.itineraryDet._id));
-                  console.log('clicked', user._id, props.itineraryDet);
                   setRatingCounter(ratingCounter - 1);
                   setRating(!rating);
                 }}
@@ -99,24 +96,14 @@ const Review = (props) => {
                 onClick={() => {
                   if (!user) return alert('You need to login before rate');
                   dispatch(toggleRating(true, props.itineraryDet._id));
-                  console.log('clicked', user._id, props.itineraryDet);
                   setRatingCounter(ratingCounter + 1);
                   setRating(!rating);
                 }}
                 className="star"
               />
             )}
-
-            {/* 
-            <i className="fa-solid fa-star" key={'5'}></i>
-            {possibleRates.map((rate) => (rate > selectedRate ? '' : <i key={rate} className={'fas fa-star'}></i>))} */}
           </div>
         </div>
-        {/* <div className="comment">
-          <h2>
-            "<br></br>Using a travel itinerary website for Tokyo was a game-changer. User-friendly, budget-friendly, and stress-free.<br></br>"
-          </h2>
-        </div> */}
       </div>
     </div>
   );

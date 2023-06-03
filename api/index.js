@@ -28,7 +28,7 @@ mongoose.connection.on('disconnected', () => {
 });
 
 mongoose.connection.on('connected', () => {
-  console.log('mongo connecteded asu');
+  console.log('mongo connected');
 });
 
 //middlewares

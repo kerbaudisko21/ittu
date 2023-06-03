@@ -3,9 +3,7 @@ import { Document, Page, Text, View, StyleSheet, Image, Font, Svg} from '@react-
 
 
 const PdfDownload = ({ tripName, ItineraryDay,checklist,startDate,endDate }) => {
-  console.log(checklist)
-  console.log(tripName)
-  console.log(ItineraryDay)
+
 
   const styles = StyleSheet.create({
     page: { backgroundColor: 'white' },

@@ -3,7 +3,7 @@
   }
   
   
-  .planning {
+  .planningView {
     width: 40%;
     height: 100vh;
     overflow: auto;
@@ -38,7 +38,7 @@
     scrollbar-width: none;  /* Firefox */
   }
   
-  .MapTempat {
+  .MapTempatView {
     width: 60%;
     height: 100%;
   }

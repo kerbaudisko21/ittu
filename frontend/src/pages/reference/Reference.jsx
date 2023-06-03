@@ -14,14 +14,11 @@ import Review from '../../components/reviewList/Review';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllItinerary } from '../../Features/Itinerary/ItinerarySlice';
 import { InputNumber } from 'primereact/inputnumber';
-
+import Loading from '../../components/loading/Loading.js'
 import { Dropdown } from 'primereact/dropdown';
 import { AuthContext } from '../../context/AuthContext';
 
 const Reference = () => {
-  //   let userDetails = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : null;
-
-  //   let userId = userDetails ? userDetails._id : '';
   const { user } = useContext(AuthContext);
   const dispatch = useDispatch();
   const itinerary = useSelector((state) => state.itinerary?.list);
@@ -45,18 +42,15 @@ const Reference = () => {
 
   const onPlaceChanged = () => {
     setName(autocomplete?.getPlace()?.name);
-    console.log(name);
   };
 
   useEffect(() => {
     dispatch(getAllItinerary());
-    console.log(name, 'test');
   }, [selectedFilter, day, name]);
 
   // if (!itinerary.length) return <div className="load">Loading</div>;
   return (
     <div className="refParent">
-      {console.log(itinerary, 'diatas')}
       <Navbar />
       <div className="refContainer">
         <div className="refHead">
@@ -101,7 +95,6 @@ const Reference = () => {
                   // buttonLayout="vertical"
                   onValueChange={(e) => {
                     setDay(e.value);
-                    console.log(e.value);
                   }}
                   prefix="More than "
                   suffix=" days"
@@ -120,20 +113,13 @@ const Reference = () => {
         </div>
         <div className="referenceList">
           <div className="refGrid-container">
-            {/* {console.log(itinerary, 'dibawah')} */}
 
             {itinerary.length ? (
               itinerary.map((value, index) => {
                 const dayLength = dateDiffInDays(value.start_date, value.end_date) + 1;
-                console.log(dayLength);
                 const rating = value?.rating?.some((i) => i.user_id?.includes(user?._id));
-
                 if (autocomplete?.getPlace()?.name) if (autocomplete?.getPlace()?.name != value?.tripLocation) return;
-                // console.log(navigate, 'navigate');
-                // console.log(autocomplete?.getPlace(), 'autocom');
-
                 if (dayLength < day) return;
-
                 if (selectedFilter?.name === 'Liked') {
                   if (rating)
                     return (
@@ -159,7 +145,7 @@ const Reference = () => {
                 );
               })
             ) : (
-              <h3>Loading...</h3>
+              <Loading />
             )}
           </div>
         </div>

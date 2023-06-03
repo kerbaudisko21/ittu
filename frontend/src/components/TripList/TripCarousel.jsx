@@ -9,15 +9,8 @@ import useFetch from '../../hooks/useFetch';
 
 const TripCarousel = () => {
   let userDetails = JSON.parse(localStorage.getItem('user'));
-  console.log(userDetails);
-
   const { data, loading } = useFetch(`/itinerary/user/${userDetails._id}`);
-
-  console.log(data);
-  console.log(loading);
-
   if (data.length == 0) return <h1>No Data Trip</h1>;
-
   return (
     <div className="trip-list">
       <Swiper
@@ -37,9 +30,7 @@ const TripCarousel = () => {
           ? data.map((value, index) => {
               return (
                 <SwiperSlide key={value._id}>
-                  {console.log(value)}
                   <TripList tripDet={value} />
-                  {console.log(value)}
                 </SwiperSlide>
               );
             })

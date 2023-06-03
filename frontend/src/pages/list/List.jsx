@@ -10,12 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { GoogleMap, DirectionsService, DirectionsRenderer, Marker, InfoWindow } from "@react-google-maps/api";
 import { format } from 'date-fns'
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
-
-
-
-
 import PdfDownload from '../../components/pdfDownload/PdfDownload';
-
 import ListInformation from '../../components/ListInformation/ListInformation';
 import ListItinerary from '../../components/listItinerary/ListItinerary';
 import ListNearby from '../../components/listNearby/ListNearby';
@@ -25,7 +20,6 @@ import Swal from 'sweetalert2';
 
 
 const List = (props) => {
-  console.log(props);
   const [checklist, setChecklist] = useState([]);
   const [autocomplete, setAutocomplete] = useState(null);
   const dateRange = useLocation();
@@ -78,19 +72,7 @@ const List = (props) => {
   }, [startDate, endDate]);
 
     useEffect(() => {
-      // Get Current Position
-      // navigator.geolocation.getCurrentPosition(
-      //   (position) => {
-      //     const { latitude, longitude } = position.coords;
-      //     setLocation({ latitude, longitude });
-
-      //   },
-      //   () => {
-      //     console.log('Permission denied');
-      //   }
-
       setLocation({ latitude, longitude });
-
     }, [latitude, longitude]);
 
   useEffect(() => {
@@ -128,7 +110,6 @@ const List = (props) => {
       const lat = latitude;
       const lon = longitude;
       const weatherData = await getWeatherForecast(lat, lon, date);
-      console.log(weatherData)
       itinerary[i].weather = weatherData[0]?.weather[0].description;
       itinerary[i].icon = weatherData[0]?.weather[0].icon;
       itinerary[i].temperature = weatherData[0]?.main.temp;
@@ -178,9 +159,7 @@ const List = (props) => {
 
   const onDragEnd = (result) => {
     // dropped outside the list
-    console.log("innner drag");
     if (!result.destination) {
-      console.log("No Destination");
       return;
     }
     const sourceIndex = result.source.index;
@@ -191,30 +170,17 @@ const List = (props) => {
       setItineraryDay(reorder(ItineraryDay, sourceIndex, destIndex));
     }
     else if (result.type === "droppableSubItem") {
-      console.log("droppableSubItem +")
       if (sourceParentId !== 'Stores') {
         const itemSubItemMap = ItineraryDay.reduce((acc, item) => {
-          console.log(ItineraryDay)
           acc[item.id] = item.destinations;
-          console.log(item.destinations)
-          console.log(acc)
           return acc;
         }, {});
-        console.log({ itemSubItemMap })
-        console.log([sourceParentId])
         const sourceSubItems = itemSubItemMap[sourceParentId];
-        console.log(sourceSubItems)
         const destSubItems = itemSubItemMap[destParentId];
-
-
         let newItems = [...ItineraryDay];
 
         /** In this case subItems are reOrdered inside same Parent */
         if (sourceParentId === destParentId) {
-          console.log("reordersub")
-          console.log("sourceSubItems " + sourceSubItems)
-          console.log("sourceIndex " + sourceIndex)
-          console.log("destIndex " + destIndex)
           const reorderedSubItems = reorder(
             sourceSubItems,
             sourceIndex,
@@ -248,31 +214,16 @@ const List = (props) => {
           setOptions(null)
         }
       } else if (sourceParentId === "Stores") {
-
-        console.log('==> dest', destParentId);
-        console.log(result)
         const itemSubItemMap = ItineraryDay.reduce((acc, item) => {
           acc[item.id] = item.destinations;
-          console.log(item.destinations)
-          console.log(acc)
           return acc;
         }, {});
-        console.log(itemSubItemMap)
-
         const sourceStore = stores[sourceIndex];
-        console.log(sourceStore)
-
         const newDestSubItems1 = itemSubItemMap[destParentId];
-        console.log(newDestSubItems1)
-
         let newItems = [...ItineraryDay];
-
         let newSourceSubItems = [...stores];
-        console.log(newSourceSubItems)
         const [draggedItem] = newSourceSubItems.splice(sourceIndex, 1);
-        console.log([draggedItem])
         let newDestSubItems = [...newDestSubItems1];
-        console.log(newDestSubItems)
 
         newDestSubItems.splice(destIndex, 0, { ...draggedItem, id: uuidv4() , placePhotoUrl: draggedItem.photos[0].getUrl() 
           ,latDirection : draggedItem.geometry.location.lat()
@@ -282,16 +233,9 @@ const List = (props) => {
 
         newItems = newItems.map((item) => {
           if (item.id === sourceParentId) {
-            console.log("sourceParentId")
             item.destinations = newSourceSubItems;
-
           } else if (item.id === destParentId) {
-
-
-
             item.destinations = newDestSubItems;
-            console.log(newDestSubItems)
-
           }
           return item;
         });
@@ -303,15 +247,11 @@ const List = (props) => {
   };
 
   const directionsCallback = (res) => {
-    console.log("DirectionAPI")
     if (res !== null && responseDirection === null) {
-      console.log(res)
-
       res = {
         ...res,
         id: OnArray
       }
-      console.log(res)
       setResponseDirection(res);
     }
   };
@@ -319,8 +259,6 @@ const List = (props) => {
   const updateOptions = (type, directions) => {
     setOptions(null)
     setResponseDirection(null)
-    console.log(directions)
-
     if (directions.length <= 1) {
       return
     }
@@ -341,7 +279,6 @@ const List = (props) => {
           };
           i++;
         }
-        console.log(stopPoints)
         return stopPoints;
       }
       );
@@ -351,16 +288,10 @@ const List = (props) => {
         origin: directions[0],
         travelMode: "DRIVING",
         waypoints: stopPoints,
-
-
       }
-
     }
-    console.log(type)
     setOnArray(type)
-    console.log(OnArray)
     setOptions(options)
-    console.log(options)
     SetMarkerOn(false)
   };
 
@@ -381,21 +312,14 @@ const List = (props) => {
     const res = axios.post(`/itinerary/${id._id}`, data);
     Swal.fire({
       icon: 'success',
-      title: 'User berhasil diupdate',
-      text: 'Mohon untuk melakukan login kembali',
+      title: 'Itinerary succesfully created!',
       confirmButtonText: 'Ok',
     }).then((ok) => {
       if (ok.isConfirmed) {
         window.location.href = '/';
       }
     })
-
   }
-
-  console.log(responseDirection)
-
-
-
   const [selectedMarker, setSelectedMarker] = useState(null);
 
 
@@ -407,12 +331,12 @@ const List = (props) => {
         setImageUrl(data.urls.regular);
       });
 
-  }, [tripLocation])
-    ;
+  }, [tripLocation]);
 
   const [listToggle, setListToggle] = useState(true);
 
   return (
+    <>
     <div>
       {/* <Navbar /> */}
       <div className="list">
@@ -478,6 +402,7 @@ const List = (props) => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

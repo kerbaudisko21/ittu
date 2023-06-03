@@ -14,11 +14,10 @@ import { GoogleApiWrapper } from 'google-maps-react';
 import './viewList.css'
 
 
-const Schedule = (props) => {
+const ViewList = (props) => {
   
   const itinerary = useLocation();
   let { startDate,tripBgImage, endDate, name, latitude, longitude, tripLocation, itinerary_days, itineraryId } = itinerary.state;
-  console.log(itinerary.state);
   const [checklist, setChecklist] = useState([]);
   const [autocomplete, setAutocomplete] = useState(null);
   const [stores, setStores] = useState([]);
@@ -66,17 +65,10 @@ const Schedule = (props) => {
 
 
   useEffect(() => {
-    console.log(latitude)
-    console.log(longitude)
-
     latitude = Number(latitude)
     longitude = Number(longitude)
-   
-      setLocation({  latitude , longitude });
-   
-  }
-  , [latitude, longitude]);
-
+    setLocation({  latitude , longitude });
+  },[latitude, longitude]);
 
   useEffect(() => {
     const { google } = props;
@@ -112,14 +104,11 @@ const Schedule = (props) => {
       const lat = latitude;
       const lon = longitude;
       const weatherData = await getWeatherForecast(lat, lon, date);
-      console.log(weatherData)
       itinerary[i].weather = weatherData[0].weather[0].description;
       itinerary[i].icon = weatherData[0].weather[0].icon;
       itinerary[i].temperature = weatherData[0].main.temp;
     }
-    console.log(itinerary_days);
     setItineraryDay(itinerary_days);
-    console.log(ItineraryDay);
   }
 
   async function getWeatherForecast(lat, lon, date) {
@@ -135,7 +124,6 @@ const Schedule = (props) => {
     });
     return filteredList;
   }
-  console.log(tripBgImage)
   const [imageUrl, setImageUrl] = useState('');
   
   useEffect(() => {
@@ -157,8 +145,6 @@ const Schedule = (props) => {
   const onPlaceChanged = () => {
     const latitude = autocomplete.getPlace().geometry.location.lat();
     const longitude = autocomplete.getPlace().geometry.location.lng();
-    console.log(typeof latitude)
-    console.log(longitude)
     setLocation({ latitude, longitude });
   };
 
@@ -172,12 +158,7 @@ const Schedule = (props) => {
 
   const onDragEnd = (result) => {
     // dropped outside the list
-    console.log(result);
-    console.log(ItineraryDay)
-    console.log(itinerary_days)
-    console.log("innner drag");
     if (!result.destination) {
-      console.log("No Destination");
       return;
     }
     const sourceIndex = result.source.index;
@@ -188,29 +169,17 @@ const Schedule = (props) => {
       setItineraryDay(reorder(ItineraryDay, sourceIndex, destIndex));
     }
     else if (result.type === "droppableSubItem") {
-      console.log("droppableSubItem +")
       if (sourceParentId !== 'Stores') {
         const itemSubItemMap = ItineraryDay.reduce((acc, item) => {
           acc[item.id] = item.destinations;
-          console.log(item.destinations)
-          console.log(acc)
           return acc;
         }, {});
-        console.log({ itemSubItemMap })
-        console.log([sourceParentId])
         const sourceSubItems = itemSubItemMap[sourceParentId];
-        console.log(sourceSubItems)
         const destSubItems = itemSubItemMap[destParentId];
-
-
         let newItems = [...ItineraryDay];
 
         /** In this case subItems are reOrdered inside same Parent */
         if (sourceParentId === destParentId) {
-          console.log("reordersub")
-          console.log("sourceSubItems " + sourceSubItems)
-          console.log("sourceIndex " + sourceIndex)
-          console.log("destIndex " + destIndex)
           const reorderedSubItems = reorder(
             sourceSubItems,
             sourceIndex,
@@ -240,52 +209,29 @@ const Schedule = (props) => {
           setItineraryDay(newItems);
         }
       } else if (sourceParentId === "Stores") {
-
-        console.log('==> dest', destParentId);
-        console.log(result)
         const itemSubItemMap = ItineraryDay.reduce((acc, item) => {
           acc[item.id] = item.destinations;
-          console.log(item.destinations)
-          console.log(acc)
           return acc;
         }, {});
-        console.log(itemSubItemMap)
-
         const sourceStore = stores[sourceIndex];
-        console.log(sourceStore)
-
         const newDestSubItems1 = itemSubItemMap[destParentId];
-        console.log(newDestSubItems1)
-
         let newItems = [...ItineraryDay];
-
         let newSourceSubItems = [...stores];
-        console.log(newSourceSubItems)
         const [draggedItem] = newSourceSubItems.splice(sourceIndex, 1);
-        console.log([draggedItem])
         let newDestSubItems = [...newDestSubItems1];
-        console.log(newDestSubItems)
 
         newDestSubItems.splice(destIndex, 0, { ...draggedItem, id: uuidv4() });
 
 
         newItems = newItems.map((item) => {
           if (item.id === sourceParentId) {
-            console.log("sourceParentId")
             item.destinations = newSourceSubItems;
-
           } else if (item.id === destParentId) {
-
-
-
             item.destinations = newDestSubItems;
-            console.log(newDestSubItems)
-
           }
           return item;
         });
         setItineraryDay(newItems);
-
       }
     }
   };
@@ -298,14 +244,10 @@ const Schedule = (props) => {
 
   const directionsCallback = (res) => {
     if (res !== null && responseDirection === null) {
-      console.log(res)
-
       res = {
         ...res,
         id: OnArray
       }
-
-      console.log(res)
       setResponseDirection(res);
     }
   };
@@ -313,7 +255,6 @@ const Schedule = (props) => {
   const updateOptions = (type, directions) => {
     setOptions(null)
     setResponseDirection(null)
-    console.log(directions)
 
     if (directions.length <= 1) {
       return
@@ -335,7 +276,6 @@ const Schedule = (props) => {
           };
           i++;
         }
-        console.log(stopPoints)
         return stopPoints;
       }
       );
@@ -350,11 +290,8 @@ const Schedule = (props) => {
       }
 
     }
-    console.log(type)
     setOnArray(type)
-    console.log(OnArray)
     setOptions(options)
-    console.log(options)
     SetMarkerOn(false)
   };
 
@@ -363,7 +300,7 @@ const Schedule = (props) => {
     <div>
         <div className="list">
         <DragDropContext>
-          <div className="planning">
+          <div className="planningView">
             <ListInformation
               tripName={name}
               startTripDate={new Date(startDate).toDateString()}
@@ -384,7 +321,7 @@ const Schedule = (props) => {
           </div>
         </DragDropContext>
 
-        <div className="MapTempat">
+        <div className="MapTempatView">
           {/* <PDFDownloadLink document={<PdfDownload 
       tripName={name}
       ItineraryDay={ItineraryDay}
@@ -410,8 +347,6 @@ const Schedule = (props) => {
       ItineraryDay={ItineraryDay}
       checklist={checklist}
     />
-   
-      
         </div>
       </div>
     </div>
@@ -420,4 +355,4 @@ const Schedule = (props) => {
 
 export default GoogleApiWrapper({
   apiKey: 'AIzaSyDmowFuG5A64eipfP8pOHIh0v4onGzDKYk',
-})(Schedule);
+})(ViewList);

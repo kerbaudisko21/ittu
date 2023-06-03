@@ -12,6 +12,9 @@ import { format } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
 import { GoogleApiWrapper } from 'google-maps-react';
 import Swal from 'sweetalert2';
+import './schedule.css';
+import Loading from '../../components/loading/Loading.js';
+
 
 
 const Schedule = (props) => {
@@ -26,7 +29,7 @@ const Schedule = (props) => {
   const [type, setType] = useState('restaurant');
   const [ItineraryDay, setItineraryDay] = useState([]);
   const [markerOn, SetMarkerOn] = useState(true);
-
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     function getDates() {
@@ -93,8 +96,8 @@ const Schedule = (props) => {
       type: [type],
     };
 
-    const callback = (results, status) => {
-
+    const callback = async (results, status) => {
+      
       if (status === google.maps.places.PlacesServiceStatus.OK) {
 
         results = results.filter((item) => item.business_status === "OPERATIONAL" && item.user_ratings_total > 50);
@@ -104,7 +107,6 @@ const Schedule = (props) => {
 
     service.nearbySearch(request, callback);
   }, [props, location, type]);
-
 
   async function addWeatherToItinerary(itinerary) {
     for (let i = 0; i < itinerary.length; i++) {
@@ -155,10 +157,8 @@ const Schedule = (props) => {
   const onLoad = (autoC) => setAutocomplete(autoC);
 
   const onPlaceChanged = () => {
-    const latitude = autocomplete.getPlace().geometry.location.lat();
-    const longitude = autocomplete.getPlace().geometry.location.lng();
-    console.log(typeof latitude)
-    console.log(longitude)
+    latitude = Number(latitude)
+    longitude = Number(longitude)
     setLocation({ latitude, longitude });
   };
 
@@ -395,77 +395,83 @@ const Schedule = (props) => {
 
 
   return (
-    <div>
-        <div className="list">
-        <DragDropContext  onDragEnd={onDragEnd}>
-          <div className="planning">
-            <ListInformation
-              tripName={name}
-              startTripDate={new Date(startDate).toDateString()}
-              endTripDate={new Date(endDate).toDateString()}
-              imageUrl={imageUrl}
-              setListToggle={setListToggle}
-            />
+    <>
+      {loading ? <Loading/> : 
+      <div>
+      <div className="list">
+      <DragDropContext  onDragEnd={onDragEnd}>
+        <div className="planning">
+          <ListInformation
+            tripName={name}
+            startTripDate={new Date(startDate).toDateString()}
+            endTripDate={new Date(endDate).toDateString()}
+            imageUrl={imageUrl}
+            setListToggle={setListToggle}
+          />
 
-            <ListItinerary
-              ItineraryDay={ItineraryDay} // {ItineraryDays}
-              setItineraryDay={setItineraryDay}
-              responseDirection={responseDirection}
-              setResponseDirection={setResponseDirection}
-              updateOptions={updateOptions}
-              setOptions={setOptions}
-            />
+          <ListItinerary
+            ItineraryDay={ItineraryDay} // {ItineraryDays}
+            setItineraryDay={setItineraryDay}
+            responseDirection={responseDirection}
+            setResponseDirection={setResponseDirection}
+            updateOptions={updateOptions}
+            setOptions={setOptions}
+          />
 
-          </div>
-          <div className="placemap">
-            {listToggle ? 
-            <div><ListNearby 
-            stores={stores}
-            SetMarkerOn={SetMarkerOn}
-            location={location}
-            setType={setType}
-            type={type}
-            /></div> 
-            : 
-            <div><ListCheckList 
-            checklist={checklist}
-            setChecklist={setChecklist}
-            /></div>}
-          </div>
-        </DragDropContext>
-
-        <div className="MapTempat">
-          {/* <PDFDownloadLink document={<PdfDownload 
-      tripName={name}
-      ItineraryDay={ItineraryDay}
-      />} filename="FORM">
-      {({loading}) => (loading ? <button>Loading Document...</button> : <button>Download</button> )}
-      </PDFDownloadLink> */}
-
-      <ListMap 
-      location={location}
-      stores={stores}
-      markerOn={markerOn}
-      setSelectedMarker={setSelectedMarker}
-      selectedMarker={selectedMarker}
-      responseDirection={responseDirection}
-      options={options}
-      directionsCallback={directionsCallback}
-      onLoad={onLoad}
-      onPlaceChanged={onPlaceChanged}
-      updateItinerary={updateItinerary}
-      startDate={startDate}
-      endDate={endDate}
-      name={name}
-      tripLocation={tripLocation}
-      ItineraryDay={ItineraryDay}
-      checklist={checklist}
-    />
-   
-      
         </div>
+        <div className="placemap">
+          {listToggle ? 
+          <div><ListNearby 
+          stores={stores}
+          SetMarkerOn={SetMarkerOn}
+          location={location}
+          setType={setType}
+          type={type}
+          /></div> 
+          : 
+          <div><ListCheckList 
+          checklist={checklist}
+          setChecklist={setChecklist}
+          /></div>}
+        </div>
+      </DragDropContext>
+
+      <div className="MapTempat">
+        {/* <PDFDownloadLink document={<PdfDownload 
+    tripName={name}
+    ItineraryDay={ItineraryDay}
+    />} filename="FORM">
+    {({loading}) => (loading ? <button>Loading Document...</button> : <button>Download</button> )}
+    </PDFDownloadLink> */}
+
+    <ListMap 
+    location={location}
+    stores={stores}
+    markerOn={markerOn}
+    setSelectedMarker={setSelectedMarker}
+    selectedMarker={selectedMarker}
+    responseDirection={responseDirection}
+    options={options}
+    directionsCallback={directionsCallback}
+    onLoad={onLoad}
+    onPlaceChanged={onPlaceChanged}
+    updateItinerary={updateItinerary}
+    startDate={startDate}
+    endDate={endDate}
+    name={name}
+    tripLocation={tripLocation}
+    ItineraryDay={ItineraryDay}
+    checklist={checklist}
+  />
+ 
+    
       </div>
     </div>
+  </div>
+      }
+    
+    </>
+
   )
 }
 
