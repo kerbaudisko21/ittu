@@ -129,25 +129,33 @@ const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker
                 <div className='mapSaveContainer'>
                     {/* <button className='mapSaveButton' onClick={saveItinerary}>Save</button> */}
                         {(props == 0) ?
-                                                    <div class="dropdown">
-                                                    <button class="dropSaveBtn">Save</button>
-                                                    <div class="dropdown-content">
-                                                        <PDFDownloadLink document={<PdfDownload
-                                                            tripName={name}
-                                                            ItineraryDay={ItineraryDay}
-                                                            startDate={startDate}
-                                                            endDate={endDate}
-                                                            tripLocation={tripLocation}
-                                                            checklist={checklist}
-                                                        />} filename="FORM">
-                                                            {({ loading }) => (loading ? <button>Loading Document...</button> : <button className='dropDownButton'>Download PDF</button>)}
-                                                        </PDFDownloadLink>
-                                                        <button className='dropDownButton' onClick={saveItinerary}>Save</button>
-                                                    </div>
-                                                </div>
+                        <>
+                            <button className='dropSaveBtn' onClick={toHomePage}>Kembali</button>
+                            &nbsp;
+                            <div class="dropdown">
+                                <button class="dropSaveBtn">Save</button>
+                                <div class="dropdown-content">
+                                    <PDFDownloadLink document={<PdfDownload
+                                        tripName={name}
+                                        ItineraryDay={ItineraryDay}
+                                        startDate={startDate}
+                                        endDate={endDate}
+                                        tripLocation={tripLocation}
+                                        checklist={checklist}
+                                    />} filename="FORM">
+                                        {({ loading }) => (loading ? <button>Loading Document...</button> : <button className='dropDownButton'>Download PDF</button>)}
+                                    </PDFDownloadLink>
+                                    <button className='dropDownButton' onClick={saveItinerary}>Save</button>
+                                </div>
+                            </div>
+                            </>
                              :
                              (props == 1) ?
-                                <button className='dropSaveBtn' onClick={updateItinerary}>Update</button>
+                                <>
+                                    <button className='dropSaveBtn' onClick={toHomePage}>Kembali</button>
+                                    &nbsp;
+                                    <button className='dropSaveBtn' onClick={updateItinerary}>Update</button>
+                                </>
                              :
                              <button className='dropSaveBtn' onClick={toHomePage}>Kembali</button>
                             }
