@@ -8,8 +8,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faMapMarkerAlt, faCalendar } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from "react-router-dom";
 import { Autocomplete } from '@react-google-maps/api';
+import Swal from 'sweetalert2'
 
 const Header = () => {
+  let user = localStorage.getItem('user');
 
   const [openDate, setOpenDate] = useState(false)
   const [autocomplete, setAutocomplete] = useState(null);
@@ -27,18 +29,32 @@ const Header = () => {
   ]);
 
   const handleClick = () => {
-    navigate("/List", { state:   {
-      startDate: dates[0].startDate,
-      endDate: dates[0].endDate,
-      latitude: autocomplete.getPlace().geometry.location.lat(),
-      longitude: autocomplete.getPlace().geometry.location.lng(),
-      tripLocation: autocomplete.getPlace().name,
-      name: autocomplete.getPlace().name + ' Trips',
-      key: 'selection'
-    } });
+    if (user == 'null') {
+      Swal.fire({
+        icon: 'warning',
+        title: 'You have to Login before creating an itinerary',
+        confirmButtonText: 'Ok',
+      })
+    } else {
+      if (!autocomplete.getPlace()) {
+        return Swal.fire({
+          icon: 'error',
+          title: 'Please input destination field!',
+          confirmButtonText: 'Ok',
+        })
+      } else {
+        navigate("/List", { state:   {
+          startDate: dates[0].startDate,
+          endDate: dates[0].endDate,
+          latitude: autocomplete.getPlace().geometry.location.lat(),
+          longitude: autocomplete.getPlace().geometry.location.lng(),
+          tripLocation: autocomplete.getPlace().name,
+          name: autocomplete.getPlace().name + ' Trips',
+          key: 'selection'
+        } });
+      }
+    }
   };
-
-
 
   const onLoad = (autoC) => setAutocomplete(autoC);
 
@@ -47,7 +63,6 @@ const Header = () => {
     const lng = autocomplete.getPlace().geometry.location.lng();
     const name = autocomplete.getPlace().name;
     
-  
     console.log(lat)
     console.log(lng)
     console.log(name)

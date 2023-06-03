@@ -34,7 +34,15 @@ const Login = (props) => {
       const res = await axios.post('/auth/login', credentials);
       dispatch({ type: 'LOGIN_SUCCESS', payload: res.data.details });
       console.log({ payload: res.data.details });
-      window.location.href = '/';
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Login Successful!',
+        showConfirmButton: false,
+        timer: 1500
+      }).then(() => {
+        window.location.href = '/';
+      })
     } catch (err) {
       dispatch({ type: 'LOGIN_FAILURE', payload: err.response.data });
     }
