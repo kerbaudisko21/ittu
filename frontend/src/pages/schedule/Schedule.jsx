@@ -20,9 +20,9 @@ import Loading from '../../components/loading/Loading.js';
 const Schedule = (props) => {
   
   const itinerary = useLocation();
-  let { startDate,tripBgImage, endDate, name, latitude, longitude, tripLocation, itinerary_days, itineraryId } = itinerary.state;
+  let { startDate,tripBgImage, endDate, name, latitude, longitude, tripLocation, itinerary_days, itineraryId, checklistDb } = itinerary.state;
   console.log(itinerary.state);
-  const [checklist, setChecklist] = useState([]);
+  const [checklist, setChecklist] = useState(checklistDb);
   const [autocomplete, setAutocomplete] = useState(null);
   const [stores, setStores] = useState([]);
   const [location, setLocation] = useState({});

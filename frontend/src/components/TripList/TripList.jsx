@@ -42,6 +42,7 @@ const TripList = (props) => {
       longitude: props.tripDet.longtitude,
       tripLocation: props.tripDet.tripLocation,
       name: props.tripDet.title,
+      checklistDb:  props.tripDet.checklist.checklist,
       itinerary_days: props.tripDet.itinerary_days.ItineraryDay
     } });
   };

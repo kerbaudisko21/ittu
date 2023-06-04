@@ -5,6 +5,8 @@ import { FaPlus } from 'react-icons/fa';
 import './listCheckList.css'
 
 function ListCheckList({checklist,setChecklist}) {
+  
+  console.log(checklist)
 
   const handleAddTodo = () => {
     setChecklist([...checklist, { text: '', completed: false }]);
