@@ -96,8 +96,7 @@ const Reference = () => {
                   onValueChange={(e) => {
                     setDay(e.value);
                   }}
-                  prefix="More than "
-                  suffix=" days"
+                  suffix=" or more days"
                   decrementButtonClassName="p-button-success"
                   incrementButtonClassName="p-button-success"
                 />
