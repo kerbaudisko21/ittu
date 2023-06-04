@@ -7,9 +7,9 @@ import PdfDownload from '../pdfDownload/PdfDownload';
 import { matchPath, matchRoutes, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 
-const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker, responseDirection, options, directionsCallback, onLoad, onPlaceChanged, 
-                    updateItinerary ,saveItinerary, startDate, endDate, name, tripLocation, ItineraryDay,checklist}) => {
-                        
+const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker, responseDirection, options, directionsCallback, onLoad, onPlaceChanged,
+    updateItinerary, saveItinerary, startDate, endDate, name, tripLocation, ItineraryDay, checklist }) => {
+
     const containerStyle = {
         width: "100%",
         height: "100vh",
@@ -29,20 +29,20 @@ const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker
     };
 
     const router = useLocation();
-     const[props, setProps] = useState(0);
+    const [props, setProps] = useState(0);
     const params = useParams();
     const navigate = useNavigate();
 
     useEffect(() => {
         if (router.pathname == '/List') {
-          setProps(0);
+            setProps(0);
         } else if (router.pathname == `/list/${params.userid}/${params.id}`) {
             setProps(1);
         } else {
             setProps(2)
         }
-      },[])
-    
+    }, [])
+
     const toHomePage = () => {
         navigate('/');
     }
@@ -55,7 +55,7 @@ const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker
                         componentRestrictions: { country: 'id' },
                     }}
                 >
-                    <input  type="text"  onfocus="this.value=''" className='mapSearchInput' />
+                    <input type="text" onfocus="this.value=''" className='mapSearchInput' />
 
                 </Autocomplete>
             </div>
@@ -128,7 +128,7 @@ const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker
                 </GoogleMap>
                 <div className='mapSaveContainer'>
                     {/* <button className='mapSaveButton' onClick={saveItinerary}>Save</button> */}
-                        {(props == 0) ?
+                    {(props == 0) ?
                         <>
                             <button className='dropSaveBtn' onClick={toHomePage}>Kembali</button>
                             &nbsp;
@@ -148,17 +148,32 @@ const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker
                                     <button className='dropDownButton' onClick={saveItinerary}>Save</button>
                                 </div>
                             </div>
+                        </>
+                        :
+                        (props == 1) ?
+                            <>
+                                <button className='dropSaveBtn' onClick={toHomePage}>Kembali</button>
+                                &nbsp;
+                                <div class="dropdown">
+                                    <button class="dropSaveBtn">Update</button>
+                                    <div class="dropdown-content">
+                                        <PDFDownloadLink document={<PdfDownload
+                                            tripName={name}
+                                            ItineraryDay={ItineraryDay}
+                                            startDate={startDate}
+                                            endDate={endDate}
+                                            tripLocation={tripLocation}
+                                            checklist={checklist}
+                                        />} filename="FORM">
+                                            {({ loading }) => (loading ? <button>Loading Document...</button> : <button className='dropDownButton'>Download PDF</button>)}
+                                        </PDFDownloadLink>
+                                        <button className='dropDownButton' onClick={updateItinerary}>Update</button>
+                                    </div>
+                                </div>
                             </>
-                             :
-                             (props == 1) ?
-                                <>
-                                    <button className='dropSaveBtn' onClick={toHomePage}>Kembali</button>
-                                    &nbsp;
-                                    <button className='dropSaveBtn' onClick={updateItinerary}>Update</button>
-                                </>
-                             :
-                             <button className='dropSaveBtn' onClick={toHomePage}>Kembali</button>
-                            }
+                            :
+                            <button className='dropSaveBtn' onClick={toHomePage}>Kembali</button>
+                    }
 
                 </div>
 

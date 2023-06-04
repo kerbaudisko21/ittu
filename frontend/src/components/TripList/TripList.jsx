@@ -59,10 +59,10 @@ const TripList = (props) => {
               <img src={props.tripDet.tripBgImage} alt="" />
             </div>
             <div className="tInfo">
-              <h1 className="tTitle">{props.tripDet.title}</h1>
-              <h3 className="tDate">
+              <h2 className="tTitle">{props.tripDet.title}</h2>
+              <h4 className="tDate">
                 {new Date(props.tripDet.start_date).toDateString()} <FontAwesomeIcon icon={faArrowRight} /> {new Date(props.tripDet.end_date).toDateString()}
-              </h3>
+              </h4>
               <a>
                 <button className="btnTrip" onClick={handleClick}>View</button>
               </a>
