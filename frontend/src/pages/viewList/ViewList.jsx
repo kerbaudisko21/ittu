@@ -104,9 +104,9 @@ const ViewList = (props) => {
       const lat = latitude;
       const lon = longitude;
       const weatherData = await getWeatherForecast(lat, lon, date);
-      itinerary[i].weather = weatherData[0].weather[0].description;
-      itinerary[i].icon = weatherData[0].weather[0].icon;
-      itinerary[i].temperature = weatherData[0].main.temp;
+      itinerary[i].weather = weatherData[0]?.weather[0].description;
+      itinerary[i].icon = weatherData[0]?.weather[0].icon;
+      itinerary[i].temperature = weatherData[0]?.main.temp;
     }
     setItineraryDay(itinerary_days);
   }
@@ -299,7 +299,7 @@ const ViewList = (props) => {
   return (
     <div>
         <div className="list">
-        <DragDropContext>
+        <DragDropContext >
           <div className="planningView">
             <ListInformation
               tripName={name}
