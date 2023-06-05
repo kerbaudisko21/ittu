@@ -5,8 +5,8 @@ export const createItinerary = async (req, res, next) => {
   // const userId = req.params.userid;
   const user = await User.findById(req.params.userid);
   const newItinerary = new Itinerary(req.body);
-  newItinerary['username'] = (user.username) ? user.username : '';
-  newItinerary['userProfileImage'] = (user.imageProfile) ? user.imageProfile : '';
+  newItinerary['username'] = user.username ? user.username : '';
+  newItinerary['userProfileImage'] = user.imageProfile ? user.imageProfile : '';
   console.log(newItinerary, user);
 
   try {
@@ -63,7 +63,8 @@ export const getUserItineraries = async (req, res, next) => {
 
 export const getItineraries = async (req, res, next) => {
   try {
-    const itinerary = await Itinerary.find();
+    const itinerary = await Itinerary.find({ 'itinerary_days.ItineraryDay.destinations': { $ne: [] } });
+    console.log(itinerary[itinerary.length - 1]);
     res.status(200).json(itinerary);
   } catch (err) {
     next(err);
