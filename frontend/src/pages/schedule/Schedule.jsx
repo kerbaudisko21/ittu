@@ -157,8 +157,8 @@ const Schedule = (props) => {
   const onLoad = (autoC) => setAutocomplete(autoC);
 
   const onPlaceChanged = () => {
-    latitude = Number(latitude)
-    longitude = Number(longitude)
+    const latitude = autocomplete.getPlace().geometry.location.lat();
+    const longitude = autocomplete.getPlace().geometry.location.lng();
     setLocation({ latitude, longitude });
   };
 
