@@ -20,4 +20,17 @@
 .buttonToRef {
   margin-top: -20px;
   text-align: center;
+  padding: 10px 0;
+}
+
+.seeAllBtn {
+  background-color: black;
+  color: white;
+  padding: 15px;
+  border-radius: 25px;
+  transition: 0.2s ease-in-out;
+}
+
+.seeAllBtn:hover {
+  transform: scale(1.1);
 }

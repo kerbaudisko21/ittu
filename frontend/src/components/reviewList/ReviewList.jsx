@@ -27,7 +27,6 @@ const ReviewList = () => {
         modules={[FreeMode]}
         className="review-carousel"
         slidesPerView={itinerary.length < 5 ? itinerary.length : 5}
-
         // slidesOffsetBefore={200}
         // slidesOffsetAfter={100}
         // centeredSlides={true}
@@ -48,7 +47,9 @@ const ReviewList = () => {
       <br />
       <div className="buttonToRef">
         <Link to={'/reference'}>
-          <Button label="See All Reference Trip" severity="info" outlined rounded raised />
+          <button onClick={() => {}} className="seeAllBtn">
+            See All Reference Trip
+          </button>
         </Link>
       </div>
       {/* <Review></Review> */}
