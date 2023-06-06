@@ -6,7 +6,7 @@ export const createItinerary = async (req, res, next) => {
   const user = await User.findById(req.params.userid);
   const newItinerary = new Itinerary(req.body);
   newItinerary['username'] = user.username ? user.username : '';
-  newItinerary['userProfileImage'] = user.imageProfile ? user.imageProfile : '';
+  newItinerary['userProfileImage'] = user.imageProfile;
   console.log(newItinerary, user);
 
   try {

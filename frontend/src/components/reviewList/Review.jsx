@@ -30,24 +30,25 @@ const Review = (props) => {
   const [rating, setRating] = useState(props.itineraryDet?.rating?.some((i) => i.user_id?.includes(user?._id)));
   const dayLength = dateDiffInDays(props.itineraryDet?.start_date, props.itineraryDet?.end_date) + 1;
   const router = useNavigate();
-  
+
   if (props?.filterLike === 'Liked' && !rating) return;
   if (props?.filterLike === 'Not Like' && rating) return;
 
   const toReference = () => {
-
-    router(`/list/${props.itineraryDet._id}`, { state:   {
-      itineraryId: props.itineraryDet._id,
-      tripBgImage: props.itineraryDet.tripBgImage,
-      startDate: props.itineraryDet.start_date,
-      endDate: props.itineraryDet.end_date,
-      latitude: props.itineraryDet.latitude,
-      longitude: props.itineraryDet.longtitude,
-      tripLocation: props.itineraryDet.tripLocation,
-      name: props.itineraryDet.title,
-      itinerary_days: props.itineraryDet.itinerary_days.ItineraryDay
-    } });
-  }
+    router(`/list/${props.itineraryDet._id}`, {
+      state: {
+        itineraryId: props.itineraryDet._id,
+        tripBgImage: props.itineraryDet.tripBgImage,
+        startDate: props.itineraryDet.start_date,
+        endDate: props.itineraryDet.end_date,
+        latitude: props.itineraryDet.latitude,
+        longitude: props.itineraryDet.longtitude,
+        tripLocation: props.itineraryDet.tripLocation,
+        name: props.itineraryDet.title,
+        itinerary_days: props.itineraryDet.itinerary_days.ItineraryDay,
+      },
+    });
+  };
 
   return (
     <div className="review">
@@ -55,15 +56,15 @@ const Review = (props) => {
         <div className="reviewTitle">
           <h3>{props?.itineraryDet?.title}</h3>
         </div>
-        <div className="content"  onClick={toReference} style={{cursor: 'pointer'}}>
+        <div className="content" onClick={toReference} style={{ cursor: 'pointer' }}>
           <div
             className="country"
             style={{
               backgroundImage: `url(${props?.itineraryDet?.tripBgImage})`,
               boxShadow: 'rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px',
               // zIndex: 0,
-              height:' 200px',
-              bordeRadius: '15px'
+              height: ' 200px',
+              bordeRadius: '15px',
             }}
           >
             <div className="countryText">
@@ -77,7 +78,7 @@ const Review = (props) => {
         </div>
         <div className="rate">
           <div className="profile">
-            <img className="circle-img profilePicture" src={`http://localhost:8800/userProfile/${props?.itineraryDet?.userProfileImage}`} alt="test" />
+            {/* <img className="circle-img profilePicture" src={`http://localhost:8800/public/userProfile/${props?.itineraryDet?.userProfileImage}`} alt="test" /> */}
             <h3>{props?.itineraryDet?.username.substring(0, 12)}</h3>
           </div>
           <div className="rating">

@@ -47,7 +47,7 @@ const ReviewList = () => {
           // when window width is >= 768px
           766: {
             // width: 768,
-            slidesPerView: { len },
+            slidesPerView: 5,
           },
         }}
         // breakpoints={{ 0: { slidesPerView: 3, spaceBetween: 10 } }}

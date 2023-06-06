@@ -40,7 +40,7 @@ const TripCarousel = () => {
           // when window width is >= 768px
           766: {
             // width: 768,
-            slidesPerView: { len },
+            slidesPerView: 4,
           },
         }}
       >
@@ -52,7 +52,6 @@ const TripCarousel = () => {
                 <SwiperSlide key={value._id}>
                   <TripList tripDet={value} />
                 </SwiperSlide>
-   
               );
             })
           : 'You dont have any itinerary'}
