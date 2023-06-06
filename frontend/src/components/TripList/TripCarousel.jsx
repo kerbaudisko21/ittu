@@ -9,18 +9,12 @@ import useFetch from '../../hooks/useFetch';
 
 const TripCarousel = () => {
   let userDetails = JSON.parse(localStorage.getItem('user'));
-  const [len, setLen] = useState(0);
 
   const { data, loading } = useFetch(`/itinerary/user/${userDetails._id}`);
-
-  useEffect(() => {
-    setLen(data.length < 4 ? data.length : 4);
-  }, [data]);
 
   if (data.length == 0) return <h1>No Data Trip</h1>;
   return (
     <div className="trip-list">
-      {console.log(len)}
       <Swiper
         freeMode={true}
         grabCursor={true}

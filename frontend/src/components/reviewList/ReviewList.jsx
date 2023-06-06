@@ -12,12 +12,10 @@ import { Link } from 'react-router-dom';
 
 const ReviewList = () => {
   const dispatch = useDispatch();
-  const [len, setLen] = useState(0);
 
   const itinerary = useSelector((state) => state.itinerary?.list);
   useEffect(() => {
     dispatch(getAllItinerary());
-    setLen(itinerary.length < 5 ? itinerary.length : 5);
   }, []);
 
   if (itinerary.length == 0) return <h1>No Itinerary Trip</h1>;
@@ -42,10 +40,12 @@ const ReviewList = () => {
 
           766: {
             // width: 768,
+            slidesPerView: itinerary.length < 4 ? itinerary.length : 4,
+          },
+          1280: {
             slidesPerView: itinerary.length < 5 ? itinerary.length : 5,
           },
         }}
-        // breakpoints={{ 0: { slidesPerView: 3, spaceBetween: 10 } }}
       >
         {itinerary.map((value, index) => {
           return (
