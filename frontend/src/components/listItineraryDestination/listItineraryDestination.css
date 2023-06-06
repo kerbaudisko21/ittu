@@ -107,14 +107,14 @@
     align-items: center;
     display: flex;
     align-self: flex-start;
-    background-color: lightgrey; 
+    background-color: #a6f1cc; 
     border-radius: 8px;
     padding: 0.5rem;
     box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
   }
 
   .destinationSearchAdd{
-    background-color: lightgrey; 
+    background-color: #a6f1cc; 
     border-radius: 8px;
     outline: none;
     border: none;
@@ -131,19 +131,20 @@
     border: 5px gray;
     border-radius: 8px;
     cursor: pointer;
-    background-color: lightgrey; 
+    background-color: #a6f1cc; 
   }
 
   
   .destinationDirectionButton:hover {
-    background: aliceblue;
+    background: #e5fbe5;
     }
-
+    
+    /* #e5fbe5 */
   .destinationDropHere{
     color: gray;
     border-radius: 10px;
     margin-right: 0.5rem;
-    background-color: aliceblue;
+    background-color: #e5fbe5;
     padding: 1rem;
     display: flex;
     justify-content: center;
