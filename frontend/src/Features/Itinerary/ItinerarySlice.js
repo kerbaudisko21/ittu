@@ -23,7 +23,6 @@ export const itinerarySlice = createSlice({
 export const getAllItinerary = () => async (dispatch) => {
   try {
     const { data } = await axios.get(`/itinerary`);
-    console.log(data);
     dispatch(onGetData(data));
   } catch (error) {
     console.log(error);
