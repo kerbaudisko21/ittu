@@ -332,7 +332,7 @@ const ViewList = (props) => {
       <ListMap 
       location={location}
       stores={stores}
-      markerOn={markerOn}
+      markerOn={false}
       setSelectedMarker={setSelectedMarker}
       selectedMarker={selectedMarker}
       responseDirection={responseDirection}

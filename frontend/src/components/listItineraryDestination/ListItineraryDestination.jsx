@@ -7,7 +7,7 @@ import { AiFillStar } from 'react-icons/ai';
 
 
 import './listItineraryDestination.css'
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 
 
@@ -34,7 +34,7 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
   console.log(responseDirection)
 
   const [autocomplete, setAutocomplete] = useState(null);
-
+  const [draggable, setDraggable] = useState(true);
   const onLoad = (autoC) => setAutocomplete(autoC);
 
   const onPlaceChanged = () => {
@@ -52,14 +52,22 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
   };
 
   let [direction, setDirection] = useState([]);
-  const[props, setProps] = useState(false);
   const router = useLocation();
+  const[props, setProps] = useState(0);
+  const params = useParams();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (router.pathname == '/List') {
-      setProps(true);
-    }
-  },[])
+ useEffect(() => {
+     if (router.pathname == '/List') {
+       setProps(0);
+       setDraggable(false);
+     } else if (router.pathname == `/list/${params.userid}/${params.id}`) {
+         setProps(1);
+         setDraggable(false);
+     } else {
+         setProps(2)
+     }
+   },[])
   
   const getDirection = () => {
     destinations.map((item, index) => {
@@ -90,19 +98,21 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
   return (
     <div>
       <div className='destinationUpperContainer'>
-        <div className='destinationSearchAddContainer'>
-          <FaSearchLocation />
-          <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}
-            options={{
-              componentRestrictions: { country: 'id' },
-            }}
-          >
-            <input type="text" onfocus="this.value=''"  placeholder="Add New Location" className='destinationSearchAdd' />
-
-          </Autocomplete>
-        </div>
+        {props == 2 ? <></> 
+        :
+            <div className='destinationSearchAddContainer'>
+            <FaSearchLocation />
+            <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}
+              options={{
+                componentRestrictions: { country: 'id' },
+              }}
+            >
+              <input type="text" onfocus="this.value=''"  placeholder="Add New Location" className='destinationSearchAdd' />
+  
+            </Autocomplete>
+          </div>
+        }
         <div className='destinationDirectionContainer'>
-
           <button onClick={getDirection} className='destinationDirectionButton' > <FaDirections /> Get Direction</button>
         </div>
       </div>
@@ -119,7 +129,7 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
                 return (<div>
                   {
                     destinations.map((item, index) => (
-                      <Draggable key={item.id} draggableId={item.id} index={index}>
+                      <Draggable isDragDisabled = {draggable} key={item.id} draggableId={item.id} index={index}>
                         {(provided, snapshot) => (
                           <>
                             <div
@@ -139,10 +149,7 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
                               </span>
                               <div className='destinationContainerInside'>
                                 <h3 className='destinationName'>{item.name}</h3>
-
-
                                 <div className='destinationDescContainer'>
-
                                   <div className='destinationImageContainer'>
                                   {(()=>{
                                       if(item?.placePhotoUrl){
@@ -173,23 +180,16 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
 
                                   <div className='destinationDesc'>
                                     <p>{item.vicinity}</p>
-
-
-                                    <button className='destinationDeleteButton' onClick={() => onDelete(index)}>
-                                      <FaTrash />
-                                    </button>
-
-
+                                    {props == 2 ? <></> 
+                                    : 
+                                      <button className='destinationDeleteButton' onClick={() => onDelete(index)}>
+                                        <FaTrash />
+                                      </button>
+                                    }
                                   </div>
-
-
-
                                 </div>
-
-
                               </div>
                             </div>
-
                             {(() => {
                               if (index !== destinations.length - 1 && responseDirection !== null) {
                                 if (index < responseDirection.routes[0].legs.length) {
@@ -209,18 +209,12 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
                                   <div></div>
                                 )
                               }
-
-
                             })()}
                             {provided.placeholder}
                           </>
-
                         )
                         }
-
                       </Draggable>
-
-
                     )
                     )
                   }
@@ -232,27 +226,12 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
                   <div className='destinationDropHere'>Drop Here</div>
                 )
               }
-
-
             })()}
-
-
-
-
-
-
-
-
-
             {provided.placeholder}
-
-
           </div>
         )}
       </Droppable>
-
     </div>
   )
 }
-
 export default ListItineraryDestination

@@ -122,7 +122,7 @@
 
   .destinationDirectionContainer{
     align-self: flex-end;
-    align-self: center;
+    /* align-self: center; */
   }
 
   .destinationDirectionButton{

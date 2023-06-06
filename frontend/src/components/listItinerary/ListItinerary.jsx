@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
 import { FaCaretDown, FaCaretRight } from 'react-icons/fa';
@@ -8,6 +8,7 @@ import { useCollapse } from 'react-collapsed';
 
 import './listItinerary.css'
 import ListItineraryDestination from '../listItineraryDestination/ListItineraryDestination.jsx';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 
 

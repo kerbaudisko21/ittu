@@ -50,14 +50,16 @@ const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker
     return (
         <div>
             <div className='mapSearch'>
-                <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}
-                    options={{
-                        componentRestrictions: { country: 'id' },
-                    }}
-                >
-                    <input type="text" onfocus="this.value=''" className='mapSearchInput' />
+                {props == 2 ? <></>
+                 : 
+                    <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}
+                    options={{componentRestrictions: { country: 'id' },}}
+                    >
+                    <input  type="text"  onfocus="this.value=''" className='mapSearchInput' />
 
                 </Autocomplete>
+                 }
+
             </div>
             <div className='mapGmaps'>
                 <GoogleMap
@@ -80,7 +82,6 @@ const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker
                                         <Marker position={{
                                             lat: store.geometry.location.lat(),
                                             lng: store.geometry.location.lng()
-
                                         }}
                                             onMouseOver={() => handleMouseOver(store.place_id)}
                                             onMouseOut={handleMouseOut}

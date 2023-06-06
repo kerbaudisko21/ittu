@@ -3,7 +3,7 @@ import "./list.css";
 import axios from 'axios';
 
 import { GoogleApiWrapper } from 'google-maps-react';
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Autocomplete } from '@react-google-maps/api';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
@@ -101,9 +101,6 @@ const List = (props) => {
     service.nearbySearch(request, callback);
   }, [props, location, type]);
 
-
-
-
   async function addWeatherToItinerary(itinerary) {
     for (let i = 0; i < itinerary.length; i++) {
       const date = itinerary[i].date;
@@ -114,9 +111,6 @@ const List = (props) => {
       itinerary[i].icon = weatherData[0]?.weather[0].icon;
       itinerary[i].temperature = weatherData[0]?.main.temp;
     }
-
-
-
     setItineraryDay(itinerary);
   }
 
@@ -125,7 +119,6 @@ const List = (props) => {
     const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
     const response = await fetch(apiUrl);
     const data = await response.json();
-
     // Filter the list based on the date you want
     const filteredList = data.list.filter(item => {
       const itemDate = new Date(item.dt_txt);
@@ -133,11 +126,6 @@ const List = (props) => {
     });
     return filteredList;
   }
-
-
-
-
-
 
   const onLoad = (autoC) => setAutocomplete(autoC);
 
