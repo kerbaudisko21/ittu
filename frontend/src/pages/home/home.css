@@ -1,4 +1,4 @@
-.homeContainer{
+.homeContainer {
     margin-top: 20px;
     display: flex;
     flex-direction: column;
@@ -6,6 +6,27 @@
     gap: 30px;
 }
 
-.homeTitle{
+.homeTitle {
+    text-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    font-size: 3rem;
     max-width: 1080px;
 }
+
+@font-face {
+    font-family: CovesLight;
+    src: url(/src/font/CovesLight.otf);
+}
+
+@font-face {
+    font-family: CovesBold;
+    src: url(/src/font/CovesBold.otf);
+}
+
+h1, h2, h3,h4{
+    font-family: CovesBold, sans-serif;
+    
+}
+
+/* p,div ,span, a, input, button{
+    font-family: 'Rubik', sans-serif;
+} */

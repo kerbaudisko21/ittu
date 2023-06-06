@@ -49,7 +49,7 @@
     justify-content: space-between;
 	position: absolute;
 	border-radius: 10px;
-    background: lightgrey;
+    background: #e0e0e0;
     z-index: 0;
 	
 }
@@ -71,7 +71,7 @@
 	position: absolute;
 	width: 7rem;
 	height: 100%;
-	background: aliceblue;
+	background: white;
 	border-radius: 10px;
 	transition: .5s;
 }

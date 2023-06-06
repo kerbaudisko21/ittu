@@ -53,14 +53,17 @@ const Review = (props) => {
     <div className="review">
       <div className="review-box">
         <div className="reviewTitle">
-          <p>{props?.itineraryDet?.title}</p>
+          <h3>{props?.itineraryDet?.title}</h3>
         </div>
         <div className="content"  onClick={toReference} style={{cursor: 'pointer'}}>
           <div
             className="country"
             style={{
               backgroundImage: `url(${props?.itineraryDet?.tripBgImage})`,
+              boxShadow: 'rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px',
               // zIndex: 0,
+              height:' 200px',
+              bordeRadius: '15px'
             }}
           >
             <div className="countryText">
@@ -75,7 +78,7 @@ const Review = (props) => {
         <div className="rate">
           <div className="profile">
             <img className="circle-img profilePicture" src={`http://localhost:8800/userProfile/${props?.itineraryDet?.userProfileImage}`} alt="test" />
-            <p>{props?.itineraryDet?.username.substring(0, 12)}</p>
+            <h3>{props?.itineraryDet?.username.substring(0, 12)}</h3>
           </div>
           <div className="rating">
             <p>{ratingCounter}</p>

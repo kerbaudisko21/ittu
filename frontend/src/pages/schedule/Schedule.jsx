@@ -476,5 +476,5 @@ const Schedule = (props) => {
 }
 
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyBDnnbu_49VuVhiUAyJA55xwE6gR9GHpcc',
+  apiKey: 'AIzaSyB8Tlelmf8iFA8ailR6-0Q1_VWRAvBU5jA',
 })(Schedule);

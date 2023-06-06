@@ -52,6 +52,7 @@ const TripCarousel = () => {
                 <SwiperSlide key={value._id}>
                   <TripList tripDet={value} />
                 </SwiperSlide>
+   
               );
             })
           : 'You dont have any itinerary'}

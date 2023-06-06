@@ -123,3 +123,17 @@
 .pac-container:after{
     content:none !important;
 }
+
+
+.starlogo {
+    color: #fabf35;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .storeRating{
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    margin: 0px 2px;
+  }

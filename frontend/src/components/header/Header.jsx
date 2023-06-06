@@ -76,7 +76,7 @@ const Header = () => {
     <div className="header">
       <h1 className="headerTitle">
         {' '}
-        Discover Your Next Adventure <br></br> ITTU{' '}
+        Create Your Next Adventure <br></br> ITTU{' '}
       </h1>
       <div className="headerSearch">
         <Autocomplete
@@ -97,7 +97,7 @@ const Header = () => {
         <div className="headerSearchItem">
           <FontAwesomeIcon icon={faCalendar} className="headerIcon" />
           <input type="text" readOnly className="headerSearchInput" placeholder="Start Date" onClick={() => setOpenDate(!openDate)} value={`${format(dates[0].startDate, 'MM/dd/yyyy')}`} />
-          {openDate && <DateRange className="date" editableDateInputs={true} onChange={(item) => setDate([item.selection])} moveRangeOnFirstSelection={false} ranges={dates} />}
+          {openDate && <DateRange className="date" editableDateInputs={true} onChange={(item) => setDate([item.selection])} moveRangeOnFirstSelection={false} ranges={dates} rangeColors={['lightgray', 'lightgray', 'lightgray']} />}
         </div>
         <div className="headerSearchItem">
           <FontAwesomeIcon icon={faCalendar} className="headerIcon" />
