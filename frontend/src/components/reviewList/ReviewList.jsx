@@ -29,7 +29,7 @@ const ReviewList = () => {
         grabCursor={true}
         modules={[FreeMode]}
         className="review-carousel"
-        slidesPerView={itinerary.length < 5 ? itinerary.length : 5}
+        slidesPerView={1}
         // slidesOffsetBefore={200}
         // slidesOffsetAfter={100}
         // centeredSlides={true}
@@ -39,15 +39,10 @@ const ReviewList = () => {
         // spaceBetween={69}
         breakpoints={{
           // when window width is >= 640px
-          0: {
-            // width: 640,
-            spaceBetween: 0,
-            slidesPerView: 1,
-          },
-          // when window width is >= 768px
+
           766: {
             // width: 768,
-            slidesPerView: 5,
+            slidesPerView: itinerary.length < 5 ? itinerary.length : 5,
           },
         }}
         // breakpoints={{ 0: { slidesPerView: 3, spaceBetween: 10 } }}

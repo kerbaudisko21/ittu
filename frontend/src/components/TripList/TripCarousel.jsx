@@ -26,21 +26,18 @@ const TripCarousel = () => {
         grabCursor={true}
         modules={[FreeMode]}
         className="trip-carousel"
-        slidesPerView={data.length < 4 ? data.length : 4}
+        slidesPerView={1}
         gap={3}
         // autoHeight={true}
         spaceBetween={50}
         // breakpoints={{ 0: { slidesPerView: 1, spaceBetween: 10 } }}
         breakpoints={{
-          // when window width is >= 640px
-          0: {
-            // width: 640,
-            slidesPerView: 1,
-          },
-          // when window width is >= 768px
+          // when window width is >= 0px
+
+          // when window width is >= 766px
           766: {
             // width: 768,
-            slidesPerView: 4,
+            slidesPerView: data.length < 4 ? data.length : 4,
           },
         }}
       >
