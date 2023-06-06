@@ -72,43 +72,23 @@ const Reference = () => {
                 </div>
               </Autocomplete>
 
-              {/* <div className="headerSearchItem dropdownLocation"> */}
-              {/* <Dropdown
-                value={selectedPlace}
-                onChange={(e) => setSelectedPlace(e.value)}
-                options={place}
-                optionLabel="name"
-                placeholder="Select a Country"
-                filter
-                valueTemplate={selectedPlaceTemplate}
-                itemTemplate={placeOptionTemplate}
-                className="w-full md:w-14rem"
-              /> */}
-              {/* </div> */}
-
               <div className="headerSearchItem flex-auto headerInputNumber">
                 <InputNumber
                   className="inputNumberStyle"
                   value={day}
                   min='1'
                   showButtons
-                  // buttonLayout="vertical"
                   onValueChange={(e) => {
                     setDay(e.value);
                   }}
                   suffix=" or more days"
                   decrementButtonClassName="p-button-success"
-                  incrementButtonClassName="p-button-success"
-                 
+                  incrementButtonClassName="p-button-success"                 
                 />
-
-                {/* <FontAwesomeIcon icon={faCalendar} className="headerIcon" /> */}
               </div>
-
               <div className="headerSearchItem flex-auto headerFilter">
-                <Dropdown 
-                          
-                value={selectedFilter} onChange={(e) => setSelectedFilter(e.value)} options={[{ name: 'Liked' }, { name: 'Not Like' }]} optionLabel="name" showClear placeholder="Filter By" className="dropdownFilter" />
+                <Dropdown               
+                  value={selectedFilter} onChange={(e) => setSelectedFilter(e.value)} options={[{ name: 'Liked' }, { name: 'Not Like' }]} optionLabel="name" showClear placeholder="Filter By" className="dropdownFilter" />
               </div>
             </div>
           </div>
