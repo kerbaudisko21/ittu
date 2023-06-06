@@ -67,7 +67,7 @@
  height: 25%;
  padding-top: 3%;
  justify-content: center;
-  text-align: center;
+  text-align: bottom;
    
 }
 
@@ -107,14 +107,14 @@
     align-items: center;
     display: flex;
     align-self: flex-start;
-    background-color: #a6f1cc; 
+    background-color: #e0e0e0; 
     border-radius: 8px;
     padding: 0.5rem;
     box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
   }
 
   .destinationSearchAdd{
-    background-color: #a6f1cc; 
+    background-color: #e0e0e0; 
     border-radius: 8px;
     outline: none;
     border: none;
@@ -128,15 +128,15 @@
   .destinationDirectionButton{
     box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
     padding: 0.5rem;
-    border: 5px gray;
+    border: none;
     border-radius: 8px;
     cursor: pointer;
-    background-color: #a6f1cc; 
+    background-color: #e0e0e0; 
   }
 
   
   .destinationDirectionButton:hover {
-    background: #e5fbe5;
+    background: lightgray;
     }
     
     /* #e5fbe5 */
@@ -144,8 +144,15 @@
     color: gray;
     border-radius: 10px;
     margin-right: 0.5rem;
-    background-color: #e5fbe5;
+    background-color: #fafafa;
     padding: 1rem;
     display: flex;
     justify-content: center;
+  }
+
+  .starlogodest{
+
+    color: #fabf35;
+    margin-top: 3px;
+    
   }

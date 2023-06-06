@@ -72,7 +72,7 @@ const Header = () => {
 
   return (
     <div className="header">
-        <h1 className="headerTitle"> Discover Your Next Adventure <br></br> ITTU </h1>
+        <h1 className="headerTitle"> Create Your Next Adventure <br></br> ITTU </h1>
         <div className="headerSearch">
         <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}
           options={{
@@ -94,6 +94,7 @@ const Header = () => {
               onChange={item => setDate([item.selection])}
               moveRangeOnFirstSelection={false}
               ranges={dates}
+              rangeColors={['lightgray', 'lightgray', 'lightgray']}
               />}
           </div>
           <div className="headerSearchItem">

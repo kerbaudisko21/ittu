@@ -1,6 +1,7 @@
 import React from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { FaBars, FaStar } from 'react-icons/fa';
+import { AiFillStar } from 'react-icons/ai';
 
 
 import "./listDndStores.css"
@@ -66,9 +67,9 @@ export const ListDndStore = ({ stores }) => {
                     <div className="storesUpperContainer">
 
                     <div className="storesNameContainer">
-                    <div className='storesName'>{item.name}</div>
+                    <h3 className='storesName'>{item.name}</h3>
                     <div className='storesRating'>
-                      <p>{item?.rating} <FaStar /></p>
+                      <p className="storeRating">{item?.rating} <AiFillStar className="starlogo" /></p>
                         <p> ({item?.user_ratings_total})</p>
                       </div>
                       </div>

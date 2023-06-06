@@ -99,13 +99,16 @@ const Reference = () => {
                   suffix=" or more days"
                   decrementButtonClassName="p-button-success"
                   incrementButtonClassName="p-button-success"
+                 
                 />
 
                 {/* <FontAwesomeIcon icon={faCalendar} className="headerIcon" /> */}
               </div>
 
               <div className="headerSearchItem flex-auto headerFilter">
-                <Dropdown value={selectedFilter} onChange={(e) => setSelectedFilter(e.value)} options={[{ name: 'Liked' }, { name: 'Not Like' }]} optionLabel="name" showClear placeholder="Filter By" className="dropdownFilter" />
+                <Dropdown 
+                          
+                value={selectedFilter} onChange={(e) => setSelectedFilter(e.value)} options={[{ name: 'Liked' }, { name: 'Not Like' }]} optionLabel="name" showClear placeholder="Filter By" className="dropdownFilter" />
               </div>
             </div>
           </div>

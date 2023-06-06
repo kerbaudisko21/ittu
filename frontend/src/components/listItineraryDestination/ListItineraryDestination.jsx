@@ -3,6 +3,7 @@ import { Droppable, Draggable } from "react-beautiful-dnd";
 import { Autocomplete } from '@react-google-maps/api';
 import { FaBars, FaTrash, FaStar, FaDirections, FaSearchLocation } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
+import { AiFillStar } from 'react-icons/ai';
 
 
 import './listItineraryDestination.css'
@@ -21,7 +22,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 });
 
 const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? "#e5fbe5" : "white",
+  background: isDraggingOver ? "#fafafa" : "white",
   padding: "5px",
   margin: "10px 0",
   borderRadius: '10px'
@@ -137,7 +138,7 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
                                 <FaBars />
                               </span>
                               <div className='destinationContainerInside'>
-                                <div className='destinationName'>{item.name}</div>
+                                <h3 className='destinationName'>{item.name}</h3>
 
 
                                 <div className='destinationDescContainer'>
@@ -161,7 +162,8 @@ const ListItineraryDestination = ({ type, destinations, addPlace, showDirection,
                                       if(item?.rating){
                                         return(
                                           <div className='destinationRating'>
-                                          <p>{item?.rating} <FaStar /></p>
+                                          <p className='destinationRng'>{item?.rating} </p>
+                                          <AiFillStar className='starlogodest' />
                                           <p> ({item?.user_ratings_total})</p>
                                         </div>
                                         )

@@ -30,10 +30,10 @@
     border: 0;
     border-radius: 6px;
     cursor: pointer;
-    background-color: #a6f1cc; 
+    background-color: #e0e0e0; 
   }
 
   .nearbyMarkerButton:hover {
-    background: #e5fbe5;
+    background: lightgray;
 }
 

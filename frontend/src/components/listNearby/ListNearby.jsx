@@ -36,7 +36,18 @@ const ListNearby = ({ stores, SetMarkerOn, location, setType, type }) => {
       <div className='listNearbyTop'>
         <div className='NearbyTopContainer'>
 
-        <Select options={options} onChange={handleTypeChange}  className='nearbyDropdown'/>
+        <Select options={options} onChange={handleTypeChange} 
+         theme={(theme) => ({
+          ...theme,
+          borderRadius: 6,
+          colors: {
+          ...theme.colors,
+            primary25: '#e0e0e0',
+            primary: '#e0e0e0',
+          },
+        })}
+        
+        className='nearbyDropdown'/>
         <button className='nearbyMarkerButton' onClick={ShowMarker}>Show Marker</button>
         </div>
       </div>
