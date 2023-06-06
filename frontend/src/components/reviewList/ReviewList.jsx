@@ -55,7 +55,9 @@ const ReviewList = () => {
         {itinerary.map((value, index) => {
           return (
             <SwiperSlide className="swiperSlide">
-              <Review itineraryDet={value}></Review>
+              <div className="box">
+                <Review itineraryDet={value}></Review>
+              </div>
             </SwiperSlide>
           );
         })}
