@@ -302,6 +302,7 @@ const List = (props) => {
       icon: 'success',
       title: 'Itinerary succesfully created!',
       confirmButtonText: 'Ok',
+      confirmButtonColor: "black",
     }).then((ok) => {
       if (ok.isConfirmed) {
         window.location.href = '/';

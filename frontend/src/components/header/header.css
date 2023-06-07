@@ -49,11 +49,11 @@
 }
 
 .headerSearchInput {
-  border-radius: 8px;
-  border: none;
+  border-radius: 6px;
+  background-color: white;
   outline: none;
-  background-color: #f6ecec;
-  width: 200px;
+  border: 1px solid #dadfe3;
+  width: 100%;
   height: 30px;
 }
 
@@ -75,6 +75,7 @@
 }
 
 @media only screen and (max-width: 766px) {
+
   /* For Phone: */
   .header {
     height: 620px;
@@ -99,6 +100,7 @@
     opacity: 0.8;
     border-radius: 25px;
   }
+
   .autocomplete {
     width: 100%;
   }
