@@ -34,6 +34,7 @@ const Header = () => {
         icon: 'warning',
         title: 'You have to Login before creating an itinerary',
         confirmButtonText: 'Ok',
+        confirmButtonColor: "black",
       });
     } else {
       if (!autocomplete.getPlace()) {
@@ -41,6 +42,7 @@ const Header = () => {
           icon: 'error',
           title: 'Please input destination field!',
           confirmButtonText: 'Ok',
+          confirmButtonColor: "black",
         });
       } else {
         navigate('/List', {

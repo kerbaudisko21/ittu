@@ -54,7 +54,7 @@ const Review = (props) => {
     <div className="review">
       <div className="review-box">
         <div className="reviewTitle">
-          <h3>{props?.itineraryDet?.title}</h3>
+          <h2>{props?.itineraryDet?.title}</h2>
         </div>
         <div className="content" onClick={toReference} style={{ cursor: 'pointer' }}>
           <div
@@ -78,7 +78,7 @@ const Review = (props) => {
         </div>
         <div className="rate">
           <div className="profile">
-            {/* <img className="circle-img profilePicture" src={`http://localhost:8800/public/userProfile/${props?.itineraryDet?.userProfileImage}`} alt="test" /> */}
+            <img className="circle-img profilePicture" src={`http://localhost:8800/public/userProfile/${props?.itineraryDet?.userProfileImage}`} alt="test" />
             <h3>{props?.itineraryDet?.username.substring(0, 12)}</h3>
           </div>
           <div className="rating">

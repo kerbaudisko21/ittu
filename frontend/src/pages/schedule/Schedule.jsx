@@ -386,6 +386,7 @@ const Schedule = (props) => {
       icon: 'success',
       title: 'Itinerary succesfully updated!',
       confirmButtonText: 'Ok',
+      confirmButtonColor: "black",
     }).then((ok) => {
       if (ok.isConfirmed) {
         window.location.href = '/';
