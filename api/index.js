@@ -9,6 +9,8 @@ import destinationTypesRoute from './routes/destinationTypes.js';
 import cookieParser from 'cookie-parser';
 import ItineraryRoute from './routes/itinerary.js';
 import RatingRoute from './routes/rating.js';
+import * as path from 'path'
+import { fileURLToPath } from 'url';
 
 mongoose.set('strictQuery', true);
 const app = express();
@@ -43,7 +45,9 @@ app.use('/api/destinationTypes', destinationTypesRoute);
 app.use('/api/itinerary', ItineraryRoute);
 app.use('/api/rating', RatingRoute);
 
-app.use(express.static('Public'));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use(express.static(path.join(__dirname, 'public')))
 
 app.use((err, req, res, next) => {
   const errStatus = err.status || 500;

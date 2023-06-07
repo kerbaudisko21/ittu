@@ -346,7 +346,6 @@ const List = (props) => {
               updateOptions={updateOptions}
               setResponseDirection={setResponseDirection}
               setOptions={setOptions}
-              
             />
 
           </div>

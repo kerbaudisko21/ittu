@@ -58,7 +58,7 @@ const ListMap = ({ location, markerOn, stores, setSelectedMarker, selectedMarker
                     <input  type="text"  onfocus="this.value=''" className='mapSearchInput' />
 
                 </Autocomplete>
-                 }
+                }
 
             </div>
             <div className='mapGmaps'>
