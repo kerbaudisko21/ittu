@@ -38,11 +38,15 @@ const Navbar = () => {
     })
   };
 
+  const toHome = () => {
+    window.location.href = '/';
+  }
+
   return (
     <div className="navbar">
       <div className={fix ? 'navContainer fixed' : 'navContainer'}>
         <span>
-          <Link to={'/'} className="logo">
+          <Link onClick={toHome} className="logo">
             ITTU
           </Link>
         </span>

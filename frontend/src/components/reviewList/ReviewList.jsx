@@ -18,6 +18,10 @@ const ReviewList = () => {
     dispatch(getAllItinerary());
   }, []);
 
+  const toReference = () => {
+    window.location.href = '/reference';
+  }
+
   if (itinerary.length == 0) return <h1>No Itinerary Trip</h1>;
 
   return (
@@ -59,11 +63,9 @@ const ReviewList = () => {
       </Swiper>
       <br />
       <div className="buttonToRef">
-        <Link to={'/reference'}>
-          <button onClick={() => {}} className="seeAllBtn">
+          <button onClick={toReference} className="seeAllBtn">
             See All Reference Trip
           </button>
-        </Link>
       </div>
       {/* <Review></Review> */}
     </div>
