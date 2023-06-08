@@ -8,6 +8,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { useDispatch } from 'react-redux';
 import { toggleRating } from '../../Features/Itinerary/ItinerarySlice';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const possibleRates = [1, 2, 3, 4, 5];
 
@@ -98,7 +99,17 @@ const Review = (props) => {
             ) : (
               <AiOutlineStar
                 onClick={() => {
-                  if (!user) return alert('You need to login before rate');
+                  if (!user){
+                    return (
+                      Swal.fire({
+                        icon: 'info',
+                        title: 'Oops...',
+                        text: 'You need to login before rate',
+                        confirmButtonText: 'Ok',
+                        confirmButtonColor: "black",
+                      })
+                    )
+                  }
                   dispatch(toggleRating(true, props.itineraryDet._id));
                   setRatingCounter(ratingCounter + 1);
                   setRating(!rating);
